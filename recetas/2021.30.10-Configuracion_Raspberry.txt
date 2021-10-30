@@ -1,0 +1,16 @@
+- CONTROL DE RASPBERRY PI 4 GRÁFICAMENTE A TRAVÉS DE SSH
+Editar la configuración de ssh en el pc local para hacer uso del protocolo X11
+$> sudo vim /etc/ssh/ssh_config
+ForwardX11 yes
+ForwardX11Trusted yes
+...
+AddressFamily any
+
+Nos conectamos a la Raspberry usando el flag -X
+$> ssh pi@raspberrypi.local -X
+
+Una vez dentro por ejemplo podemos ejecutar el terminal de la Raspberry gráficamente en nuestro PC escribiendo:
+$> lxterminal
+
+- CAMBIAR RESOLUCIÓN VNC RASPBERRY
+$> vncserver -geometry 1920x1080

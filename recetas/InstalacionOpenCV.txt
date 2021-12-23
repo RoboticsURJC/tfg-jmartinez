@@ -1,0 +1,9 @@
+sudo pip3 install opencv-contrib-python
+
+pip3 install --upgrade pip setuptools wheel
+
+sudo apt-get install libhdf5-dev
+
+sudo apt-get install libatlas-base-dev
+
+pip3 install -U numpy

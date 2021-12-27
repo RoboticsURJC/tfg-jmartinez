@@ -1,0 +1,24 @@
+OPENCV - https://github.com/opencv/opencv
+
+common_msgs - https://github.com/ros/common_msgs.git
+
+image_transport_plugins - https://github.com/ros-perception/image_transport_plugins.git
+
+vision_opencv - https://github.com/ros-perception/vision_opencv
+
+sudo apt-get install libboost-python1.67-dev
+
+sudo apt-get install libboost-python1.67
+
+dynamic_reconfigure - https://github.com/ros/dynamic_reconfigure.git
+
+image_common - https://github.com/ros-perception/image_common.git
+
+sudo apt-get install libyaml-cpp-dev
+
+diagnostic_updater - https://github.com/ros/diagnostics.git
+
+bondcpp - https://github.com/ros/bond_core.git
+
+Completamos con:
+rosdep install --from-paths src --ignore-src -r -y

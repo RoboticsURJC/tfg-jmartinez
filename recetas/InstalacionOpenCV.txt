@@ -1,8 +1,10 @@
 OPENCV PYTHON
 
-sudo pip3 install opencv-contrib-python
-
 pip3 install --upgrade pip setuptools wheel
+
+pip3 install --upgrade setuptools pip
+
+sudo pip3 install opencv-contrib-python
 
 sudo apt-get install libhdf5-dev
 

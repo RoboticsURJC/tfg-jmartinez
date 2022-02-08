@@ -1,4 +1,4 @@
-# Test dlib with face detection using Haar cascades (v1)
+# Test dlib with face detection using Haar cascades (v2)
 
 from picamera import PiCamera
 from picamera.array import PiRGBArray

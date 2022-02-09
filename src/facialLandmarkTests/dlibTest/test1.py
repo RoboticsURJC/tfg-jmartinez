@@ -37,7 +37,7 @@ LANDMARK_POINTS = 68
 saveFps = False
 if len(sys.argv) >= 2:
     if sys.argv[1] == '--savefps':
-        f = open('dataFPS/fps_dlib_basic.csv', 'w')
+        f = open('../dataFPS/dlibTest/fps_dlib_basic.csv', 'w')
         saveFps = True
         saveFpsTime = 10
         if len(sys.argv) == 3:

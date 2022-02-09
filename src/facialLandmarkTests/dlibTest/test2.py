@@ -40,7 +40,7 @@ faceCascade = cv2.CascadeClassifier('models/haarcascade_frontalface_default.xml'
 saveFps = False
 if len(sys.argv) >= 2:
     if sys.argv[1] == '--savefps':
-        f = open('dataFPS/fps_dlib_cascade_1.csv', 'w')
+        f = open('../dataFPS/dlibTest/fps_dlib_cascade_1.csv', 'w')
         saveFps = True
         saveFpsTime = 10
         if len(sys.argv) == 3:

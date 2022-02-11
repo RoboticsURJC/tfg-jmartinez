@@ -1,19 +1,13 @@
-# Test face mesh mediapipe
+# Test face mesh mediapipe with PiVideoStream
 
 import cv2
 import time
 import mediapipe as mp
-from picamera import PiCamera
-from picamera.array import PiRGBArray
+from piVideoStream.PiVideoStream import PiVideoStream
 import sys
 
-# Init Picamera
-camera = PiCamera()
-camera.resolution = (640, 480)
-camera.framerate = 32
-widthImage = 640
-heightImage = 480
-cap = PiRGBArray(camera, size=(widthImage, heightImage))
+# Init PiVideoStream
+vs = PiVideoStream(resolution=(640, 480))
 
 # Variables to calculate and show FPS
 counter, fps = 0, 0
@@ -28,7 +22,7 @@ start_time = time.time()
 saveFps = False
 if len(sys.argv) >= 2:
     if sys.argv[1] == '--savefps':
-        f = open('../dataFPS/mediapipeTest/fps_mediapipe_1.csv', 'w')
+        f = open('../dataFPS/mediapipeTest/fps_mediapipe_2.csv', 'w')
         saveFps = True
         saveFpsTime = 10
         if len(sys.argv) == 3:
@@ -47,8 +41,10 @@ with mp_face_mesh.FaceMesh(
     max_num_faces=1,
     min_detection_confidence=0.5,
     min_tracking_confidence=0.5) as face_mesh:
-    for frame in camera.capture_continuous(cap, format='bgr', use_video_port=True):
-        img = frame.array
+    vs.start()
+    time.sleep(2.0)
+    while(True):
+        img = vs.read()
         img = cv2.flip(img, 0)
         imageToProcess = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
@@ -95,10 +91,10 @@ with mp_face_mesh.FaceMesh(
         
         # Show image
         cv2.imshow("imagen", img)
-        cap.truncate(0)
         if cv2.waitKey(1) & 0xFF == ord('q'):
             break
 
 cv2.destroyAllWindows()
+vs.stop()
 
 

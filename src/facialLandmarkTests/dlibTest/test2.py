@@ -80,6 +80,7 @@ for frame in camera.capture_continuous(cap, format='bgr', use_video_port=True):
             cv2.circle(img, (x, y), 1, (0, 0, 255), -1)
     
     # Calculate the FPS
+    counter += 1
     if counter % fps_avg_frame_count == 0:
         end_time = time.time()
         fps = fps_avg_frame_count / (end_time - start_time)

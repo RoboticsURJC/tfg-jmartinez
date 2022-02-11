@@ -11,7 +11,7 @@ import sys
 # Init Picamera
 camera = PiCamera()
 camera.resolution = (640, 480)
-camera.framerate = 32
+camera.framerate = 30
 widthImage = 640
 heightImage = 480
 cap = PiRGBArray(camera, size=(widthImage, heightImage))
@@ -43,6 +43,7 @@ for frame in camera.capture_continuous(cap, format='bgr', use_video_port=True):
     img = cv2.flip(img, 0)
     
     # Calculate the FPS
+    counter += 1
     if counter % fps_avg_frame_count == 0:
         end_time = time.time()
         fps = fps_avg_frame_count / (end_time - start_time)

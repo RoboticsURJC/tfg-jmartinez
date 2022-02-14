@@ -73,16 +73,40 @@ def parse_arguments():
     parser.add_argument('--savebugs',
                     action='store_true',
                     default=False, required=False,
-                    help='Activa el guardado de fallos en el algoritmo')
+                    help='Activa el guardado de fallos del algoritmo en fichero .csv')
     parser.add_argument('--time',
                     type=int,
                     default=30, required=False,
-                    help='Duracion en segundos del guardado de datos')
+                    help='Duracion en segundos del guardado de datos (int). Default: 30s')
     return parser.parse_args()
-    
+
+def savefps(fps, max_time, fps_file):
+    fps_file.write('{:.1f}, {:.1f}\n'.format(fps, (time.time() - init_time)))
+    if (time.time() - init_time) >= max_time:
+        print("FPS save is over")
+        return False
+    return True
+
+def savebugs(results, max_time, bugs_file):
+    if results.multi_face_landmarks:
+        bugs_file.write('True, {:.1f}\n'.format((time.time() - init_time)))
+    else:
+        bugs_file.write('False, {:.1f}\n'.format((time.time() - init_time)))
+    if (time.time() - init_time) >= max_time:
+            print("BUGS save is over")
+            return False
+    return True
+
+def calculate_fps():
+    global counter, fps, start_time
+    counter += 1
+    if counter % fps_avg_frame_count == 0:
+        end_time = time.time()
+        fps = fps_avg_frame_count / (end_time - start_time)
+        start_time = time.time()
+    return fps
 
 if __name__ == '__main__':
-
     face_mesh = mp_face_mesh.FaceMesh(
         static_image_mode=False,
         max_num_faces=1,
@@ -90,8 +114,11 @@ if __name__ == '__main__':
         min_tracking_confidence=0.5)
 
     args = parse_arguments()
-    if args['--savefps']:
-        f = open('../dataFPS/mediapipeTest/fps_mediapipe_1.csv', 'w')
+    print(args)
+    if args.savefps:
+        fps_file = open('../dataFPS/mediapipeTest/fps_mediapipe_test1.csv', 'w')
+    if args.savebugs:
+        bugs_file = open('../dataFPS/mediapipeTest/bugs_mediapipe_test1.csv', 'w')
 
     for frame in camera.capture_continuous(cap, format='bgr', use_video_port=True):
         image = frame.array
@@ -101,19 +128,16 @@ if __name__ == '__main__':
         image = draw_face_mesh(image, results)
 
         # Calculate the FPS
-        counter += 1
-        if counter % fps_avg_frame_count == 0:
-            end_time = time.time()
-            fps = fps_avg_frame_count / (end_time - start_time)
-            start_time = time.time()
+        fps = calculate_fps()
 
         # Save FPS
-        if args['--savefps']:
-            f.write('{:.1f}, {:.1f}\n'.format(fps, (time.time() - init_time)))
-            if (time.time() - init_time) >= args['--time']:
-                args['--savefps'] = False
-                print("FPS save is over")
+        if args.savefps:
+            args.savefps = savefps(fps, args.time, fps_file)
 
+        # Save bugs
+        if args.savebugs:
+            args.savebugs = savebugs(results, args.time, bugs_file)
+            
         # Show the FPS
         image = draw_fps(image, fps)
         

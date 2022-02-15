@@ -89,9 +89,9 @@ def savefps(fps, max_time, fps_file):
 
 def savebugs(results, max_time, bugs_file):
     if results.multi_face_landmarks:
-        bugs_file.write('True, {:.1f}\n'.format((time.time() - init_time)))
+        bugs_file.write('0, {:.1f}\n'.format((time.time() - init_time)))
     else:
-        bugs_file.write('False, {:.1f}\n'.format((time.time() - init_time)))
+        bugs_file.write('1, {:.1f}\n'.format((time.time() - init_time)))
     if (time.time() - init_time) >= max_time:
             print("BUGS save is over")
             return False
@@ -114,11 +114,10 @@ if __name__ == '__main__':
         min_tracking_confidence=0.5)
 
     args = parse_arguments()
-    print(args)
     if args.savefps:
         fps_file = open('../dataFPS/mediapipeTest/fps_mediapipe_test1.csv', 'w')
     if args.savebugs:
-        bugs_file = open('../dataFPS/mediapipeTest/bugs_mediapipe_test1.csv', 'w')
+        bugs_file = open('../dataBugs/mediapipeTest/bugs_mediapipe_test1.csv', 'w')
 
     for frame in camera.capture_continuous(cap, format='bgr', use_video_port=True):
         image = frame.array

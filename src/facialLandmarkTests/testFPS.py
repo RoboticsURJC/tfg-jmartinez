@@ -4,9 +4,7 @@ from picamera import PiCamera
 from picamera.array import PiRGBArray
 import cv2
 import time
-import numpy as np
-import dlib
-import sys
+import argparse
 
 # Init Picamera
 camera = PiCamera()
@@ -28,43 +26,63 @@ start_time = time.time()
 # Init time of program
 init_time = time.time()
 
-# Variables to save fps data
-saveFps = False
-if len(sys.argv) >= 2:
-    if sys.argv[1] == '--savefps':
-        f = open('dataFPS/fps_basic.csv', 'w')
-        saveFps = True
-        saveFpsTime = 10
-        if len(sys.argv) == 3:
-            saveFpsTime = int(sys.argv[2])
+def parse_arguments():
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--savefps',
+                    action='store_true',
+                    default=False, required=False,
+                    help='Activa el guardado de fps en fichero .csv')
+    parser.add_argument('--time',
+                    type=int,
+                    default=30, required=False,
+                    help='Duracion en segundos del guardado de datos (int). Default: 30s')
+    return parser.parse_args()
 
-for frame in camera.capture_continuous(cap, format='bgr', use_video_port=True):
-    img = frame.array
-    img = cv2.flip(img, 0)
-    
-    # Calculate the FPS
+def savefps(fps, max_time, fps_file):
+    fps_file.write('{:.1f}, {:.1f}\n'.format(fps, (time.time() - init_time)))
+    if (time.time() - init_time) >= max_time:
+        print("FPS save is over")
+        return False
+    return True
+
+def calculate_fps():
+    global counter, fps, start_time
     counter += 1
     if counter % fps_avg_frame_count == 0:
         end_time = time.time()
         fps = fps_avg_frame_count / (end_time - start_time)
         start_time = time.time()
+    return fps
 
-    # Save FPS
-    if saveFps:
-        f.write('{:.1f}, {:.1f}\n'.format(fps, (time.time() - init_time)))
-        if (time.time() - init_time) >= saveFpsTime:
-            saveFps = False
-            print("FPS save is over")
-
-    # Show the FPS
+def draw_fps(image, fps):
     fps_text = 'FPS = {:.1f}'.format(fps)
-    cv2.putText(img, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+    cv2.putText(image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN,
                 font_size, text_color, font_thickness)
+    return image
 
-    # Show image
-    cv2.imshow("imagen", img)
-    cap.truncate(0)
-    if cv2.waitKey(1) & 0xFF == ord('q'):
-        break
+if __name__ == '__main__':
+    args = parse_arguments()
+    if args.savefps:
+        fps_file = open('dataFPS/fps_basic.csv', 'w')
+    
+    for frame in camera.capture_continuous(cap, format='bgr', use_video_port=True):
+        image = frame.array
+        image = cv2.flip(image, 0)
+        
+        # Calculate the FPS
+        fps = calculate_fps()
 
-cv2.destroyAllWindows()
+        # Save FPS
+        if args.savefps:
+            args.savefps = savefps(fps, args.time, fps_file)
+            
+        # Show the FPS
+        image = draw_fps(image, fps)
+
+        # Show image
+        cv2.imshow("imagen", image)
+        cap.truncate(0)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
+
+    cv2.destroyAllWindows()

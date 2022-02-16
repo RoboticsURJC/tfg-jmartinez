@@ -31,7 +31,7 @@ for i in range(1, len(sys.argv)):
         y.clear()
 
 plt.xlabel('Tiempo de ejecución en segundos')
-plt.ylabel('Bugs')
+plt.ylabel('Bugs: 1 -> mal  0 -> bien')
 plt.title('Bugs a lo largo de la ejecución del programa')
-plt.legend(loc="upper left")
+plt.legend(loc="center left")
 plt.show()

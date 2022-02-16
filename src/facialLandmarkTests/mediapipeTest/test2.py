@@ -1,10 +1,11 @@
 # Test face mesh mediapipe with PiVideoStream
 
+import sys
+sys.path.append('../..')
+from piVideoStream.PiVideoStream import PiVideoStream
 import cv2
 import time
 import mediapipe as mp
-from piVideoStream.PiVideoStream import PiVideoStream
-import sys
 import argparse
 
 # Init PiVideoStream

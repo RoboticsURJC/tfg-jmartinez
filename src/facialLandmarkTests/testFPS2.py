@@ -1,5 +1,7 @@
 # Test FPS without computational stress and PiVideoStream
 
+import sys
+sys.path.append('..')
 from piVideoStream.PiVideoStream import PiVideoStream
 import cv2
 import time

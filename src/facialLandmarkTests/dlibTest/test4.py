@@ -1,5 +1,7 @@
 # Test dlib with face detection using Haar cascades (v2) and PiVideoStream
 
+import sys
+sys.path.append('../..')
 from piVideoStream.PiVideoStream import PiVideoStream
 import cv2
 import time

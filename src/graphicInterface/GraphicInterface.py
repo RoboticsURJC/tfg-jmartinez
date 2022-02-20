@@ -1,10 +1,9 @@
 from threading import Thread
-import numpy as np
 import cv2
 
 class GraphicInterface:
-    def __init__(self, resolution=(640, 480)):
-        self.frame = np.zeros((resolution[0], resolution[1], 3), np.uint8)
+    def __init__(self, frame=None):
+        self.frame = frame
         self.stopped = False
     
     def start(self):
@@ -16,7 +15,6 @@ class GraphicInterface:
             cv2.imshow("Graphic Interface", self.frame)
             if cv2.waitKey(1) & 0xFF == ord('q'):
                 self.stopped = True
-                break
 
     def put_image(self, image):
         self.frame = image

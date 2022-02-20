@@ -1,8 +1,10 @@
-# Test face mesh mediapipe with PiVideoStream
+# Test face mesh mediapipe with four threads
 
+from threading import Thread
 import sys
 sys.path.append('../..')
 from piVideoStream.PiVideoStream import PiVideoStream
+from graphicInterface.GraphicInterface import GraphicInterface
 import cv2
 import time
 import mediapipe as mp
@@ -12,6 +14,7 @@ import argparse
 vs = PiVideoStream(resolution=(640, 480))
 
 # Init GraphicInterface
+gi = GraphicInterface(resolution=(640, 480))
 
 # Variables to calculate and show FPS
 counter, fps = 0, 0
@@ -106,7 +109,7 @@ def calculate_fps():
 if __name__ == '__main__':
     face_mesh = mp_face_mesh.FaceMesh(
         static_image_mode=False,
-        max_num_faces=2,
+        max_num_faces=1,
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5)
 
@@ -118,6 +121,9 @@ if __name__ == '__main__':
 
     # Start video stream
     vs.start()
+    # Start graphic interface
+    gi.start()
+
     time.sleep(2.0)
     while(True):
         image = vs.read()
@@ -137,15 +143,11 @@ if __name__ == '__main__':
         if args.savebugs:
             args.savebugs = savebugs(results, args.time, bugs_file)
             
-        # Show the FPS
-        image = draw_fps(image, fps)
+        gi.put_image(image)
+        fps_text = 'FPS = {:.1f}'.format(fps)
+        gi.put_text(fps_text, text_location, text_color, font_size,
+                    font_thickness)
         
-        # Show image
-        cv2.imshow("imagen", image)
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
-
     cv2.destroyAllWindows()
     vs.stop()
-
-
+    gi.stop()

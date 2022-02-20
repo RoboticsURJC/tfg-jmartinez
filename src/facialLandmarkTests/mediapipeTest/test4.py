@@ -18,6 +18,9 @@ font_size = 1
 font_thickness = 1
 start_time = time.time()
 
+# Init time of program
+init_time = time.time()
+
 def draw_fps(image, fps):
     fps_text = 'FPS = {:.1f}'.format(fps)
     cv2.putText(image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN,
@@ -67,9 +70,6 @@ def calculate_fps():
     return fps
 
 if __name__ == '__main__':
-    # Init time of program
-    init_time = time.time()
-
     # Init face mesh and video stream
     facemesh = FaceMesh()
     vs = PiVideoStream(resolution=(640, 480))

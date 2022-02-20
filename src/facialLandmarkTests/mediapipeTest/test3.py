@@ -10,12 +10,6 @@ import time
 import mediapipe as mp
 import argparse
 
-# Init PiVideoStream
-vs = PiVideoStream(resolution=(640, 480))
-
-# Init GraphicInterface
-gi = GraphicInterface(resolution=(640, 480))
-
 # Variables to calculate and show FPS
 counter, fps = 0, 0
 fps_avg_frame_count = 10
@@ -107,6 +101,11 @@ def calculate_fps():
     return fps
 
 if __name__ == '__main__':
+    # Init PiVideoStream
+    vs = PiVideoStream(resolution=(640, 480))
+    # Init GraphicInterface
+    gi = GraphicInterface(resolution=(640, 480))
+
     face_mesh = mp_face_mesh.FaceMesh(
         static_image_mode=False,
         max_num_faces=1,

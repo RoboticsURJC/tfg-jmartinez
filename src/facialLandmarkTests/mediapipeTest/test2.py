@@ -11,8 +11,6 @@ import argparse
 # Init PiVideoStream
 vs = PiVideoStream(resolution=(640, 480))
 
-# Init GraphicInterface
-
 # Variables to calculate and show FPS
 counter, fps = 0, 0
 fps_avg_frame_count = 10

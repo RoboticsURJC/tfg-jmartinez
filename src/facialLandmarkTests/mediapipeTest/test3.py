@@ -1,10 +1,11 @@
-# Test face mesh mediapipe with four threads
+# Test face mesh mediapipe with three threads
 
 from threading import Thread
 import sys
 sys.path.append('../..')
 from piVideoStream.PiVideoStream import PiVideoStream
 from graphicInterface.GraphicInterface import GraphicInterface
+from faceMesh.FaceMesh import FaceMesh
 import cv2
 import time
 import mediapipe as mp
@@ -21,36 +22,6 @@ start_time = time.time()
 
 # Init time of program
 init_time = time.time()
-
-# Init mediapipe variables
-mp_face_mesh = mp.solutions.face_mesh
-mp_drawing = mp.solutions.drawing_utils
-mp_drawing_styles = mp.solutions.drawing_styles
-
-def process_face_mesh(image, face_mesh):
-    imageToProcess = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
-    results = face_mesh.process(imageToProcess)
-    return results
-
-def draw_face_mesh(image, results):
-    if results.multi_face_landmarks:
-        for face_landmarks in results.multi_face_landmarks:
-            mp_drawing.draw_landmarks(
-                image=image, 
-                landmark_list=face_landmarks,
-                connections=mp_face_mesh.FACEMESH_TESSELATION,
-                landmark_drawing_spec=None,
-                connection_drawing_spec=mp_drawing_styles
-                .get_default_face_mesh_tesselation_style())
-
-            mp_drawing.draw_landmarks(
-                image=image,
-                landmark_list=face_landmarks,
-                connections=mp_face_mesh.FACEMESH_CONTOURS,
-                landmark_drawing_spec=None,
-                connection_drawing_spec=mp_drawing_styles
-                .get_default_face_mesh_contours_style())
-    return image
 
 def draw_fps(image, fps):
     fps_text = 'FPS = {:.1f}'.format(fps)
@@ -101,17 +72,6 @@ def calculate_fps():
     return fps
 
 if __name__ == '__main__':
-    # Init PiVideoStream
-    vs = PiVideoStream(resolution=(640, 480))
-    # Init GraphicInterface
-    gi = GraphicInterface(resolution=(640, 480))
-
-    face_mesh = mp_face_mesh.FaceMesh(
-        static_image_mode=False,
-        max_num_faces=1,
-        min_detection_confidence=0.5,
-        min_tracking_confidence=0.5)
-
     args = parse_arguments()
     if args.savefps:
         fps_file = open('../dataFPS/mediapipeTest/fps_mediapipe_test2.csv', 'w')
@@ -119,17 +79,24 @@ if __name__ == '__main__':
         bugs_file = open('../dataBugs/mediapipeTest/bugs_mediapipe_test2.csv', 'w')
 
     # Start video stream
-    vs.start()
-    # Start graphic interface
-    gi.start()
-
+    vs = PiVideoStream(resolution=(640, 480)).start()
     time.sleep(2.0)
+
+    # Start graphic interface
+    gi = GraphicInterface(vs.read()).start()
+
+    # Init FaceMesh
+    facemesh = FaceMesh()
+
     while(True):
+        if vs.stopped or gi.stopped:
+            break
+
         image = vs.read()
         image = cv2.flip(image, 0)
 
-        results = process_face_mesh(image, face_mesh)
-        image = draw_face_mesh(image, results)
+        facemesh.process(image)
+        image = facemesh.draw(image)
 
         # Calculate the FPS
         fps = calculate_fps()
@@ -140,7 +107,7 @@ if __name__ == '__main__':
 
         # Save bugs
         if args.savebugs:
-            args.savebugs = savebugs(results, args.time, bugs_file)
+            args.savebugs = savebugs(facemesh.get_results(), args.time, bugs_file)
             
         gi.put_image(image)
         fps_text = 'FPS = {:.1f}'.format(fps)

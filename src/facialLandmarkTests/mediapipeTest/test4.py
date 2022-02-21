@@ -1,10 +1,9 @@
-# Test face mesh mediapipe with three threads
+# Test face mesh mediapipe with two threads
 
 from threading import Thread
 import sys
 sys.path.append('../..')
 from piVideoStream.PiVideoStream import PiVideoStream
-from graphicInterface.GraphicInterface import GraphicInterface
 from faceMesh.FaceMesh import FaceMesh
 import cv2
 import time
@@ -22,6 +21,12 @@ start_time = time.time()
 
 # Init time of program
 init_time = time.time()
+
+def draw_fps(image, fps):
+    fps_text = 'FPS = {:.1f}'.format(fps)
+    cv2.putText(image, fps_text, text_location, cv2.FONT_HERSHEY_PLAIN,
+                font_size, text_color, font_thickness)
+    return image
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
@@ -76,16 +81,10 @@ if __name__ == '__main__':
     vs = PiVideoStream(resolution=(640, 480)).start()
     time.sleep(2.0)
 
-    # Start graphic interface
-    gi = GraphicInterface(vs.read()).start()
-
-    # Init FaceMesh
+    # Start FaceMesh
     facemesh = FaceMesh()
 
     while(True):
-        if vs.stopped or gi.stopped:
-            break
-
         image = vs.read()
         image = cv2.flip(image, 0)
 
@@ -103,11 +102,13 @@ if __name__ == '__main__':
         if args.savebugs:
             args.savebugs = savebugs(facemesh.get_results(), args.time, bugs_file)
             
-        gi.put_image(image)
-        fps_text = 'FPS = {:.1f}'.format(fps)
-        gi.put_text(fps_text, text_location, text_color, font_size,
-                    font_thickness)
+        # Show the FPS
+        image = draw_fps(image, fps)
+        
+        # Show image
+        cv2.imshow("imagen", image)
+        if cv2.waitKey(1) & 0xFF == ord('q'):
+            break
         
     cv2.destroyAllWindows()
     vs.stop()
-    gi.stop()

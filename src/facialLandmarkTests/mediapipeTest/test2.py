@@ -104,7 +104,7 @@ def calculate_fps():
 if __name__ == '__main__':
     face_mesh = mp_face_mesh.FaceMesh(
         static_image_mode=False,
-        max_num_faces=2,
+        max_num_faces=1,
         min_detection_confidence=0.5,
         min_tracking_confidence=0.5)
 

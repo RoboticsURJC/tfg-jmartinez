@@ -1,4 +1,4 @@
-# Test face mesh mediapipe with two threads
+# Test face mesh mediapipe with two threads and new class FaceMesh
 
 from threading import Thread
 import sys
@@ -73,9 +73,9 @@ def calculate_fps():
 if __name__ == '__main__':
     args = parse_arguments()
     if args.savefps:
-        fps_file = open('../dataFPS/mediapipeTest/fps_mediapipe_test2.csv', 'w')
+        fps_file = open('../dataFPS/mediapipeTest/fps_mediapipe_test4.csv', 'w')
     if args.savebugs:
-        bugs_file = open('../dataBugs/mediapipeTest/bugs_mediapipe_test2.csv', 'w')
+        bugs_file = open('../dataBugs/mediapipeTest/bugs_mediapipe_test4.csv', 'w')
 
     # Start video stream
     vs = PiVideoStream(resolution=(640, 480)).start()

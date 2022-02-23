@@ -81,15 +81,16 @@ if __name__ == '__main__':
     vs = PiVideoStream(resolution=(640, 480)).start()
     time.sleep(2.0)
 
-    # Start FaceMesh
+    # Init FaceMesh
     facemesh = FaceMesh()
 
     while(True):
         image = vs.read()
         image = cv2.flip(image, 0)
 
-        facemesh.process(image)
-        image = facemesh.draw(image)
+        facemesh.set_image(image)
+        facemesh.process()
+        image = facemesh.draw()
 
         # Calculate the FPS
         fps = calculate_fps()

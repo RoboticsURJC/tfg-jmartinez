@@ -3,14 +3,14 @@ import mediapipe as mp
 import cv2
 
 class FaceMesh:
-    def __init__(self):
+    def __init__(self, static=False, max_num_faces=1):
         self.mp_face_mesh = mp.solutions.face_mesh
         self.mp_drawing = mp.solutions.drawing_utils
         self.drawing_spec = self.mp_drawing.DrawingSpec(thickness=1, circle_radius=1)
 
         self.face_mesh = self.mp_face_mesh.FaceMesh(
-            static_image_mode=False,
-            max_num_faces=1,
+            static_image_mode=static,
+            max_num_faces=max_num_faces,
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5)
         self.results = None

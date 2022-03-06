@@ -1,19 +1,19 @@
 import sys
 sys.path.append('..')
-from piVideoStream.PiVideoStream import PiVideoStream
 from faceMesh.FaceMesh import FaceMesh
 import cv2
-import time
+import glob as gb
+import math
 
-# Start video stream
-vs = PiVideoStream(resolution=(640, 480)).start()
-time.sleep(2.0)
-
+stream = cv2.VideoCapture(1)
 facemesh = FaceMesh(static=False, max_num_faces=1)
 
 while(True):
-    image = vs.read()
-    image = cv2.flip(image, 0)
+    grabbed, image = stream.read()
+    if not grabbed:
+        break
+
+    image = cv2.flip(image, 1)
 
     facemesh.set_image(image)
     facemesh.process()
@@ -32,4 +32,3 @@ while(True):
         break
   
 cv2.destroyAllWindows()
-vs.stop()

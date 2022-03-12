@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report, confusion_matrix
 
 # Data
-data = pd.read_csv('dataset/dataset.csv')
+data = pd.read_csv('dataset/dataset3D.csv')
 
 # Suffle data and division in train and test
 X = data.drop(columns = 'y')

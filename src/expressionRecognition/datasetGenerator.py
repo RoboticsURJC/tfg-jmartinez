@@ -16,7 +16,7 @@ sad = gb.glob('../../../dataset/train/sad/*.jpg')
 surprise = gb.glob('../../../dataset/train/surprise/*.jpg')
 
 # Open dataset file to write
-f = open('dataset/dataset.csv', 'w', newline='')
+f = open('dataset/dataset3D.csv', 'w', newline='')
 
 # Init FaceMesh
 facemesh = FaceMesh(static=False, max_num_faces=1, refine=True)
@@ -31,7 +31,7 @@ not_process = 0 # Not process images
 print("Procesando imagenes angry...")
 for image in angry:
     facemesh.set_image(cv2.imread(image))
-    facemesh.process()
+    facemesh.process(distances3D=True)
     distances = facemesh.get_distances()
     if facemesh.face_mesh_detected():
         distances[0][-1] = 0
@@ -42,7 +42,7 @@ for image in angry:
 print("Procesando imagenes fear...")
 for image in fear:
     facemesh.set_image(cv2.imread(image))
-    facemesh.process()
+    facemesh.process(distances3D=True)
     distances = facemesh.get_distances()
     if facemesh.face_mesh_detected():
         distances[0][-1] = 1
@@ -53,7 +53,7 @@ for image in fear:
 print("Procesando imagenes happy...")
 for image in happy:
     facemesh.set_image(cv2.imread(image))
-    facemesh.process()
+    facemesh.process(distances3D=True)
     distances = facemesh.get_distances()
     if facemesh.face_mesh_detected():
         distances[0][-1] = 2
@@ -64,7 +64,7 @@ for image in happy:
 print("Procesando imagenes neutral...")
 for image in neutral:
     facemesh.set_image(cv2.imread(image))
-    facemesh.process()
+    facemesh.process(distances3D=True)
     distances = facemesh.get_distances()
     if facemesh.face_mesh_detected():
         distances[0][-1] = 3
@@ -75,7 +75,7 @@ for image in neutral:
 print("Procesando imagenes sad...")
 for image in sad:
     facemesh.set_image(cv2.imread(image))
-    facemesh.process()
+    facemesh.process(distances3D=True)
     distances = facemesh.get_distances()
     if facemesh.face_mesh_detected():
         distances[0][-1] = 4
@@ -86,7 +86,7 @@ for image in sad:
 print("Procesando imagenes surprise...")
 for image in surprise:
     facemesh.set_image(cv2.imread(image))
-    facemesh.process()
+    facemesh.process(distances3D=True)
     distances = facemesh.get_distances()
     if facemesh.face_mesh_detected():
         distances[0][-1] = 5

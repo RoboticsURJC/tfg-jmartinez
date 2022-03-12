@@ -32,7 +32,7 @@ class FaceMesh:
         self.index_left_wrinkle = [129, 203, 206, 216, 212]
         self.index_right_wrinkle = [358, 423, 426, 436, 432]
 
-        # Coordinates of FaceMesh points
+        # Coordinates of FaceMesh points - Tuple (x, y, z)
         self.coord_left_eye = []
         self.coord_right_eye = []
         self.coord_left_eyebrow = []
@@ -44,7 +44,7 @@ class FaceMesh:
         self.coord_left_wrinkle = []
         self.coord_right_wrinkle = []
 
-        # Relative coordinates of FaceMesh points
+        # Relative coordinates of FaceMesh points - Tuple (x, y)
         self.rcoord_left_eye = []
         self.rcoord_right_eye = []
         self.rcoord_left_eyebrow = []
@@ -94,6 +94,15 @@ class FaceMesh:
         x1 = point2[0]
         y1 = point2[1]
         return math.sqrt((x0 - x1)**2+(y0 - y1)**2)
+
+    def distance3D(self, point1, point2):
+        x0 = point1[0]
+        y0 = point1[1]
+        z0 = point1[2]
+        x1 = point2[0]
+        y1 = point2[1]
+        z1 = point2[2]
+        return math.sqrt((x0 - x1)**2+(y0 - y1)**2+(z0 - z1)**2)
 
     def calculate_distances(self):
         # DISTANCE INDEX
@@ -146,60 +155,121 @@ class FaceMesh:
         index += 1
         self.distances[0][index] = self.distance(self.coord_in_mouth[1], self.coord_in_mouth[3])
 
+    def calculate_distances3D(self):
+        # DISTANCE INDEX
+        # Eyebrows: 0 - 9
+        # Eyes: 10 - 13
+        # Wrinkles: 14 - 23
+        # Mouth: 24 - 31
+        index = 0
+
+        # Eyebrows
+        for i in range(5):
+            self.distances[0][index] = self.distance3D(self.coord_left_eyebrow[i], self.coord_vertical_nose[5])
+            index += 1
+        for i in range(5):
+            self.distances[0][index] = self.distance3D(self.coord_right_eyebrow[i], self.coord_vertical_nose[5])
+            index += 1
+        
+        # Eyes
+        self.distances[0][index] = self.distance3D(self.coord_left_eye[1], self.coord_left_eye[5])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_left_eye[2], self.coord_left_eye[4])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_right_eye[1], self.coord_right_eye[5])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_right_eye[2], self.coord_right_eye[4])
+        index += 1
+
+        # Wrinkles
+        for i in range(5):
+            self.distances[0][index] = self.distance3D(self.coord_left_wrinkle[i], self.coord_vertical_nose[5])
+            index += 1
+        for i in range(5):
+            self.distances[0][index] = self.distance3D(self.coord_right_wrinkle[i], self.coord_vertical_nose[5])
+            index += 1
+
+        # Mouth
+        self.distances[0][index] = self.distance3D(self.coord_out_mouth[9], self.coord_vertical_nose[5])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_out_mouth[11], self.coord_vertical_nose[5])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_out_mouth[0], self.coord_vertical_nose[5])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_out_mouth[1], self.coord_vertical_nose[5])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_out_mouth[3], self.coord_vertical_nose[5])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_in_mouth[7], self.coord_in_mouth[5])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_in_mouth[0], self.coord_in_mouth[4])
+        index += 1
+        self.distances[0][index] = self.distance3D(self.coord_in_mouth[1], self.coord_in_mouth[3])
+
     def update_coords(self, face_landmarks):
         height, width, _ = self.image.shape
         for index in self.index_left_eye:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_left_eye.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_left_eye.append((x, y, z))
             self.rcoord_left_eye.append((int(x*width), int(y*height)))
         for index in self.index_right_eye:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_right_eye.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_right_eye.append((x, y, z))
             self.rcoord_right_eye.append((int(x*width), int(y*height)))
         for index in self.index_left_eyebrow:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_left_eyebrow.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_left_eyebrow.append((x, y, z))
             self.rcoord_left_eyebrow.append((int(x*width), int(y*height)))
         for index in self.index_right_eyebrow:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_right_eyebrow.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_right_eyebrow.append((x, y, z))
             self.rcoord_right_eyebrow.append((int(x*width), int(y*height)))
         for index in self.index_vertical_nose:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_vertical_nose.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_vertical_nose.append((x, y, z))
             self.rcoord_vertical_nose.append((int(x*width), int(y*height)))
         for index in self.index_horizontal_nose:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_horizontal_nose.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_horizontal_nose.append((x, y, z))
             self.rcoord_horizontal_nose.append((int(x*width), int(y*height)))
         for index in self.index_out_mouth:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_out_mouth.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_out_mouth.append((x, y, z))
             self.rcoord_out_mouth.append((int(x*width), int(y*height)))
         for index in self.index_in_mouth:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_in_mouth.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_in_mouth.append((x, y, z))
             self.rcoord_in_mouth.append((int(x*width), int(y*height)))
         for index in self.index_left_wrinkle:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_left_wrinkle.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_left_wrinkle.append((x, y, z))
             self.rcoord_left_wrinkle.append((int(x*width), int(y*height)))
         for index in self.index_right_wrinkle:
             x = face_landmarks.landmark[index].x
             y = face_landmarks.landmark[index].y
-            self.coord_right_wrinkle.append((x, y))
+            z = face_landmarks.landmark[index].z
+            self.coord_right_wrinkle.append((x, y, z))
             self.rcoord_right_wrinkle.append((int(x*width), int(y*height)))
 
-    def process(self):
+    def process(self, distances3D=False):
         self.results = self.face_mesh.process(cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB))
         self.reset_coords()
         self.reset_rcoords()
@@ -207,7 +277,10 @@ class FaceMesh:
         if self.results.multi_face_landmarks:
             for face_landmarks in self.results.multi_face_landmarks:
                 self.update_coords(face_landmarks)
-                self.calculate_distances()
+                if distances3D:
+                    self.calculate_distances3D()
+                else:
+                    self.calculate_distances()
 
     def draw(self):
         if self.results.multi_face_landmarks:

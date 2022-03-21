@@ -8,7 +8,7 @@ from sklearn.metrics import accuracy_score
 from sklearn.metrics import classification_report, confusion_matrix
 
 # Data
-data = pd.read_csv('dataset/dataset3D.csv')
+data = pd.read_csv('dataset/emotionalMesh/datasetCK+.csv')
 
 # Suffle data and division in train and test
 X = data.drop(columns = 'y')
@@ -17,7 +17,7 @@ X_train, X_test, y_train, y_test = train_test_split(
                                       X,
                                       y.values.reshape(-1,1),
                                       train_size   = 0.8,
-                                      random_state = 1234,
+                                      random_state = 0,
                                       shuffle      = True
                                   )
 

@@ -1,6 +1,6 @@
 import sys
 from tkinter.font import families
-sys.path.append('..')
+sys.path.append('../..')
 from faceMesh.FaceMesh import FaceMesh
 import cv2
 import glob as gb
@@ -8,15 +8,15 @@ import numpy as np
 import csv
 
 # Lists of images path
-angry = gb.glob('../../../dataset/train/angry/*.jpg')
-fear = gb.glob('../../../dataset/train/fear/*.jpg')
-happy = gb.glob('../../../dataset/train/happy/*.jpg')
-neutral = gb.glob('../../../dataset/train/neutral/*.jpg')
-sad = gb.glob('../../../dataset/train/sad/*.jpg')
-surprise = gb.glob('../../../dataset/train/surprise/*.jpg')
+angry = gb.glob('../../../../dataset/train/angry/*.jpg')
+fear = gb.glob('../../../../dataset/train/fear/*.jpg')
+happy = gb.glob('../../../../dataset/train/happy/*.jpg')
+neutral = gb.glob('../../../../dataset/train/neutral/*.jpg')
+sad = gb.glob('../../../../dataset/train/sad/*.jpg')
+surprise = gb.glob('../../../../dataset/train/surprise/*.jpg')
 
 # Open dataset file to write
-f = open('dataset/dataset3D.csv', 'w', newline='')
+f = open('../dataset/distances/dataset3D.csv', 'w', newline='')
 
 # Init FaceMesh
 facemesh = FaceMesh(static=False, max_num_faces=1, refine=True)
@@ -48,7 +48,7 @@ for image in fear:
         distances[0][-1] = 1
         np.savetxt(f, distances, delimiter=",")
     else:
-          not_process += 1
+        not_process += 1
 
 print("Procesando imagenes happy...")
 for image in happy:
@@ -59,7 +59,7 @@ for image in happy:
         distances[0][-1] = 2
         np.savetxt(f, distances, delimiter=",")
     else:
-          not_process += 1
+        not_process += 1
 
 print("Procesando imagenes neutral...")
 for image in neutral:
@@ -70,7 +70,7 @@ for image in neutral:
         distances[0][-1] = 3
         np.savetxt(f, distances, delimiter=",")
     else:
-          not_process += 1
+        not_process += 1
 
 print("Procesando imagenes sad...")
 for image in sad:
@@ -81,7 +81,7 @@ for image in sad:
         distances[0][-1] = 4
         np.savetxt(f, distances, delimiter=",")
     else:
-          not_process += 1
+        not_process += 1
 
 print("Procesando imagenes surprise...")
 for image in surprise:
@@ -92,7 +92,7 @@ for image in surprise:
         distances[0][-1] = 5
         np.savetxt(f, distances, delimiter=",")
     else:
-          not_process += 1
+        not_process += 1
 
 print("Imagenes no procesadas: "+str(not_process))
 

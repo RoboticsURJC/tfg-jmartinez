@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../..')
-from faceMesh.FaceMesh import FaceMesh
+from emotionalMesh.EmotionalMesh2 import EmotionalMesh2
 import cv2
 import glob as gb
 import numpy as np
@@ -13,7 +13,8 @@ def paths(images):
     path_emotion = re.sub('extended-cohn-kanade-images/cohn-kanade-images', 
                           'Emotion_labels/Emotion', path_image)
     path_emotion = re.sub('.png', '_emotion.txt', path_emotion)
-    return path_image, path_emotion
+    path_image_neutral = re.sub('000000*[0-9][0-9]', '00000001', path_image)
+    return path_image, path_image_neutral, path_emotion
 
 def class_emotion(path_emotion):
     try:
@@ -38,7 +39,7 @@ def emotion_lists():
         images = gb.glob(dirpath+'/*.png')
         if images:
             images = sorted(images)
-            path_image, path_emotion = paths(images)
+            path_image, path_image_neutral, path_emotion = paths(images)
             emotion = class_emotion(path_emotion)
             if emotion == 1:
                 anger.append(path_image)
@@ -57,15 +58,23 @@ def emotion_lists():
 
     return anger, contempt, disgust, fear, happy, sadness, surprise
 
+def copyto(src, dest, size):
+    for i in range(size):
+        dest[0][i] = src[0][i]
+    return dest
+
 def process_class(images, class_num):
     global process, not_process
+    train_data = np.zeros((1, emotionalmesh.num_angles+1))
+
     for image in images:
-        facemesh.set_image(cv2.imread(image))
-        facemesh.process(mode=1)
-        if facemesh.face_mesh_detected():
-            angles = facemesh.get_angles()
-            angles[0][-1] = class_num # set class
-            np.savetxt(f, angles, delimiter=",")
+        emotionalmesh.set_image(cv2.imread(image))
+        emotionalmesh.process()
+        if emotionalmesh.face_mesh_detected():
+            angles = emotionalmesh.get_angles()
+            copyto(angles, train_data, emotionalmesh.num_angles)
+            train_data[0][-1] = class_num # set class
+            np.savetxt(f, train_data, delimiter=",")
             process += 1
         else:
             not_process += 1
@@ -74,11 +83,11 @@ if __name__ == '__main__':
     # Open dataset file to write
     f = open('../dataset/emotionalMesh/datasetCK+.csv', 'w', newline='')
 
-    # Init FaceMesh
-    facemesh = FaceMesh(static=True, max_num_faces=1, refine=True)
+    # Init EmotionalMesh
+    emotionalmesh = EmotionalMesh2(static=True, max_num_faces=1, refine=True)
 
     # Dataset file header
-    for i in range(1, facemesh.num_angles):
+    for i in range(0, emotionalmesh.num_angles):
         f.write('X'+repr(i)+',')
     f.write('y\n')
 
@@ -92,20 +101,20 @@ if __name__ == '__main__':
     print("Procesando imagenes anger...")
     process_class(anger, 1)
 
-    #print("Procesando imagenes contempt...")
-    #process_class(contempt, 2)
+    print("Procesando imagenes contempt...")
+    process_class(contempt, 2)
 
     print("Procesando imagenes disgust...")
     process_class(disgust, 3)
 
-    #print("Procesando imagenes fear...")
-    #process_class(fear, 4)
+    print("Procesando imagenes fear...")
+    process_class(fear, 4)
 
     print("Procesando imagenes happy...")
     process_class(happy, 5)
 
-    #print("Procesando imagenes sadness...")
-    #process_class(sadness, 6)
+    print("Procesando imagenes sadness...")
+    process_class(sadness, 6)
 
     print("Procesando imagenes surprise...")
     process_class(surprise, 7)

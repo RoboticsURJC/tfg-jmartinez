@@ -61,7 +61,7 @@ def process_class(images, class_num):
     global process, not_process
     for image in images:
         facemesh.set_image(cv2.imread(image))
-        facemesh.process(distances3D=False, mode=0)
+        facemesh.process(distances3D=True)
         if facemesh.face_mesh_detected():
             distances = facemesh.get_distances()
             distances[0][-1] = class_num # set class
@@ -92,20 +92,20 @@ if __name__ == '__main__':
     print("Procesando imagenes anger...")
     process_class(anger, 1)
 
-    #print("Procesando imagenes contempt...")
-    #process_class(contempt, 2)
+    print("Procesando imagenes contempt...")
+    process_class(contempt, 2)
 
     print("Procesando imagenes disgust...")
     process_class(disgust, 3)
 
-    #print("Procesando imagenes fear...")
-    #process_class(fear, 4)
+    print("Procesando imagenes fear...")
+    process_class(fear, 4)
 
     print("Procesando imagenes happy...")
     process_class(happy, 5)
 
-    #print("Procesando imagenes sadness...")
-    #process_class(sadness, 6)
+    print("Procesando imagenes sadness...")
+    process_class(sadness, 6)
 
     print("Procesando imagenes surprise...")
     process_class(surprise, 7)

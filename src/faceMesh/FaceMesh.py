@@ -32,11 +32,6 @@ class FaceMesh:
         self.index_left_wrinkle = [129, 203, 206, 216, 212]
         self.index_right_wrinkle = [358, 423, 426, 436, 432]
 
-        # Index of 'Emotional Mesh'
-        self.index_emotional_mesh = [61, 291, 0, 17, 50, 280, 48, 4, 278,
-            206, 426, 133, 130, 159, 145, 362, 359, 386, 374, 122,
-            351, 46, 105, 107, 276, 334, 336]
-
         # Coordinates of FaceMesh points - Tuple (x, y, z)
         self.coord_left_eye = []
         self.coord_right_eye = []
@@ -48,9 +43,6 @@ class FaceMesh:
         self.coord_in_mouth = []
         self.coord_left_wrinkle = []
         self.coord_right_wrinkle = []
-
-        # Coordinates of 'Emotional Mesh' - Tuple (x, y)
-        self.coord_emotional_mesh = []
 
         # Relative coordinates of FaceMesh points - Tuple (x, y)
         self.rcoord_left_eye = []
@@ -64,18 +56,10 @@ class FaceMesh:
         self.rcoord_left_wrinkle = []
         self.rcoord_right_wrinkle = []
 
-        # Relative coordinates of 'Emotional Mesh' - Tuple (x, y)
-        self.rcoord_emotional_mesh = []
-
         # Distances + class
         # Format: [dist1, dist2, dist3, ..., class]
         self.num_distances = 33 # 32 distances + class
         self.distances = np.zeros((1, self.num_distances))
-
-        # Angles + class
-        # Format: [angle1, angle2, angle3, ..., class]
-        self.num_angles = 9 # 8 angles + class
-        self.angles = np.zeros((1, self.num_angles))
 
     def reset_coords(self):
         self.coord_left_eye.clear()
@@ -101,19 +85,9 @@ class FaceMesh:
         self.rcoord_left_wrinkle.clear()
         self.rcoord_right_wrinkle.clear()
 
-    def reset_coords_emotional_mesh(self):
-        self.coord_emotional_mesh.clear()
-
-    def reset_rcoords_emotional_mesh(self):
-        self.rcoord_emotional_mesh.clear()
-
     def reset_distances(self):
         for i in range(self.num_distances):
             self.distances[0][i] = 0
-
-    def reset_angles(self):
-        for i in range(self.num_angles):
-            self.angles[0][i] = 0
 
     def distance(self, point1, point2):
         x0 = point1[0]
@@ -130,17 +104,6 @@ class FaceMesh:
         y1 = point2[1]
         z1 = point2[2]
         return math.sqrt((x0 - x1)**2+(y0 - y1)**2+(z0 - z1)**2)
-
-    def angle(self, point1, point2, point3):
-        x1 = point1[0]
-        y1 = point1[1]
-        x2 = point2[0]
-        y2 = point2[1]
-        x3 = point3[0]
-        y3 = point3[1]
-        angle = math.degrees(math.atan((y3-y2)/(x3-x2))-math.atan((y1-y2)/(x1-x2)))
-        #angle += 360 # avoid negative angles
-        return angle
 
     def calculate_distances(self):
         # DISTANCE INDEX
@@ -244,33 +207,6 @@ class FaceMesh:
         index += 1
         self.distances[0][index] = self.distance3D(self.coord_in_mouth[1], self.coord_in_mouth[3])
 
-    def calculate_angles(self):
-        index = 0
-
-        self.angles[0][index] = self.angle(self.coord_emotional_mesh[3], self.coord_emotional_mesh[0], 
-            self.coord_emotional_mesh[2])
-        index += 1
-        self.angles[0][index] = self.angle(self.coord_emotional_mesh[0], self.coord_emotional_mesh[2], 
-            self.coord_emotional_mesh[1])
-        index += 1
-        self.angles[0][index] = self.angle(self.coord_emotional_mesh[9], self.coord_emotional_mesh[7], 
-            self.coord_emotional_mesh[10])
-        index += 1
-        self.angles[0][index] = self.angle(self.coord_emotional_mesh[0], self.coord_emotional_mesh[7], 
-            self.coord_emotional_mesh[1])
-        index += 1
-        self.angles[0][index] = self.angle(self.coord_emotional_mesh[8], self.coord_emotional_mesh[5], 
-            self.coord_emotional_mesh[1])
-        index += 1
-        self.angles[0][index] = self.angle(self.coord_emotional_mesh[8], self.coord_emotional_mesh[10], 
-            self.coord_emotional_mesh[1])
-        index += 1
-        self.angles[0][index] = self.angle(self.coord_emotional_mesh[21], self.coord_emotional_mesh[22], 
-            self.coord_emotional_mesh[23])
-        index += 1
-        self.angles[0][index] = self.angle(self.coord_emotional_mesh[14], self.coord_emotional_mesh[12], 
-            self.coord_emotional_mesh[13])
-
     def update_coords(self, face_landmarks):
         height, width, _ = self.image.shape
         for index in self.index_left_eye:
@@ -334,21 +270,10 @@ class FaceMesh:
             self.coord_right_wrinkle.append((x, y, z))
             self.rcoord_right_wrinkle.append((int(x*width), int(y*height)))
 
-    def update_coords_emotional_mesh(self, face_landmarks):
-        height, width, _ = self.image.shape
-        for index in self.index_emotional_mesh:
-            x = face_landmarks.landmark[index].x
-            y = face_landmarks.landmark[index].y
-            self.coord_emotional_mesh.append((x, y))
-            self.rcoord_emotional_mesh.append((int(x*width), int(y*height)))
-
-    def process(self, distances3D=False, mode=0):
-        # Mode 0: distances
-        # Mode 1: emotional mesh
+    def process(self, distances3D=False):
         self.results = self.face_mesh.process(cv2.cvtColor(self.image, cv2.COLOR_BGR2RGB))
         if self.results.multi_face_landmarks:
             for face_landmarks in self.results.multi_face_landmarks:
-                if mode == 0: # distances
                     self.reset_coords()
                     self.reset_rcoords()
                     self.reset_distances()
@@ -357,12 +282,6 @@ class FaceMesh:
                         self.calculate_distances3D()
                     else:
                         self.calculate_distances()
-                elif mode == 1: # emotional mesh
-                    self.reset_coords_emotional_mesh()
-                    self.reset_rcoords_emotional_mesh()
-                    self.reset_angles()
-                    self.update_coords_emotional_mesh(face_landmarks)
-                    self.calculate_angles()
 
     def draw(self):
         if self.results.multi_face_landmarks:
@@ -406,10 +325,6 @@ class FaceMesh:
         for coord in self.rcoord_left_wrinkle:
             cv2.circle(self.image, (coord[0], coord[1]), 2, (0, 255, 0), -1)
         for coord in self.rcoord_right_wrinkle:
-            cv2.circle(self.image, (coord[0], coord[1]), 2, (0, 255, 0), -1)
-
-    def draw_emotional_mesh(self):
-        for coord in self.rcoord_emotional_mesh:
             cv2.circle(self.image, (coord[0], coord[1]), 2, (0, 255, 0), -1)
 
     def set_image(self, image):

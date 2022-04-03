@@ -1,12 +1,13 @@
 import sys
 sys.path.append('../..')
-from emotionalMesh.EmotionalMesh2 import EmotionalMesh2
+from emotionalMesh.EmotionalMesh2_1 import EmotionalMesh2_1
 import cv2
 import glob as gb
 import numpy as np
 import csv
 import os
 import re
+import time
 
 def paths(images):
     path_image = images[-1]
@@ -84,7 +85,7 @@ if __name__ == '__main__':
     f = open('../dataset/emotionalMesh/datasetCK+.csv', 'w', newline='')
 
     # Init EmotionalMesh
-    emotionalmesh = EmotionalMesh2(static=True, max_num_faces=1, refine=True)
+    emotionalmesh = EmotionalMesh2_1(static=True, max_num_faces=1, refine=True)
 
     # Dataset file header
     for i in range(0, emotionalmesh.num_angles):
@@ -98,6 +99,7 @@ if __name__ == '__main__':
 
     # Process images and write data in dataset file
     # ---------------------------------------------
+    start = time.time()
     print("Procesando imagenes anger...")
     process_class(anger, 1)
 
@@ -118,9 +120,11 @@ if __name__ == '__main__':
 
     print("Procesando imagenes surprise...")
     process_class(surprise, 7)
+    stop = time.time()
     # ---------------------------------------------
 
     print("Imagenes procesadas: "+str(process))
     print("Imagenes no procesadas: "+str(not_process))
+    print(f"Tiempo de procesamiento: {stop - start}s")
 
         

@@ -1,12 +1,11 @@
-# Class with all angles of right part of face
-# This class is for research in https://github.com/jmvega/tfg-jmartinez/wiki/Progreso-marzo-2022#elecci%C3%B3n-de-los-%C3%A1ngulos-de-entrenamiento-estudio-1
+# Class with angles chosen in: https://github.com/jmvega/tfg-jmartinez/wiki/Progreso-marzo-2022#elecci%C3%B3n-de-los-%C3%A1ngulos-de-entrenamiento-estudio-1
 
 import mediapipe as mp
 import numpy as np
 import cv2
 import math
 
-class EmotionalMesh2:
+class EmotionalMesh2_1:
     def __init__(self, static=False, max_num_faces=1, refine=False):
         # Init FaceMesh variables
         self.mp_face_mesh = mp.solutions.face_mesh
@@ -36,7 +35,7 @@ class EmotionalMesh2:
 
         # Angles
         # Format: [angle1, angle2, angle3, ...]
-        self.num_angles = 21
+        self.num_angles = 12
         self.angles = np.zeros((1, self.num_angles))
 
     def reset_coordinates(self):
@@ -80,49 +79,49 @@ class EmotionalMesh2:
             self.coordinates[1])
         index += 1
         # Angle 3
-        self.angles[0][index] = self.angle(self.coordinates[1], self.coordinates[7], 
+        """ self.angles[0][index] = self.angle(self.coordinates[1], self.coordinates[7], 
             self.coordinates[8])
-        index += 1
+        index += 1 """
         # Angle 4
         self.angles[0][index] = self.angle(self.coordinates[0], self.coordinates[7], 
             self.coordinates[1])
         index += 1
         # Angle 5
-        self.angles[0][index] = self.angle(self.coordinates[8], self.coordinates[5], 
+        """ self.angles[0][index] = self.angle(self.coordinates[8], self.coordinates[5], 
             self.coordinates[1])
-        index += 1
+        index += 1 """
         # Angle 6
         self.angles[0][index] = self.angle(self.coordinates[8], self.coordinates[10], 
             self.coordinates[1])
         index += 1
         # Angle 7
-        self.angles[0][index] = self.angle(self.coordinates[18], self.coordinates[5], 
+        """ self.angles[0][index] = self.angle(self.coordinates[18], self.coordinates[5], 
             self.coordinates[8])
-        index += 1
+        index += 1 """
         # Angle 8
         self.angles[0][index] = self.angle(self.coordinates[8], self.coordinates[7], 
             self.coordinates[20])
         index += 1
         # Angle 9
-        self.angles[0][index] = self.angle(self.coordinates[26], self.coordinates[7], 
+        """ self.angles[0][index] = self.angle(self.coordinates[26], self.coordinates[7], 
             self.coordinates[23])
-        index += 1
+        index += 1 """
         # Angle 10
-        self.angles[0][index] = self.angle(self.coordinates[7], self.coordinates[20], 
+        """ self.angles[0][index] = self.angle(self.coordinates[7], self.coordinates[20], 
             self.coordinates[18])
-        index += 1
+        index += 1 """
         # Angle 11
-        self.angles[0][index] = self.angle(self.coordinates[20], self.coordinates[18], 
+        """ self.angles[0][index] = self.angle(self.coordinates[20], self.coordinates[18], 
             self.coordinates[5])
-        index += 1
+        index += 1 """
         # Angle 12
         self.angles[0][index] = self.angle(self.coordinates[17], self.coordinates[16], 
             self.coordinates[18])
         index += 1
         # Angle 13
-        self.angles[0][index] = self.angle(self.coordinates[26], self.coordinates[25], 
+        """ self.angles[0][index] = self.angle(self.coordinates[26], self.coordinates[25], 
             self.coordinates[24])
-        index += 1
+        index += 1 """
         # Angle 14
         self.angles[0][index] = self.angle(self.coordinates[20], self.coordinates[26], 
             self.coordinates[25])
@@ -136,9 +135,9 @@ class EmotionalMesh2:
             self.coordinates[17])
         index += 1
         # Angle 17
-        self.angles[0][index] = self.angle(self.coordinates[18], self.coordinates[20], 
+        """ self.angles[0][index] = self.angle(self.coordinates[18], self.coordinates[20], 
             self.coordinates[26])
-        index += 1
+        index += 1 """
         # Angle 18
         self.angles[0][index] = self.angle(self.coordinates[5], self.coordinates[1], 
             self.coordinates[10])
@@ -148,8 +147,8 @@ class EmotionalMesh2:
             self.coordinates[7])
         index += 1
         # Angle 20
-        self.angles[0][index] = self.angle(self.coordinates[10], self.coordinates[8], 
-            self.coordinates[5])
+        """ self.angles[0][index] = self.angle(self.coordinates[10], self.coordinates[8], 
+            self.coordinates[5]) """
 
     def update_coordinates(self, face_landmarks):
         height, width, _ = self.image.shape

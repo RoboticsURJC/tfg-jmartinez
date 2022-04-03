@@ -65,7 +65,6 @@ class EmotionalMesh:
 
     def calculate_angles(self):
         index = 0
-        print(self.coordinates[7])
 
         self.angles[0][index] = self.angle(self.coordinates[3], self.coordinates[0], 
             self.coordinates[2])

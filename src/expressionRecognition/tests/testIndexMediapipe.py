@@ -1,5 +1,5 @@
 import sys
-sys.path.append('..')
+sys.path.append('../..')
 from faceMesh.FaceMesh import FaceMesh
 import cv2
 import glob as gb

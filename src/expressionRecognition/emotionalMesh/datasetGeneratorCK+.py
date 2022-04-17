@@ -1,6 +1,6 @@
 import sys
 sys.path.append('../..')
-from emotionalMesh.EmotionalMesh2_1 import EmotionalMesh2_1
+from emotionalMesh.EmotionalMesh2 import EmotionalMesh2
 import cv2
 import glob as gb
 import numpy as np
@@ -82,10 +82,10 @@ def process_class(images, class_num):
 
 if __name__ == '__main__':
     # Open dataset file to write
-    f = open('../dataset/emotionalMesh/datasetCK+.csv', 'w', newline='')
+    f = open('../dataset/emotionalMesh/dataset1_3CK+.csv', 'w', newline='')
 
     # Init EmotionalMesh
-    emotionalmesh = EmotionalMesh2_1(static=True, max_num_faces=1, refine=True)
+    emotionalmesh = EmotionalMesh2(static=True, max_num_faces=1, refine=True)
 
     # Dataset file header
     for i in range(0, emotionalmesh.num_angles):
@@ -103,11 +103,11 @@ if __name__ == '__main__':
     print("Procesando imagenes anger...")
     process_class(anger, 1)
 
-    print("Procesando imagenes contempt...")
-    process_class(contempt, 2)
+    """ print("Procesando imagenes contempt...")
+    process_class(contempt, 2) """
 
-    print("Procesando imagenes disgust...")
-    process_class(disgust, 3)
+    """ print("Procesando imagenes disgust...")
+    process_class(disgust, 3) """
 
     print("Procesando imagenes fear...")
     process_class(fear, 4)

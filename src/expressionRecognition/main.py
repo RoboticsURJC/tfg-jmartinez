@@ -1,6 +1,6 @@
 import sys
 sys.path.append('..')
-from emotionalMesh.EmotionalMesh2_1 import EmotionalMesh2_1
+from emotionalMesh.EmotionalMesh2 import EmotionalMesh2
 from piVideoStream.PiVideoStream import PiVideoStream
 import cv2
 import pickle
@@ -74,17 +74,17 @@ def draw_predict(pred, image):
 def main():
     args = parse_arguments()
     if args.savefps:
-        fps_file = open('dataFPS/emotionalMesh/fps_3.csv', 'w')
+        fps_file = open('dataFPS/emotionalMesh/fps_MLP.csv', 'w')
     
     # Start video stream
     vs = PiVideoStream(resolution=(640, 480)).start()
     time.sleep(2.0)
 
     # Init EmotionalMesh
-    emotionalmesh = EmotionalMesh2_1(static=False, max_num_faces=1)
+    emotionalmesh = EmotionalMesh2(static=False, max_num_faces=1)
 
     # Load the model
-    with open('model/model.pkl', 'rb') as modelfile:
+    with open('model/emotionalMesh/selected_classes/model_MLP.pkl', 'rb') as modelfile:
         loaded = pickle.load(modelfile)
     model = loaded['model']
     pca = loaded['pca_fit']

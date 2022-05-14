@@ -20,5 +20,9 @@ diagnostic_updater - https://github.com/ros/diagnostics.git
 
 bondcpp - https://github.com/ros/bond_core.git
 
+rosmaster - https://github.com/ros/ros_comm.git
+
+pip3 install defusedxml
+
 Completamos con:
 rosdep install --from-paths src --ignore-src -r -y

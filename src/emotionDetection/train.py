@@ -174,19 +174,19 @@ X_train, X_test, y_train, y_test = train_test_split(
                                   )
 
 # PCA
-pca = PCA(15)
+pca = PCA(11)
 X_train = pca.fit_transform(X_train)
 X_test = pca.transform(X_test)
 
 start = time.time()
 
 # SVM
-model = SVC(C=300, kernel='rbf', gamma='scale')
-model.fit(X_train, y_train.ravel())
+""" model = SVC(C=300, kernel='rbf', gamma='scale')
+model.fit(X_train, y_train.ravel()) """
 
 # KNN
-""" model = KNeighborsClassifier(n_neighbors=3, p=2, metric="minkowski")
-model.fit(X_train, y_train.ravel()) """
+model = KNeighborsClassifier(n_neighbors=7, p=2, metric="minkowski")
+model.fit(X_train, y_train.ravel())
 
 # Multi layer perceptron
 """ model = MLPClassifier(activation="relu", hidden_layer_sizes=(30,30,10), solver="adam", max_iter=5000)
@@ -209,7 +209,7 @@ print(f"Training time: {(stop - start)*1000}ms")
 
 # Generate Learning Curves
 title = "Learning Curves"
-cv = StratifiedShuffleSplit(n_splits=2, test_size=0.2, random_state=0)
+cv = StratifiedShuffleSplit(n_splits=4, test_size=0.2, random_state=0)
 plot_learning_curve(
     model, title, X, y, ylim=(0.5, 1.01), cv=cv, n_jobs=4
 )

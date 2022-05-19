@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="1350"
+   height="500"
+   viewBox="0 0 357.18749 132.29167"
+   version="1.1"
+   id="svg37159"
+   inkscape:version="1.1.2 (1:1.1+202202050852+0a00cf5339)"
+   sodipodi:docname="80train_20test.svg"
+   inkscape:export-filename="/home/jmrtzma/tfg/tfg-jmartinez/wiki/mayo2022/80train_20test.png"
+   inkscape:export-xdpi="96"
+   inkscape:export-ydpi="96"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview37161"
+     pagecolor="#ffffff"
+     bordercolor="#cccccc"
+     borderopacity="1"
+     inkscape:pageshadow="0"
+     inkscape:pageopacity="1"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="mm"
+     showgrid="false"
+     units="px"
+     inkscape:snap-global="true"
+     inkscape:zoom="0.53165938"
+     inkscape:cx="567.09241"
+     inkscape:cy="146.71047"
+     inkscape:window-width="1920"
+     inkscape:window-height="1043"
+     inkscape:window-x="1920"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs37156">
+    <marker
+       style="overflow:visible"
+       id="marker40296"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.8) translate(12.5,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path40294" />
+    </marker>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect40212"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+    <marker
+       style="overflow:visible;"
+       id="Arrow1Lend"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lend"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.8) rotate(180) translate(12.5,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt;"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path39904" />
+    </marker>
+    <marker
+       style="overflow:visible"
+       id="Arrow1Lstart"
+       refX="0.0"
+       refY="0.0"
+       orient="auto"
+       inkscape:stockid="Arrow1Lstart"
+       inkscape:isstock="true">
+      <path
+         transform="scale(0.8) translate(12.5,0)"
+         style="fill-rule:evenodd;fill:context-stroke;stroke:context-stroke;stroke-width:1.0pt"
+         d="M 0.0,0.0 L 5.0,-5.0 L -12.5,0.0 L 5.0,5.0 L 0.0,0.0 z "
+         id="path39901" />
+    </marker>
+    <inkscape:path-effect
+       effect="bspline"
+       id="path-effect39819"
+       is_visible="true"
+       lpeversion="1"
+       weight="33.333333"
+       steps="2"
+       helper_size="0"
+       apply_no_weight="true"
+       apply_with_weight="true"
+       only_selected="false" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <rect
+       style="fill:#00bfb2;stroke-width:0.241;stroke-linecap:round;stroke-linejoin:round;fill-opacity:1"
+       id="rect37242"
+       width="233.27705"
+       height="85.27269"
+       x="10.122941"
+       y="38.533958" />
+    <rect
+       style="fill:#ffeeaa;stroke-width:0.158029;stroke-linecap:round;stroke-linejoin:round"
+       id="rect37429"
+       width="100.30299"
+       height="85.27269"
+       x="246.76157"
+       y="38.533958" />
+    <text
+       xml:space="preserve"
+       style="font-size:32.3566px;line-height:1.25;font-family:sans-serif;stroke-width:0.808918"
+       x="90.597275"
+       y="92.948547"
+       id="text38095"><tspan
+         sodipodi:role="line"
+         id="tspan38093"
+         style="stroke-width:0.808918"
+         x="90.597275"
+         y="92.948547">80%</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:32.3566px;line-height:1.25;font-family:sans-serif;stroke-width:0.808918"
+       x="260.66199"
+       y="92.948547"
+       id="text38095-3"><tspan
+         sodipodi:role="line"
+         id="tspan38093-6"
+         style="stroke-width:0.808918"
+         x="260.66199"
+         y="92.948547">20%</tspan></text>
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.660092;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#Arrow1Lstart);marker-end:url(#Arrow1Lend)"
+       d="m 12.192528,29.714067 c 76.615686,0 153.231122,0 229.846282,0"
+       id="path39817"
+       inkscape:path-effect="#path-effect39819"
+       inkscape:original-d="m 12.192528,29.714067 c 76.615686,2.64e-4 153.231122,2.64e-4 229.846282,0" />
+    <path
+       style="fill:none;stroke:#000000;stroke-width:0.650845;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1;marker-start:url(#marker40296);marker-end:url(#Arrow1Lend)"
+       d="m 248.53515,29.68243 c 32.02642,0 64.0526,0 96.07851,0"
+       id="path40210"
+       inkscape:path-effect="#path-effect40212"
+       inkscape:original-d="m 248.53515,29.68243 c 32.02642,2.64e-4 64.0526,2.64e-4 96.07851,0" />
+    <text
+       xml:space="preserve"
+       style="font-size:14.8876px;line-height:1.25;font-family:sans-serif;stroke-width:0.372191"
+       x="109.55495"
+       y="21.148069"
+       id="text43364"><tspan
+         sodipodi:role="line"
+         id="tspan43362"
+         style="stroke-width:0.372191"
+         x="109.55495"
+         y="21.148069">Train</tspan></text>
+    <text
+       xml:space="preserve"
+       style="font-size:14.8876px;line-height:1.25;font-family:sans-serif;stroke-width:0.372191"
+       x="282.45435"
+       y="21.148069"
+       id="text48182"><tspan
+         sodipodi:role="line"
+         id="tspan48180"
+         style="stroke-width:0.372191"
+         x="282.45435"
+         y="21.148069">Test</tspan></text>
+  </g>
+</svg>

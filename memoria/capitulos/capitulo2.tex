@@ -1,0 +1,65 @@
+\chapter{Objetivos}
+\label{cap:capitulo2}
+
+\begin{flushright}
+\begin{minipage}[]{10cm}
+\emph{Quizás algún fragmento de libro inspirador...}\\
+\end{minipage}\\
+
+Autor, \textit{Título}\\
+\end{flushright}
+
+\vspace{1cm}
+
+Una vez presentado el contexto general en el cual se enmarca nuestro trabajo de fin de grado, se procederá a realizar una descripción del problema planteando los objetivos finales de este, requisitos, metodología y plan de trabajo para llegar a resolverlo.
+
+\section{Descripción del problema}
+\label{sec:descripcion}
+
+El objetivo principal de este TFG es desarrollar una herramienta de reconocimiento de emociones que sea capaz de funcionar en tiempo real en un sistema robótico de bajo coste. Para lograr dicha meta, se ha dividido el problema en estos subobjetivos:
+\begin{enumerate}
+    \item Estudiar cuál será la técnica más óptima en cuanto al reconocimiento de emociones. Debe ser una técnica liviana que no consuma muchos recursos para conseguir un alto valor de FPS (fotogramas por segundo) final en nuestro sistema.
+    
+    \item Tras decidir que la extracción de puntos característicos faciales y el posterior entrenamiento con el tratamiento de ellos era la técnica más óptima y liviana para nuestro hardware, el siguiente paso es estudiar qué método para extraer esos puntos faciales es el más rápido y preciso.
+    
+    \item Crear un dataset de valor con los puntos característicos faciales. Se debe hacer un correcto tratamiento de los datos para conseguir un resultado preciso en el posterior entrenamiento.
+    
+    \item Realizar el entrenamiento con varios algoritmos de Machine Learning de clasificación. Estudiar el rendimiento y precisión de cada uno de ellos.
+    
+    \item Integrar nuestro sistema en ROS para facilitar su uso en un sistema robótico.
+\end{enumerate}
+
+\section{Requisitos}
+\label{sec:requisitos}
+
+El requisito principal del proyecto es que el sistema funcione a una tasa de FPS que permitan usarlo en tiempo real. La herramienta está enfocada en ayudar en la interacción entre personas y robots, por lo tanto debe poder ofrecer información lo más rápido posible para actuar en el momento preciso.\\
+
+Otro requisito es que todo el software debe correr en la Raspberry Pi 4b, ya que es el sistema de bajo coste escogido para realizar el trabajo. Además todo deberá funcionar bajo el sistema operativo Raspberry Pi OS porque es el más optimizado actualmente para nuestro hardware y el que por lo tanto nos ofrecerá mayor rendimiento (que es nuestro requisito principal).\\
+
+Por último, al ser una herramienta para un sistema robótico, es muy importante conseguir la mayor robustez posible.
+
+\section{Metodología}
+\label{sec:metodologia}
+
+Se ha seguido un protocolo de reuniones semanales con el tutor de TFG a través de la plataforma Teams para comentar los avances y recibir realimentación, además de proponer cada semana las actividades a realizar.\\
+
+Se ha usado un repositorio\footnote{Repositorio: \url{https://github.com/jmvega/tfg-jmartinez}} de Github en el cual se ha ido subiendo todo el código del desarrollo del sistema de este trabajo. Además este repositorio posee una Wiki\footnote{Wiki: \url{https://github.com/jmvega/tfg-jmartinez/wiki}} que contiene explicaciones semanales de todo lo llevado a cabo durante estos meses de trabajo.
+
+\section{Plan de trabajo}
+\label{sec:plantrabajo}
+
+El desarrollo del TFG ha comprendido nueve meses de trabajo. Se comenzó en Octubre de 2021 y se ha terminado en Junio de 2022. Durante estos meses la planificación ha sido la siguiente:
+
+\begin{enumerate}
+    \item \textit{Etapa de investigación y entrenamiento.} Fase inicial en la que se realizaron diferentes lecturas y pruebas con pequeños scripts de código para descubrir cual sería el tema de TFG a desarrollar. Una vez escogido el tema de TFG se realizaron lecturas sobre otros proyectos similares.
+    
+    \item \textit{Estudio de técnicas de reconocimiento de emociones.} Investigación para descubrir cuáles eran las técnicas más usadas para realizar esta labor. Se estudió cuál podía ser la más liviana y precisa para nuestra plataforma (Raspberry Pi 4b + Raspberry Pi OS + Raspberry Pi Camera Module V2).
+    
+    \item \textit{Creación del dataset.} Tratamiento de los datos para generar un dataset que nos proporcione entrenamientos precisos. Se realizaron diversos estudios hasta encontrar el dataset que mejores resultados nos proporcionaba.
+    
+    \item \textit{Entrenamiento de los modelos.} Fase de entrenamiento usando los algoritmos SVM, KNN y una red neuronal multicapa. Se buscó cual era la técnica más óptima para llevar a cabo los entrenamientos y además se realizó un estudio del rendimiento y precisión de los algoritmos.
+    
+    \item \textit{Búsqueda de robustez.} El sistema ya estaba desarrollado pero no poseía la suficiente robustez como para ser usado en un robot. Esta fase se encargó de aumentar dicha robustez a nuestro sistema consiguiendo más fiabilidad en la detección de las emociones en un entorno real y práctico.
+    
+    \item \textit{Integración del sistema en ROS.} Se buscó la forma de instalar una versión de ROS en Raspberry Pi OS y se creó el paquete que porta la herramienta desarrollada en este TFG.
+\end{enumerate}

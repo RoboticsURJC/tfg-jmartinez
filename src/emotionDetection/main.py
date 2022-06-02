@@ -55,6 +55,8 @@ def parse_arguments():
     return parser.parse_args()
 
 def draw_predict(pred, image):
+    if pred == 0:
+        emotion = "Neutral"
     if pred == 1:
         emotion = "Anger"
     elif pred == 2:
@@ -69,7 +71,7 @@ def draw_predict(pred, image):
         emotion = "Sadness"
     else:
         emotion = "Surprise"
-    cv2.putText(image, emotion, (20, 456), cv2.FONT_HERSHEY_PLAIN,
+    cv2.putText(image, emotion, (20, 300), cv2.FONT_HERSHEY_PLAIN,
                 2, text_color, font_thickness)
 
 def main():
@@ -78,7 +80,7 @@ def main():
         fps_file = open('dataFPS/emotionalMesh/fps_MLP.csv', 'w')
     
     # Start video stream
-    vs = PiVideoStream(resolution=(640, 480)).start()
+    vs = PiVideoStream(resolution=(416, 320)).start()
     time.sleep(2.0)
 
     # Init EmotionDetection

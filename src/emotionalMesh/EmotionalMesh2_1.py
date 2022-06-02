@@ -6,14 +6,14 @@ import cv2
 import math
 
 class EmotionalMesh2_1:
-    def __init__(self, static=False, max_num_faces=1, refine=False):
+    def __init__(self, static=False, refine=False):
         # Init FaceMesh variables
         self.mp_face_mesh = mp.solutions.face_mesh
         self.mp_drawing = mp.solutions.drawing_utils
         self.drawing_spec = self.mp_drawing.DrawingSpec(thickness=1, circle_radius=1, color=(0,255,0))
         self.face_mesh = self.mp_face_mesh.FaceMesh(
             static_image_mode=static,
-            max_num_faces=max_num_faces,
+            max_num_faces=1,
             refine_landmarks=refine,
             min_detection_confidence=0.5,
             min_tracking_confidence=0.5)

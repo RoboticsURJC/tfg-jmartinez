@@ -5,9 +5,9 @@ sys.path.append('..')
 from emotionalMesh.EmotionalMesh2 import EmotionalMesh2
 
 class EmotionDetection:
-    def __init__(self, max_num_faces=1):
+    def __init__(self):
         # Emotional mesh to extract angles data
-        self.emotional_mesh = EmotionalMesh2(max_num_faces=max_num_faces)
+        self.emotional_mesh = EmotionalMesh2()
 
         # Model and PCA to predict
         self.model = None
@@ -27,7 +27,7 @@ class EmotionDetection:
 
     # Private methods ----------------------------------------------------------------------
     def __initialize_model_and_pca(self):
-        with open('model/emotionalMesh/selected_classes/model_MLP.pkl', 'rb') as modelfile:
+        with open('model/emotionalMesh/model.pkl', 'rb') as modelfile:
             loaded = pickle.load(modelfile)
         self.model = loaded['model']
         self.pca = loaded['pca_fit']

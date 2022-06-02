@@ -14,8 +14,7 @@ def paths(images):
     path_emotion = re.sub('extended-cohn-kanade-images/cohn-kanade-images', 
                           'Emotion_labels/Emotion', path_image)
     path_emotion = re.sub('.png', '_emotion.txt', path_emotion)
-    path_image_neutral = re.sub('000000*[0-9][0-9]', '00000001', path_image)
-    return path_image, path_image_neutral, path_emotion
+    return path_image, path_emotion
 
 def class_emotion(path_emotion):
     try:
@@ -40,7 +39,7 @@ def emotion_lists():
         images = gb.glob(dirpath+'/*.png')
         if images:
             images = sorted(images)
-            path_image, path_image_neutral, path_emotion = paths(images)
+            path_image, path_emotion = paths(images)
             emotion = class_emotion(path_emotion)
             if emotion == 1:
                 anger.append(path_image)
@@ -87,7 +86,7 @@ def process_class(images, class_num):
 f = open('../dataset/emotionalMesh/dataset1_2CK+.csv', 'w', newline='')
 
 # Init EmotionalMesh
-emotionalmesh = EmotionalMesh2(static=True, max_num_faces=1, refine=True)
+emotionalmesh = EmotionalMesh2(static=True, refine=True)
 
 # Dataset file header
 for i in range(0, emotionalmesh.num_angles):

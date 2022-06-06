@@ -18,15 +18,15 @@ Una vez presentado el contexto general en el cual se enmarca nuestro trabajo de 
 
 El objetivo principal de este TFG es desarrollar una herramienta de reconocimiento de emociones que sea capaz de funcionar en tiempo real en un sistema robótico de bajo coste. Para lograr dicha meta, se ha dividido el problema en estos subobjetivos:
 \begin{enumerate}
-    \item Estudiar cuál será la técnica más óptima en cuanto al reconocimiento de emociones. Debe ser una técnica liviana que no consuma muchos recursos para conseguir un alto valor de FPS (fotogramas por segundo) final en nuestro sistema.
+    \item Estudiar cuál será la técnica más óptima en cuanto al reconocimiento de emociones. Deberá ser una técnica liviana que no consuma muchos recursos, para conseguir un valor alto de FPS (fotogramas por segundo) en nuestro sistema, y que pueda funcionar plausiblemente en tiempo real.
     
-    \item Tras decidir que la extracción de puntos característicos faciales y el posterior entrenamiento con el tratamiento de ellos era la técnica más óptima y liviana para nuestro hardware, el siguiente paso es estudiar qué método para extraer esos puntos faciales es el más rápido y preciso.
+    \item Tras decidir que la extracción de puntos característicos faciales y el posterior entrenamiento con el tratamiento de ellos será la técnica más óptima y liviana para nuestro hardware, el siguiente paso será estudiar qué método para extraer esos puntos faciales es el más rápido y preciso.
     
-    \item Crear un dataset de valor con los puntos característicos faciales. Se debe hacer un correcto tratamiento de los datos para conseguir un resultado preciso en el posterior entrenamiento.
+    \item Crear un dataset de valor con los puntos característicos faciales. Se deberá hacer un correcto tratamiento de los datos para conseguir un resultado preciso en el posterior entrenamiento.
     
     \item Realizar el entrenamiento con varios algoritmos de Machine Learning de clasificación. Estudiar el rendimiento y precisión de cada uno de ellos.
     
-    \item Integrar nuestro sistema en ROS para facilitar su uso en un sistema robótico.
+    \item Integrar nuestro sistema en ROS para facilitar su uso en cualquier sistema robótico.
 \end{enumerate}
 
 \section{Requisitos}
@@ -34,16 +34,16 @@ El objetivo principal de este TFG es desarrollar una herramienta de reconocimien
 
 El requisito principal del proyecto es que el sistema funcione a una tasa de FPS que permitan usarlo en tiempo real. La herramienta está enfocada en ayudar en la interacción entre personas y robots, por lo tanto debe poder ofrecer información lo más rápido posible para actuar en el momento preciso.\\
 
-Otro requisito es que todo el software debe correr en la Raspberry Pi 4b, ya que es el sistema de bajo coste escogido para realizar el trabajo. Además todo deberá funcionar bajo el sistema operativo Raspberry Pi OS porque es el más optimizado actualmente para nuestro hardware y el que por lo tanto nos ofrecerá mayor rendimiento (que es nuestro requisito principal).\\
+Otro requisito es que todo el software debe correr en la Raspberry Pi 4b, ya que es el sistema de bajo coste escogido para realizar el trabajo (los motivos de su elección se encuentran en la Sección \ref{sec:rpi}). Además todo deberá funcionar bajo el sistema operativo Raspberry Pi OS (Sección \ref{sec:raspberry_pi_os}) porque es el más optimizado actualmente para nuestro hardware y el que por lo tanto nos ofrecerá mayor rendimiento (que es nuestro requisito principal).\\
 
 Por último, al ser una herramienta para un sistema robótico, es muy importante conseguir la mayor robustez posible.
 
 \section{Metodología}
 \label{sec:metodologia}
 
-Se ha seguido un protocolo de reuniones semanales con el tutor de TFG a través de la plataforma Teams para comentar los avances y recibir realimentación, además de proponer cada semana las actividades a realizar.\\
+Se ha seguido un protocolo de reuniones semanales con el tutor del TFG a través de la plataforma Teams para comentar los avances y recibir realimentación, además de proponer cada semana las actividades a realizar.\\
 
-Se ha usado un repositorio\footnote{Repositorio TFG: \url{https://github.com/jmvega/tfg-jmartinez}} de Github en el cual se ha ido subiendo todo el código del desarrollo del sistema de este trabajo. Además, este repositorio posee una Wiki\footnote{Wiki: \url{https://github.com/jmvega/tfg-jmartinez/wiki}} que contiene explicaciones semanales de todo lo llevado a cabo durante estos meses de trabajo.
+Se ha usado un repositorio\footnote{Repositorio TFG: \url{https://github.com/jmvega/tfg-jmartinez}} de Github en el cual se ha ido subiendo todo el código del desarrollo del sistema de este trabajo. Además, este repositorio posee una Wiki\footnote{Wiki: \url{https://github.com/jmvega/tfg-jmartinez/wiki}} que contiene explicaciones semanales de todo lo llevado a cabo durante estos meses de trabajo.\\
 
 La herramienta final de ROS se puede encontrar en un repositorio\footnote{Sistema final en ROS: \url{https://github.com/jmrtzma/emotion_detection_ros}} de GitHub a parte. Se ha hecho de esta manera para que esté disponible para toda la comunidad de ROS y se la puedan descargar e instalar directamente.
 

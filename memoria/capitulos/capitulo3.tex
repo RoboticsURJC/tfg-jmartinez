@@ -86,7 +86,15 @@ La versión de Raspberry Pi OS escogida ha sido Raspberry Pi OS Legacy (Cuadro \
 \subsection{Raspberry Pi Camera Module V2.1}
 \label{sec:rpi_camera}
 
-La Raspberry Pi Camera es la cámara oficial desarrollada por Raspberry para ser utilizada en sus placas. Para este trabajo, se ha hecho uso de la versión 2.1 (Cuadro \ref{cuadro:especificaciones_rpi_camera}). Es una cámara de alta definición (3280x2464) que se conecta a cualquier Raspberry Pi compatible a través de una interfaz de bus CSI-2. Además de vídeo de alta calidad, ofrece una reducción de la contaminación de la imagen (ruido o manchas).\\
+La Raspberry Pi Camera (Figura \ref{fig:rpi_camera}) es la cámara oficial desarrollada por Raspberry para ser utilizada en sus placas. Para este trabajo, se ha hecho uso de la versión 2.1 (Cuadro \ref{cuadro:especificaciones_rpi_camera}). Es una cámara de alta definición (3280x2464) que se conecta a cualquier Raspberry Pi compatible a través de una interfaz de bus CSI-2. Además de vídeo de alta calidad, ofrece una reducción de la contaminación de la imagen (ruido o manchas).\\
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=9cm]{figs/rpi_camera.png}
+  \end{center}
+  \caption{Raspberry Pi Camera Module V2.1.}
+  \label{fig:rpi_camera}
+\end{figure}
 
 \begin{table}[H]
 \begin{center}
@@ -108,7 +116,15 @@ La Raspberry Pi Camera es la cámara oficial desarrollada por Raspberry para ser
 Se ha decidido escoger la Raspberry Pi Camera Module V2.1 en vez de una versión convencional de WebCam (USB) debido a las siguientes ventajas:
 
 \begin{itemize}
-    \item \textit{Mayor framerate.} Gracias a que la Raspberry Pi 4 Model B tiene un puerto dedicado para conectar la Raspberry Pi Camera, es posible conseguir una gran velocidad de fotogramas. Esto es debido a que esa conexión especial permite que la codificación vaya dirigida directamente a la GPU y sólo haya un pequeño impacto en la CPU, dejándola libre para otros usos. En cambio, una WebCam conectada por USB utiliza directamente la CPU, y mover datos a través de un USB es bastante costoso para un sistema de recursos limitados.
+    \item \textit{Mayor framerate.} Gracias a que la Raspberry Pi 4 Model B tiene un puerto dedicado para conectar la Raspberry Pi Camera (Figura \ref{fig:rpi_camera_CSI}), es posible conseguir una gran velocidad de fotogramas. Esto es debido a que esa conexión especial permite que la codificación vaya dirigida directamente a la GPU y sólo haya un pequeño impacto en la CPU, dejándola libre para otros usos. En cambio, una WebCam conectada por USB utiliza directamente la CPU, y mover datos a través de un USB es bastante costoso para un sistema de recursos limitados.
+    
+    \begin{figure} [h!]
+      \begin{center}
+        \includegraphics[width=9cm]{figs/rpi_camera_CSI.JPG}
+      \end{center}
+      \caption{MIPI Camera Serial Interfaze (CSI-2).}
+      \label{fig:rpi_camera_CSI}
+    \end{figure}
     
     \item \textit{Mayor calidad de imagen.} Es cierto que también existen WebCam con una calidad de imagen muy buena, pero su precio es elevado. Por lo tanto, la Raspberry Pi Camera acaba ganando en cuanto a calidad de imagen si realizamos la comparativa en el mismo rango de precio (29,14 \euro\footnote{Distribuidor oficial de Raspberry: \url{https://www.kubii.es/318-camaras-sensores}}). Sin embargo, este no es un apartado muy relevante porque finalmente en el sistema de detección de emociones no hacemos uso de la máxima resolución para aumentar el rendimiento.
     
@@ -127,4 +143,64 @@ Se ha escogido Python (versión 3.7.3) como lenguaje de programación para este 
     \item La librería que da soporte oficial a la Raspberry Pi Camera (Sección \ref{sec:rpi_camera}) únicamente se puede usar en Python. Se trata del paquete \textit{picamera}.
 \end{enumerate}
 
+\section{MediaPipe}
+
+MediaPipe\footnote{MediaPipe: \url{https://mediapipe.dev/}} es una plataforma, perteneciente a Google, que ofrece soluciones open source (código libre) de Machine Learning para varias plataformas: Android, iOS, C++, Python, Javascript y Coral. Se caracteriza por ofrecer algoritmos muy rápidos capaces de funcionar, con valores altos de FPS, sin hacer uso de una GPU. Se puede encontrar el código de todas las herramientas que ofrece en su repositorio\footnote{Repositorio MediaPipe: \url{https://github.com/google/mediapipe}} de GitHub.
+
+\subsection{Face Mesh}
+
+MediaPipe Face Mesh\footnote{MediaPipe Face Mesh: \url{https://google.github.io/mediapipe/solutions/face_mesh}} es una de las soluciones que nos ofrece MediaPipe. Se trata de una herramienta que detecta una malla facial 3D compuesta por 468 puntos usando únicamente una cámara. Haremos uso de este sistema en este trabajo para obtener información, en forma de coordenadas, de puntos faciales característicos.\\
+
+La arquitectura de Face Mesh está compuesta por dos modelos de Machine Learning (redes neuronales profundas): un detector facial y otro que predice la superficie 3D de puntos faciales usando únicamente el sector de las caras detectadas. Tener la cara recortada previamente aumenta el rendimiento. Además, una vez que se han detectado los rostros y se han localizado los puntos de referencia faciales, en los siguientes fotogramas simplemente se procede a realizar un rastreo de dichos puntos en vez de realizar constantemente detecciones (faciales o de coordenadas). Una vez que se pierdan, ya sí que se lleva a cabo una nueva detección.\\
+
+La herramienta posee los siguientes parámetros de entrada que permiten personalizar su funcionamiento:
+\begin{itemize}
+    \item \verb|static_image_mode|: se indica con un booleano (\textit{True} o \textit{False}) si se va a procesar una imagen estática o un vídeo, para que en caso de que sea un vídeo, realizar las optimizaciones oportunas.
+    
+    \item \verb|max_num_faces|: se indica con un número entero el número de caras que se desean detectar como máximo.
+    
+    \item \verb|refine_landmarks|: aumenta la precisión de las coordenadas alrededor de los ojos y los labios, a cambio de un poco más de cómputo. Se activa o desactiva con un booleano (\textit{True} o \textit{False}).
+    
+    \item \verb|min_detection_confidence|: con un valor del intervalo [0.0, 1.0] se indica al modelo de detección de rostros el valor mínimo de confianza para considerar una predicción exitosa.
+    
+    \item \verb|min_tracking_confidence|: con un valor del intervalo [0.0, 1.0] se indica al modelo de puntos faciales el valor mínimo de confianza para considerar que los puntos han sido rastreados correctamente.
+\end{itemize}
+
+La salida que nos proporciona exactamente el sistema Face Mesh de Mediapipe es una colección de rostros, donde cada rostro se representa como una lista de 468 puntos y cada uno de esos puntos se compone de las variables \textit{x}, \textit{y} y \textit{z}. Las variables \textit{x} e \textit{y} están normalizadas entre 0 y 1, por el ancho y alto de la imagen. La variable \textit{z} contiene la profundidad del punto, siendo el origen el centro de la cabeza.
+
+\section{Scikit-learn. Algoritmos de Machine Learning}
+
+Scikit-learn\footnote{Scikit-learn: \url{https://scikit-learn.org/stable/}} es una librería open source para Python que ofrece herramientas de Machine Learning. Entre ellas, incluye varios algoritmos de clasificación, los cuales serán usados en este trabajo. En las siguientes secciones se explica el funcionamiento de cada uno de ellos.
+
+\subsection{Máquinas de Vector Soporte (SVM)}
+
+Las \textit{Máquinas de Vector Soporte} o SVM (Support Vector Machines) son algoritmos de aprendizaje supervisado que se utilizan para resolver tareas de clasificación. El concepto general en el que SVM está basado, es el de la generación de un hiperplano que separa los datos de una clase con respecto a otra. La separación se realizará con la máxima distancia entre los puntos y el hiperplano, esto es, se separarán los datos de la forma más óptima posible (Figura \ref{fig:svm_hiperplano}). El dato más cercano al hiperplano, de cada clase, se denomina vector soporte.\\
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=9cm]{figs/svm_hiperplano.png}
+  \end{center}
+  \caption{Hiperplano de separación óptimo entre\\
+            los datos de dos clases.}
+  \label{fig:svm_hiperplano}
+\end{figure}
+
+El ejemplo de la Figura \ref{fig:svm_hiperplano} es separable linealmente (usando como hiperplano una línea), pero en la práctica real es complicado que esto suceda. Entonces, se hace uso de lo que se denomina \textit{kernel}, para transformar el conjunto de datos a un nuevo conjunto de una dimensión mayor, y que de esta manera se puedan separar linealmente en su nueva dimensión.
+
+\subsection{K Vecinos más Cercanos (KNN)}
+
+El \textit{K Vecinos más Cercanos} o KNN (K-Nearest Neighbours) es un algoritmo de aprendizaje supervisado utilizado para resolver tareas de clasificación. A diferencia de otros métodos, este utiliza siempre el conjunto de entrenamiento completo para realizar predicciones, en vez de crear un modelo en base a la relación de las entradas y las salidas. Es por ello, que es un método costoso computacionalmente para conjuntos de datos muy grades, pero ese no es nuestro caso.\\
+
+El método está basado en calcular la distancia del dato a evaluar respecto a los demás datos. Partiendo de eso, el algoritmo se queda con los \textit{k} datos más cercanos, siendo \textit{k} un parámetro personalizable, y de estos elige la clase que más se repite, siendo esta la predicción realizada. Para medir la distancia entre datos, el método utilizado en este trabajo es el de distancia Euclídea (Ecuación \ref{ec:d_euclidea}).\\
+
+\begin{myequation}[h]
+\begin{equation}
+d(x^{\prime}, x^{(i)}) = \sqrt{\sum_{r=1}^{p}(x_{r}^{\prime}-x_{r}^{(i)})^{2}}
+\nonumber
+\label{ec:d_euclidea}
+\end{equation}
+\captionsetup{justification=centering}
+\caption[Distancia Euclídea de un vector $x^{\prime}$ con \textit{p} características respecto al vector i-ésimo $(x^{(i)})$]{Distancia Euclídea de un vector $x^{\prime}$ \\
+con \textit{p} características respecto al vector i-ésimo $(x^{(i)})$}
+\end{myequation} 
 

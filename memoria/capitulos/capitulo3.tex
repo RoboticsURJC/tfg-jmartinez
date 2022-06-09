@@ -1,17 +1,9 @@
 \chapter{Plataforma de desarrollo}
 \label{cap:capitulo3}
 
-\begin{flushright}
-\begin{minipage}[]{10cm}
-\emph{Quizás algún fragmento de libro inspirador...}\\
-\end{minipage}\\
-
-Autor, \textit{Título}\\
-\end{flushright}
-
 \vspace{1cm}
 
-Escribe aquí un párrafo explicando brevemente lo que vas a contar en este capítulo. En este capítulo, explica qué has usado a nivel hardware y software para poder desarrollar tu trabajo: librerías, sistemas operativos, plataformas, entornos de desarrollo, etc.
+En este capítulo, se introducen y describen las herramientas, tanto hardware como software, usadas para el desarrollo de este trabajo.
 
 \section{Raspberry Pi 4 Model B}
 \label{sec:rpi}
@@ -138,7 +130,7 @@ Python es un lenguaje de programación interpretado (se ejecuta sin necesidad de
 Se ha escogido Python (versión 3.7.3) como lenguaje de programación para este proyecto debido a los dos siguientes motivos:
 
 \begin{enumerate}
-    \item El sistema desarrollado usa algoritmos de Machine Learning para detectar las emociones faciales y Python es el lenguaje de programación rey en ese campo, posee múltiples librerías como Pandas, TensorFlow, Keras, Scikit-learn... que brindan un soporte excepcional para cualquier tarea relacionada con el aprendizaje automático.
+    \item El sistema desarrollado en este trabajo usa algoritmos de Machine Learning para detectar las emociones faciales y Python es el lenguaje de programación rey en ese campo, posee múltiples librerías como Pandas, TensorFlow, Keras, Scikit-learn... que brindan un soporte excepcional para cualquier tarea relacionada con el aprendizaje automático.
     
     \item La librería que da soporte oficial a la Raspberry Pi Camera (Sección \ref{sec:rpi_camera}) únicamente se puede usar en Python. Se trata del paquete \textit{picamera}.
 \end{enumerate}
@@ -149,9 +141,17 @@ MediaPipe\footnote{MediaPipe: \url{https://mediapipe.dev/}} es una plataforma, p
 
 \subsection{Face Mesh}
 
-MediaPipe Face Mesh\footnote{MediaPipe Face Mesh: \url{https://google.github.io/mediapipe/solutions/face_mesh}} es una de las soluciones que nos ofrece MediaPipe. Se trata de una herramienta que detecta una malla facial 3D compuesta por 468 puntos usando únicamente una cámara. Haremos uso de este sistema en este trabajo para obtener información, en forma de coordenadas, de puntos faciales característicos.\\
+MediaPipe Face Mesh\footnote{MediaPipe Face Mesh: \url{https://google.github.io/mediapipe/solutions/face_mesh}} es una de las soluciones que nos ofrece MediaPipe. Se trata de una herramienta que detecta una malla facial 3D compuesta por 468 puntos usando únicamente una cámara (Figura \ref{fig:mediapipe}). Haremos uso de este sistema en este trabajo para obtener información, en forma de coordenadas, de puntos faciales característicos.\\
 
-La arquitectura de Face Mesh está compuesta por dos modelos de Machine Learning (redes neuronales profundas): un detector facial y otro que predice la superficie 3D de puntos faciales usando únicamente el sector de las caras detectadas. Tener la cara recortada previamente aumenta el rendimiento. Además, una vez que se han detectado los rostros y se han localizado los puntos de referencia faciales, en los siguientes fotogramas simplemente se procede a realizar un rastreo de dichos puntos en vez de realizar constantemente detecciones (faciales o de coordenadas). Una vez que se pierdan, ya sí que se lleva a cabo una nueva detección.\\
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=12cm]{figs/mediapipe.png}
+  \end{center}
+  \caption{Malla facial de MediaPipe.}
+  \label{fig:mediapipe}
+\end{figure}
+
+La arquitectura de Face Mesh está compuesta por dos modelos de Machine Learning (redes neuronales profundas): un detector facial y otro que predice la superficie 3D de puntos faciales usando únicamente el sector de las caras detectadas, este último desarrollado en el artículo \cite{facemesh_surface}. Tener la cara recortada previamente aumenta el rendimiento. Además, una vez que se han detectado los rostros y se han localizado los puntos de referencia faciales, en los siguientes fotogramas simplemente se procede a realizar un rastreo de dichos puntos en vez de realizar constantemente detecciones (faciales o de coordenadas). Una vez que se pierdan, ya sí que se lleva a cabo una nueva detección.\\
 
 La herramienta posee los siguientes parámetros de entrada que permiten personalizar su funcionamiento:
 \begin{itemize}
@@ -167,6 +167,29 @@ La herramienta posee los siguientes parámetros de entrada que permiten personal
 \end{itemize}
 
 La salida que nos proporciona exactamente el sistema Face Mesh de Mediapipe es una colección de rostros, donde cada rostro se representa como una lista de 468 puntos y cada uno de esos puntos se compone de las variables \textit{x}, \textit{y} y \textit{z}. Las variables \textit{x} e \textit{y} están normalizadas entre 0 y 1, por el ancho y alto de la imagen. La variable \textit{z} contiene la profundidad del punto, siendo el origen el centro de la cabeza.
+
+\section{Detector de puntos faciales. Dlib.}
+
+Dlib es un conjunto de herramientas que contiene algoritmos de Machine Learning. En este trabajo se ha hecho uso del detector de puntos faciales, capaz de detectar 68 puntos de referencia, contenido en dlib (Figura \ref{fig:dlib_example}).\\
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=7cm]{figs/dlib_example.png}
+  \end{center}
+  \captionsetup{justification=centering}
+  \caption{Ejemplo usando el detector de puntos faciales de dlib.\\
+  Imagen obtenida del artículo \cite{dlib_example}}
+  \label{fig:dlib_example}
+\end{figure}
+
+El algorimo está compuesto de dos fases: detección del rostro y detección de las regiones faciales. Para realizar la detección de rostros, dlib incluye dos opciones:
+
+\begin{itemize}
+    \item HOG (Histogram of Oriented Gradients) y Linear SVM.
+    \item Red Neuronal Convolucional MMOD (Max-Margin Object Detection)
+\end{itemize}
+
+Posteriormente, para realizar la detección de puntos de referencia faciales usa Árboles de Regresión. En concreto, usa la técnica explicada en el artículo \cite{facial_landmarks_dlib}.
 
 \section{Scikit-learn. Algoritmos de Machine Learning}
 
@@ -191,7 +214,16 @@ El ejemplo de la Figura \ref{fig:svm_hiperplano} es separable linealmente (usand
 
 El \textit{K Vecinos más Cercanos} o KNN (K-Nearest Neighbours) es un algoritmo de aprendizaje supervisado utilizado para resolver tareas de clasificación. A diferencia de otros métodos, este utiliza siempre el conjunto de entrenamiento completo para realizar predicciones, en vez de crear un modelo en base a la relación de las entradas y las salidas. Es por ello, que es un método costoso computacionalmente para conjuntos de datos muy grades, pero ese no es nuestro caso.\\
 
-El método está basado en calcular la distancia del dato a evaluar respecto a los demás datos. Partiendo de eso, el algoritmo se queda con los \textit{k} datos más cercanos, siendo \textit{k} un parámetro personalizable, y de estos elige la clase que más se repite, siendo esta la predicción realizada. Para medir la distancia entre datos, el método utilizado en este trabajo es el de distancia Euclídea (Ecuación \ref{ec:d_euclidea}).\\
+El método está basado en calcular la distancia del dato a evaluar respecto a los demás datos. Partiendo de eso, el algoritmo se queda con los \textit{k} datos más cercanos, siendo \textit{k} un parámetro personalizable, y de estos elige la clase que más se repite, siendo esta la predicción realizada (Figura \ref{fig:knn}). Para medir la distancia entre datos, el método utilizado en este trabajo es el de distancia Euclídea (Ecuación \ref{ec:d_euclidea}).\\
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=9cm]{figs/knn.png}
+  \end{center}
+  \captionsetup{justification=centering}
+  \caption{Ejemplo de KNN con $k = 3$.}
+  \label{fig:knn}
+\end{figure}
 
 \begin{myequation}[h]
 \begin{equation}
@@ -204,3 +236,54 @@ d(x^{\prime}, x^{(i)}) = \sqrt{\sum_{r=1}^{p}(x_{r}^{\prime}-x_{r}^{(i)})^{2}}
 con \textit{p} características respecto al vector i-ésimo $(x^{(i)})$}
 \end{myequation} 
 
+\subsection{Redes Neuronales Multicapa}
+
+Una red neuronal (Figura \ref{fig:red_neuronal}) es un modelo computacional inspirado en el funcionamiento del cerebro humano utilizado, en la mayoría de los casos, como técnica de aprendizaje supervisado. Está compuesta por un conjunto de neuronas que a su vez, si la red es multicapa, forman capas de neuronas. Realizo la excepción anterior porque existen también redes neuronales de una sola capa, denominadas perceptrón.\\
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=11cm]{figs/redes_neuronales.png}
+  \end{center}
+  \caption{Red neuronal de tres capas y ocho neuronas.}
+  \label{fig:red_neuronal}
+\end{figure}
+
+Todas las neuronas están interconectadas entre sí y cada una de esas neuronas estará formada por una función de decisión o función de transferencia (normalmente una función escalón, lineal o sigmoide). En el caso de una neurona de una sola entrada, la función de decisión evaluará la suma del producto del peso \textit{w} y la entrada \textit{x}, más el término independiente \textit{b} (Figura \ref{fig:neurona}).\\
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=8cm]{figs/neurona.png}
+  \end{center}
+  \captionsetup{justification=centering}
+  \caption{Ejemplo del interior de una neurona de una entrada,\\
+  donde \textit{x} es la entrada y \textit{a} es la salida.}
+  \label{fig:neurona}
+\end{figure}
+
+La etapa de \textit{entrenamiento}, será un proceso iterativo en el que la red neuronal ajustará los valores de los pesos \textit{w} de cara a estimar el valor de salida.  Una vez que se haya finalizado el entrenamiento, la red se usa como una \textit{caja negra}, esto es, se le proporcionan una serie de entradas y te devuelve unas respectivas salidas, sin nosotros conocer lo que ha sucedido dentro.
+
+\section{ROS (Robot Operating System)}
+
+ROS (Robot Operating System)\footnote{ROS: \url{https://www.ros.org/}} (Figura \ref{fig:logo_ros}) es un \textit{middleware} para el desarrollo de software en robots, es decir, una colección de librerías software que proporcionan servicios tales como la abstracción del hardware o paso de mensajes entre procesos. Además, todo es código libre y multiplataforma (Linux, Windows, macOS).\\
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=5cm]{figs/ros_logo.png}
+  \end{center}
+  \captionsetup{justification=centering}
+  \caption{Logo de ROS.}
+  \label{fig:logo_ros}
+\end{figure}
+
+Cada uno de los procesos de ROS se denominan \textit{nodos} y se comunican entre sí usando \textit{topics}, ya sea en la misma máquina o de forma remota en una red local. El envío y recibimiento de mensajes a través de los \textit{topics}, se consigue haciendo uso de publicadores y subscriptores. Además, ofrece otras opciones de comunicación como los servicios o acciones. El nodo \textit{máster} será el encargado de permitir que todos los nodos se localicen entre sí, proporcionando ---entre otras cosas--- servicios de \textit{naming}. En la Figura \ref{fig:ros} se puede observar un esquema reducido de lo que sería una comunicación entre un nodo publicador y un nodo suscriptor a través del \textit{topic} \verb|\ejemplo|.\\
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=11cm]{figs/ros.png}
+  \end{center}
+  \captionsetup{justification=centering}
+  \caption{Esquema simple de una comunicación publicador-suscriptor en ROS.}
+  \label{fig:ros}
+\end{figure}
+
+Existe una gran comunidad de usuarios desarrolladores que aportan paquetes al entorno ROS y, por lo tanto, lo hacen aún más rico. Entre todos estos paquetes, podemos encontrar algunos enfocados en ---por ejemplo--- identificación de objetos o reconocimiento de voz. La versión de ROS usada en este trabajo será ROS Noetic y el resultado final del sistema será de código libre para dicha comunidad de ROS.

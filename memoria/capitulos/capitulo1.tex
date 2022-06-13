@@ -2,29 +2,21 @@
 \label{cap:capitulo1}
 \setcounter{page}{1}
 
-\begin{flushright}
-\begin{minipage}[]{10cm}
-\emph{Quizás algún fragmento de libro inspirador...}\\
-\end{minipage}\\
-
-Autor, \textit{Título}\\
-\end{flushright}
-
 \vspace{1cm}
 
-La robótica se define como la intersección entre ciencia, ingeniería y tecnología con el objetivo de desarrollar máquinas que realicen tareas de forma automática. El término robot proviene de la palabra checa \textit{robota} que significa \textit{trabajo forzado}, se utilizó por primera vez en la obra de teatro RUR (Rossum's Universal Robots) del autor Karel Capek estrenada en 1921.\\
+La robótica engloba ciencia, ingeniería y tecnología, y su objetivo es el de desarrollar máquinas que realicen tareas de forma automática. El término robot proviene de la palabra checa \textit{robota}, que significa \textit{trabajo forzado}; esta se utilizó por primera vez en la obra de teatro RUR (Rossum's Universal Robots) del autor Karel Capek, estrenada en 1921.\\
 
-Se puede clasificar a los robots en dos grandes campos: robots industriales y robots de servicio. Según la norma internacional ISO 8373:2012 un robot industrial es un manipulador multifuncional, reprogramable y controlado automáticamente, programable en tres o más ejes que puede estar fijo en un área o móvil para su uso en aplicaciones de automatización industrial. Por otro lado, según la Federación Internacional de Robótica (IFR), un robot de servicio es un robot que opera de forma parcial o totalmente autónoma para realizar servicios útiles para el bienestar de los humanos y del equipamiento, excluyendo operaciones de manufactura.\\
+Los robots se pueden clasificar en dos grandes campos: robots industriales y robots de servicio. Según la norma internacional ISO 8373:2012 un robot industrial es un manipulador multifuncional, reprogramable y controlado automáticamente, programable en tres o más ejes, y puede estar fijo en un área o móvil para su uso en aplicaciones de automatización industrial. Por otro lado, según la Federación Internacional de Robótica (IFR), un robot de servicio es un robot que opera de forma parcial o totalmente autónoma para realizar servicios útiles para el bienestar de los humanos, excluyendo operaciones de manufactura.\\
 
-En este primer capítulo se pretende dar un contexto amplio al lector sobre el presente trabajo. El autor comenzará presentando la robótica de servicio, campo para el cual está enfocado nuestro sistema, y continuará avanzando por los distintos conceptos generales hasta los más específicos.
+En este primer capítulo se pretende dar un contexto amplio al lector sobre el presente trabajo. Se comienza presentando de forma general la robótica de servicio, campo en el cual se enmarca este trabajo, y se continúa avanzando por los distintos conceptos en los que se basa la investigación y desarrollo llevado a cabo.
 
 \section{Robótica de servicio}
 \label{sec:robotica} % etiqueta para luego referenciar esta sección
 
-En los últimos años la robótica de servicio está obteniendo un auge exponencial, cada vez son más los campos en los que los robots ayudan a los seres humanos intentando mejorar su calidad de vida ayudándoles a realizar tareas peligrosas o proporcionando una compañía agradable a aquellos que lo necesitan. Entre las aplicaciones más importantes encontramos:
+En los últimos años la robótica de servicio está obteniendo un auge exponencial. Cada vez son más los campos en los que los robots ayudan a los seres humanos ---por ejemplo--- intentando mejorar su calidad de vida, ayudándoles a realizar tareas peligrosas o proporcionando simplemente una compañía agradable a aquellos que lo necesitan. Entre las aplicaciones más importantes encontramos las siguientes:
 
 \begin{itemize}
- \item \textit{Limpieza.} Aspiradoras domésticas como iRobot Roomba 980 o limpiadores de ventanas como WinBot 950 (Figura \ref{fig:robots_limpieza}). Robots caracterizados por típicamente realizar tareas de navegación con el objetivo de recorrer completamente una zona mientras llevan a cabo las labores de limpieza.\\
+ \item \textit{Limpieza.} Aspiradoras domésticas como iRobot Roomba 980 o limpiadores de ventanas como WinBot 950 (Figura \ref{fig:robots_limpieza}). Robots caracterizados por realizar tareas de navegación con el objetivo de recorrer completamente una zona mientras llevan a cabo labores de limpieza.\\
  
 \begin{figure} [h!]
   \begin{center}
@@ -34,45 +26,45 @@ En los últimos años la robótica de servicio está obteniendo un auge exponenc
   \label{fig:robots_limpieza}
 \end{figure}
 
-\item \textit{Inspección.} Cartografías 3D, inspección de plantas petrolíferas, aerogeneradores o minas. Suelen ser lugares de difícil acceso para los humanos, por lo tanto son tareas que estarán al cargo de robots cuadrúpedos o drones. Los robots con cuatro patas son actualmente los autómatas terrestres más estables del mercado y tienen la capacidad de recorrer terrenos inestables o incluso subir y bajar escales.  Uno de los más populares es Spot de Boston Dynamics (Figura \ref{fig:spot}).\\
+\item \textit{Inspección.} Cartografías 3D, inspección de plantas petrolíferas, aerogeneradores o minas. Suelen ser lugares de difícil acceso para los humanos, por lo que resulta idóneo el uso de robots cuadrúpedos o drones. Los robots con cuatro patas son actualmente los autómatas terrestres más estables del mercado y tienen la capacidad de recorrer terrenos inestables o incluso subir y bajar escaleras. Uno de los más populares es Spot, de Boston Dynamics (Figura \ref{fig:spot}).\\
 
 \begin{figure} [h!]
   \begin{center}
     \includegraphics[width=8cm]{figs/spot.jpg}
   \end{center}
-  \caption{Robot Spot de Boston Dynamics. Fuente \cite{xataka}}
+  \caption{Robot Spot de Boston Dynamics.}
   \label{fig:spot}
 \end{figure}
 
-\item \textit{Eduación.} Aquellos enfocados a la docencia tanto infantil como universitaria. Podemos destacar modelos como mBot con posibilidad de programación a través de bloques con mBlock IDE\footnote{\url{https://ide.mblock.cc}} o modelos como el TurtleBot con soporte ROS\footnote{\url{https://www.ros.org/}}.
+\item \textit{Educación.} Aquellos robots enfocados a la docencia, tanto infantil como universitaria. Podemos destacar modelos como mBot, con posibilidad de programación a través de bloques con mBlock IDE\footnote{mBlock IDE: \url{https://ide.mblock.cc}}, o modelos como el TurtleBot, con soporte ROS\footnote{ROS: \url{https://www.ros.org/}}.
 
-\item \textit{Conducción autónoma.} Una tecnología cada vez más madura y extendida. Empresas como Waymo (Figura \ref{fig:waymo}) o AutoX ya están comercializando productos reales que llevan a cabo esta tarea proporcionando servicios de taxi autónomos. Otros fabricantes como Tesla comercializan también coches semi-automáticos.\\
+\item \textit{Conducción autónoma.} Una tecnología cada vez más madura y extendida. Empresas como Waymo (Figura \ref{fig:waymo}) o AutoX ya están comercializando productos reales que llevan a cabo esta tarea, proporcionando servicios de taxi autónomos. Otros fabricantes como Tesla comercializan también coches semi-automáticos.\\
 
 \begin{figure} [h!]
   \begin{center}
     \includegraphics[width=8cm]{figs/waymo.jpg}
   \end{center}
-  \caption{Taxi autónomo de Waymo. Fuente \cite{xataka}}
+  \caption{Taxi autónomo de Waymo.}
   \label{fig:waymo}
 \end{figure}
 
 \item \textit{Logística.} Robots destinados a agilizar el transporte de materiales o productos dentro de una fábrica o almacén. Existen dos grandes grupos: AGV (Vehículo Guiado Automático) y AMR (Robot Móvil Autónomo).
 
-\item \textit{Ámbito sanitario.} Es uno de los campos más amplios dentro de la robótica de servicio, existen autómatas realizando múltiples tareas. Podemos encontrar exoesqueletos enfocados en la rehabilitación de la marcha humana como el Atlas de Marsi-Bionics o robots ayudantes en cirugía como Da Vinci o Mako (Figura \ref{fig:robots_cirugia}).
+\item \textit{Ámbito sanitario.} Es uno de los campos más amplios dentro de la robótica de servicio, donde existen autómatas realizando múltiples tareas. Podemos encontrar exoesqueletos enfocados en la rehabilitación de la marcha humana como el Atlas de Marsi-Bionics, o robots ayudantes en cirugía como Da Vinci o Mako (Figura \ref{fig:robots_cirugia}).
 
 \begin{figure} [h!]
   \begin{center}
     \includegraphics[width=12cm]{figs/robots_cirugia.png}
   \end{center}
-  \caption{Robot DaVinci y Robot Mako. Fuente \cite{davinci} \cite{mako}}
+  \caption{Robot DaVinci y Robot Mako.}
   \label{fig:robots_cirugia}
 \end{figure}
 
-Además, en los últimos años está surgiendo y avanzando un nuevo tipo de robótica sanitaria, los robots de compañía o asistentes personales. Estos consiguen empatizar con los pacientes y hacerles pasar un rato más ameno o ayudarles a que no se sientan sólos. Para ello es indispensable realizar un buen HRI (Human Robot Interaction, en inglés), tema del cual trata la siguiente sección. Un ejemplo de robot de compañía sería Robin (Figura \ref{fig:robin}), el cual ayuda a los niños a superar el miedo de ir al médico.
+Además, en los últimos años está surgiendo un nuevo tipo de robótica sanitaria, los robots de compañía o asistentes personales. Estos consiguen empatizar con los pacientes y hacerles pasar un rato más ameno o ayudarles a que no se sientan sólos. Para ello es indispensable conseguir una buena interacción humano-robot o HRI (Human Robot Interaction), tema del cual trata la siguiente sección. Un ejemplo de robot de compañía lo encontramos con Robin (Figura \ref{fig:robin}), el cual ayuda a los niños a superar el miedo de ir al médico.
 
 \begin{figure} [h!]
   \begin{center}
-    \includegraphics[width=9cm]{figs/robin.png}
+    \includegraphics[width=8cm]{figs/robin.png}
   \end{center}
   \caption{Robot Robin.}
   \label{fig:robin}
@@ -84,7 +76,7 @@ Además, en los últimos años está surgiendo y avanzando un nuevo tipo de rob�
 
 Podemos definir el HRI como el campo de estudio que intenta comprender, diseñar y evaluar la interacción entre los robots y los seres humanos. Debido a que los robots están cada vez más presentes en nuestras vidas, esta rama de investigación nace con la necesidad de que estos tengan la capacidad de colaborar y vivir con nosotros, los humanos.\\
 
-La definición de HRI se remonta al año 1941, donde Isaac Asimov habla por primera vez de ello en su novela \textit{Yo, Robot}. Además escribe unas leyes, las que se conocen actualmente como \textit{Las Tres Leyes de la Robótica}, que promueven una interacción segura entre humanos y robots. Las tres leyes son las siguientes:
+La definición de HRI se remonta al año 1941, donde Isaac Asimov habla por primera vez de ello en su novela \textit{Yo, Robot}. Además, este autor definió una serie de leyes que se conocen actualmente como \textit{Las Tres Leyes de la Robótica}, y que promueven una interacción segura entre humanos y robots. Las tres leyes son las siguientes:
 
 \begin{itemize}
     \item \textit{Primera Ley.} Un robot no hará daño a un ser humano ni, por inacción, permitirá que un ser humano sufra daño.
@@ -92,53 +84,53 @@ La definición de HRI se remonta al año 1941, donde Isaac Asimov habla por prim
     \item \textit{Tercera Ley.} Un robot debe proteger su propia existencia en la medida en que esta protección no entre en conflicto con la primera o la segunda ley.
 \end{itemize}
 
-Actualmente esas leyes representan el código moral y han sido modificadas por Isaac Asimov y otros autores para conseguir mayor perfección. Además Asimov agregó una cuarta ley por encima de esas tres que viene a ser una generalización de la primera, \textit{La Ley Cero}:
+Actualmente, estas leyes representan el código moral y han sido modificadas por Isaac Asimov y otros autores para conseguir mayor perfección. Además, Asimov agregó una cuarta ley por encima de esas tres que viene a ser una generalización de la primera, \textit{La Ley Cero}:
 
 \begin{itemize}
     \item \textit{Ley Cero.} Un robot no puede dañar a la humanidad o, por inacción, permitir que la humanidad sufra daños.
 \end{itemize}
 
-En el artículo \cite{hri_distancing} se realiza un estudio enfocado en como el trato proporcionado por un robot a un humano influía en la distancia física de ambos. Para realizar los experimentos usaron un robot que era capaz de expresar emociones a través de gestos y los resultados demostraron que si el robot ejercía un trato poco social y nada empático, la distancia con el humano aumentaba. En cambio, si el robot expresaba un comportamiento amigable y comprensivo, la distancia con el humano disminuía ya que el nivel de confianza con el robot aumentaba. Por lo tanto si lo que queremos es que los robots sean capaces de colaborar y vivir con nosotros, debemos ser capaces de que estos actúen con empatía, comprensión y amabilidad hacia los seres humanos. Esto no es una tarea trivial, es más bien complicada, y surgen muchos baches por el camino.
+En el artículo \cite{hri_distancing} se realiza un estudio enfocado en cómo el trato proporcionado por un robot a un humano influía en la distancia física de ambos. Para realizar los experimentos usaron un robot que era capaz de expresar emociones a través de gestos y los resultados demostraron que si el robot ejercía un trato poco social y nada empático, la distancia con el humano aumentaba. En cambio, si el robot expresaba un comportamiento amigable y comprensivo, la distancia con el humano disminuía, ya que el nivel de confianza con el robot aumentaba. Por lo tanto, si lo que queremos es que los robots sean capaces de colaborar y vivir con nosotros, debemos ser capaces de que estos actúen con empatía, comprensión y amabilidad hacia los seres humanos.
 
 \subsection{Problemática. Paradoja de Moravec}
 
-Según Dautenhahn el robot debe adaptarse a nuestra forma de expresión y nos debe comprender tal como somos y actuamos. Esto es algo realmente complicado para una máquina ya que no tienen la capacidad de razonar, únicamente se limitan a ejecutar órdenes que previamente han sido programadas, y las reglas de un entorno social humano pueden ser muy variadas y poco esperadas. Este problema lo presenta la \textit{Paradoja de Moravec}.\\
+Según Dautenhahn en el artículo \cite{hri_dautenhahn}, el robot debe adaptarse a nuestra forma de expresión y nos debe comprender tal como somos y actuamos. Esto es algo realmente complicado para una máquina, ya que no tienen la capacidad de razonar; un robot únicamente se limita a ejecutar órdenes que previamente han sido programadas, y las reglas de un entorno social humano pueden ser muy variadas y poco esperadas.\\
 
-Según Moravec los actos voluntarios de un humano requieren de poca computación para una máquina, mientras que los actos no conscientes e involuntarios requieren de grandes esfuerzos computacionales. Moravec afirmó <<comparativamente es fácil conseguir que las computadoras muestren capacidades similares a las de un humano adulto en tests de inteligencia, y difícil o imposible lograr que posean las habilidades perceptivas y motrices de un bebé de un año>> \cite{moravec}. Esto según él, es debido a la evolución biológica humana.\\
+Según Moravec en su libro \cite{moravec}, los actos voluntarios de un humano requieren de poca computación para una máquina, mientras que los actos no conscientes e involuntarios requieren de grandes esfuerzos computacionales. Moravec afirmó: <<comparativamente es fácil conseguir que las computadoras muestren capacidades similares a las de un humano adulto en tests de inteligencia, y difícil o imposible lograr que posean las habilidades perceptivas y motrices de un bebé de un año>>. Esto, según él, es debido a la evolución biológica humana.\\
 
-Todas nuestras habilidades han sido perfeccionadas a lo largo de millones de años por el proceso de selección natural y por lo tanto, sería lógico pensar que si intentamos replicar dichas habilidades en una máquina nos tomaría como mínimo el mismo tiempo proporcionalmente. Muchas de nuestras acciones más valiosas (coger objetos, reconocer voces, prestar atención, habilidades sociales...) son involuntarias y es eso lo que provoca que aplicarles ingeniería inversa sea muy complicado. Sin embargo habilidades como las matemáticas resultan complejas para nosotros, ya que nuestro cuerpo y cerebro no está preparado para ello, y muy triviales para las máquinas.\\
+Todas nuestras habilidades han sido perfeccionadas a lo largo de millones de años por el proceso de selección natural y, por lo tanto, sería lógico pensar que si intentamos replicar dichas habilidades en una máquina, nos tomaría como mínimo el mismo tiempo proporcionalmente. Muchas de nuestras acciones más valiosas, como coger objetos, reconocer voces, prestar atención, las habilidades sociales, etc. son involuntarias, y es eso lo que provoca que aplicarles ingeniería inversa sea muy complicado. Sin embargo, habilidades como las matemáticas resultan complejas para nosotros, ya que nuestro cuerpo y cerebro no está preparado para ello, y muy triviales para las máquinas.\\
 
-Conociendo toda esta problemática parece casi imposible que un robot sea capaz de interaccionar con un humano, pero existen últimos avances en la ingeniería que aportan un poco de claridad y optimismo al HRI.
+Conociendo toda esta problemática parece casi imposible que un robot sea capaz de interaccionar con un humano, pero existen numerosos avances en la ingeniería que aportan un poco de claridad y optimismo al HRI.
 
-\subsection{Soluciones robóticas de interacción}
+\subsection{Soluciones}
 
 Una interacción completa de humano-humano está regida por la vista, el oído y el tacto. Esos tres sentidos proporcionan toda la información que posteriormente nuestro cerebro procesará y razonará. Podemos concluir diciendo entonces que la interacción entre un humano y un robot estará compuesta por dos fases: \textit{percepción} y \textit{razonamiento}. Además después de haber razonado habría que actuar adecuadamente para que la interacción prosiga, pero no es un tema relevante en el contexto de este trabajo. 
 
-\subsubsection{Percepción} 
+\subsubsection{Percepción}
+\label{sec:percepcion}
 
 Lo que para nosotros serían los sentidos, en los robots lo podemos sustituir por sensores. Cámaras para la vista, micrófonos para el oído o sensores de presión para el tacto. Además de estos existen múltiples variantes más y con mayor o menor precisión en su tarea. Podríamos decir que esta fase de la interacción está bastante bien cubierta y de algún modo es muy semejante a la humana.\\
 
-Estos sensores por si sólos no tienen ningún valor sino que detrás de todos esos datos capturados deben existir algoritmos que saquen conclusiones de todos ellos. Por ejemplo, en los fotogramas capturados por una cámara se puede realizar detección de objetos o personas a través de la Visión Artificial y el Machine Learning. O por ejemplo, extraer palabras o frases del audio capturado por un micrófono usando también Machine Learning.\\
-
-Podríamos pensar que esto ya nos resuelve todos los problemas, pero no es así. Hasta ahora sólo tenemos muchos datos sin ningún contexto, cosa que los humanos hacemos a través de la razón.
+Estos sensores por si sólos no tienen ningún valor, sino que detrás de todos esos datos capturados deben existir algoritmos que saquen conclusiones de todos ellos. Por ejemplo, se puede realizar detección de personas en los fotogramas capturados por una cámara o extraer palabras del audio capturado por un micrófono.
 
 \subsubsection{Razonamiento} 
+\label{sec:razonamiento}
 
-Sin lugar a dudas es la más compleja y la que más investigación necesita. A día de hoy no se ha conseguido implementar un real razonamiento humano dentro de un robot, pero si que se utilizan diversos trucos que simulan ese \textit{razonamiento}:
+Sin lugar a dudas es la habilidad más compleja y la que más investigación necesita. A día de hoy no se ha conseguido implementar un real razonamiento humano dentro de un robot, pero si que se utilizan diversos trucos que simulan ese \textit{razonamiento}:
 
 \begin{itemize}
-\item \textit{Contexto de una conversación.} La frase <<No he visto ninguno>> puede tener múltiples significados dependiendo del tema el cual se esté tratando en la conversación. Se podría estar expresando que no se ha visto ningún error en la carta que se escribiendo o que no se ha visto llegar el taxi se había pedido. Entonces los robots no se pueden dedicar a detectar únicamente frases sueltas y actuar ante ellas. Para ello existen modelos de lenguaje como GPT-3 entrenados a través de Machine Learning que consiguen simular que están entendiendo el diálogo, pero en realidad sólo están repitiendo conversaciones con las que han sido entrenados.
+\item \textit{Contexto de una conversación.} La frase <<No he visto ninguno>> puede tener múltiples significados dependiendo del tema el cual se esté tratando en la conversación. Se podría estar expresando que no se ha visto ningún error en la carta que se escribiendo o que no se ha visto llegar el taxi se había pedido. Entonces los robots no se pueden dedicar a detectar únicamente frases sueltas y actuar ante ellas. Para ello existen modelos de lenguaje como GPT-3 que consiguen simular que están entendiendo el diálogo, pero en realidad sólo están repitiendo conversaciones con las que han sido entrenados.
 
-\item \textit{Atención.} Mediante reconocimiento facial (usando Visión Artificial y Machine Learning) el robot puede realizar un seguimiento con la mirada a la cara del sujeto con el que está interactuando. Esto por ejemplo, simularía que el robot está prestando atención a una conversación.
+\item \textit{Atención.} Mediante reconocimiento facial el robot puede realizar un seguimiento con la mirada a la cara del sujeto con el que está interactuando. Esto por ejemplo, simularía que el robot está prestando atención a una conversación.
 
-\item \textit{Compresión de la situación emocional.} A través de la detección de emociones o expresiones faciales (otra vez usando Visión Artificial y Machine Learning) del sujeto con el que se está interactuando, el robot puede actuar de una manera u otra simulando que está comprendiendo situación emocional. El sistema de detección de emociones desarrollado en este trabajo estaría presente en este apartado y el anterior de \textit{Atención}.
+\item \textit{Compresión de la situación emocional.} A través de la detección de emociones o expresiones faciales del sujeto con el que se está interactuando, el robot puede actuar de una manera u otra simulando que está comprendiendo la situación emocional. El sistema de detección de emociones desarrollado en este trabajo estaría presente en este apartado y el anterior de \textit{Atención}.
 \end{itemize}
 
-Se ha comprobado que la Visión Artificial y el Machine Learning son temas clave en el desarrollo del sistema del presente trabajo. Ambos son introducidos en las próximas dos secciones.
+En las secciones \ref{sec:percepcion} y \ref{sec:razonamiento} se han tratado temas como el reconocimiento facial o la detección de personas, ambas son conseguidas a través de lo que se conoce como \textit{Visión Artificial}, técnica la cual se introduce a continuación.
 
 \section{Visión Artificial}
 
-Los seres humanos utilizamos nuestros ojos para, de alguna manera, comprender todo aquello que nos rodea. El objetivo de la visión artificial es trasladar esa misma habilidad a una máquina, osea, que sea capaz de percibir información visual del entorno y actuar según la situación. Para ello se realiza lo que se conoce como procesamiento de imagen, este se puede dividir en las siguientes fases o etapas:
+Los seres humanos utilizamos nuestros ojos para, de alguna manera, comprender todo aquello que nos rodea. El objetivo de la visión artificial es trasladar esa misma habilidad a una máquina, esto es, que sea capaz de percibir información visual del entorno y actuar según la situación. Para ello, se realiza lo que se conoce como procesamiento de imagen, que se puede dividir en las siguientes fases o etapas:
 
 \begin{itemize}
     \item \textit{Digitalización.} Proceso de transformación que sufre una imagen analógica a otra digital para que pueda ser manipulada por un ordenador. Una máquina sólo sabe comprender números, por lo tanto la imagen estará representada como una matriz de números (píxeles).
@@ -156,25 +148,35 @@ Los seres humanos utilizamos nuestros ojos para, de alguna manera, comprender to
     \item \textit{Interpretación.} Etapa final, la cual se encarga de dar significado a los objetos reconocidos. Por ejemplo localizar que objetos son dinámicos o estáticos, o detectar la posición en la que se encuentra un cuerpo.
 \end{itemize}
 
-Lo explicado y desarrollado anteriormente se puede enmarcar dentro de lo que se conoce como la \textit{Visión Artificial Clásica}, enfocada en la utilización de algoritmos específicos para procesar imágenes y reconocer en ellas características básicas.\\
+Lo explicado y desarrollado anteriormente se puede enmarcar dentro de lo que se conoce como la \textit{Visión Artificial Clásica}, enfocada en la utilización de algoritmos específicos para procesar imágenes y reconocer en ellas características básicas. Por ejemplo, el algoritmo de detección de bordes Canny\footnote{Canny: \url{https://docs.opencv.org/4.x/da/d22/tutorial_py_canny.html}} (Figura \ref{fig:canny}).\\
 
-El auge de la Inteligencia Artificial (IA) y sobre todo el Machine Learning, está expandiendo exponencialmente las capacidades de la Visión Artificial. Sobre todo las Redes Neuronales Profundas o Deep Learning están aportado mucho valor en este campo. Son técnicas muy potentes que permiten resultados mucho mejores que los ofrecidos por la visión clásica y además mucho más fáciles de implementar. En la siguiente sección se introducirá dicho campo, el Machine Learning.
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=11cm]{figs/canny.png}
+  \end{center}
+  \caption{Ejemplo de detección de bordes con Canny.}
+  \label{fig:canny}
+\end{figure}
+
+El auge del Machine Learning, que es introducido en la siguiente sección (Sección \ref{sec:machine_learning}), está expandiendo exponencialmente las capacidades de la Visión Artificial. Son técnicas muy potentes que permiten resultados mucho mejores que los ofrecidos por la visión clásica y además mucho más fáciles de implementar. Dentro de estas nuevas capacidades ---por ejemplo--- encontramos la detección de objetos proporcionada por YOLO\footnote{YOLO: \url{https://pjreddie.com/darknet/yolo/}} (Figura \ref{fig:yolo}), sistema desarrollado con técnicas de Machine Learning.
+
+\begin{figure} [h!]
+  \begin{center}
+    \includegraphics[width=8cm]{figs/yolo.png}
+  \end{center}
+  \caption{Demo de la detección de objetos proporcionada por YOLO.}
+  \label{fig:yolo}
+\end{figure}
 
 \section{Machine Learning}
+\label{sec:machine_learning}
 
-El Machine Learning o Aprendizaje Automático es una disciplina del campo de la Inteligencia Artificial que permite a un ordenador realizar tareas de manera automática sin previamente haber sido programados explícitamente para dichos casos. Según el tipo de aprendizaje que realicen los algoritmos podemos clasificar estos en tres grandes grupos:
-
-\begin{itemize}
-\item \textit{Aprendizaje supervisado}
-\item \textit{Aprendizaje no supervisado} 
-\item \textit{Aprendizaje por refuerzo} 
-\end{itemize}
-
-Cada uno de los tipos de aprendizaje tiene determinadas características y diferentes aplicaciones finales que estudiaremos en la siguientes secciones.
+El Machine Learning o Aprendizaje Automático es una disciplina del campo de la Inteligencia Artificial que permite a un ordenador realizar tareas de manera automática sin previamente haber sido programados explícitamente para dichos casos. Según el tipo de aprendizaje que realicen los algoritmos podemos clasificar estos en tres grandes grupos. Cada uno de los cuales tiene determinadas características y diferentes aplicaciones finales que estudiaremos en la siguientes secciones.
 
 \subsection{Aprendizaje supervisado}
+\label{sec:aprendizaje_supervisado}
 
-Usado para resolver problemas conocidos. Se le proporciona al algoritmo un conjunto de datos de entrada y sus salidas correspondientes, entonces el algoritmo se dedica a \textit{aprender} la relación entre las salidas y las entradas. Generará unos patrones a partir de los cuales realizará predicciones.\\
+Usado para resolver problemas conocidos. Se le proporciona al algoritmo un conjunto de datos de entrada y sus salidas correspondientes, entonces el algoritmo se dedica a \textit{aprender} la relación entre las salidas y las entradas y con eso generar unos patrones a partir de los cuales realizará predicciones.\\
 
 Utilizando un ejemplo más familiar, si queremos que nuestro algoritmo aprenda a detectar gatos lo que debemos hacer es proporcionarle imágenes de ejemplo con gatos debidamente etiquetados. Una vez que el algoritmo haya recibido toda esa información y la haya procesado adecuadamente, la próxima vez que vea datos similares sabrá clasificarlos como gatos.\\
 
@@ -216,7 +218,7 @@ Los algoritmos más utilizados para realizar clasificación son SVM (Support Vec
 
 \subsection{Aprendizaje no supervisado}
 
-Únicamente se le proporciona al algoritmo un conjunto de datos de entrada y el propio algoritmo será el encargado de detectar patrones dentro de ese conjunto. A diferencia del aprendizaje supervisado, aquí no existe ningún etiquetado de los datos, por lo tanto la máquina únicamente separara los datos por patrones pero no tendrá el concepto de que son gatos o perros.\\
+Únicamente se le proporciona al algoritmo un conjunto de datos de entrada y el propio algoritmo será el encargado de detectar patrones dentro de ese conjunto. A diferencia del aprendizaje supervisado, aquí no existe ningún etiquetado de los datos, por lo tanto, la máquina únicamente separara los datos por patrones pero no tendrá el concepto de que son gatos o perros.\\
 
 Un ejemplo, siguiendo con la temática de las viviendas, sería agrupar las casas en función de la distancia al centro y del tamaño del jardín (Figura \ref{fig:ejemplo_clustering}). Esto se conoce como clustering o segmentación.\\
 
@@ -233,12 +235,12 @@ En el ejemplo de la Figura \ref{fig:ejemplo_clustering} los datos de entrada ser
 
 \subsection{Aprendizaje por refuerzo}
 
-No se le proporcionan datos de entrada ni de salida. El algoritmo aprende a desarrollar una tarea a partir de un esquema de recompensas y penalizaciones ante las decisiones que toma en cada una de las iteraciones. Ya no sólo se trata de clasificar unos datos en unas determinadas clases sino que tendremos muchos factores a la vez a los que prestar atención y actuar según la situación. Por eso este tipo de aprendizaje es sobre todo usado en robótica o videojuegos, ambos son máquinas o personajes actuando en un entorno cambiante.\\
+No se le proporcionan datos de entrada ni de salida. El algoritmo aprende a desarrollar una tarea a partir de un esquema de recompensas y penalizaciones ante las decisiones que toma en cada una de las iteraciones. Ya no sólo se trata de clasificar unos datos en unas determinadas clases, sino que tendremos muchos factores a la vez a los que prestar atención y actuar según la situación. Por eso este tipo de aprendizaje es sobre todo usado en robótica o videojuegos, ambos son máquinas o personajes actuando en un entorno cambiante.\\
 
 A diferencia de los otros tipos de aprendizaje que se intenta reducir el error, aquí se intenta maximizar la recompensa. Los componentes del Aprendizaje Reforzado son:
 
 \begin{itemize}
-    \item \textit{\textbf{Agente.}} Modelo que se pretende entrenar para que aprendar a tomar decisiones.
+    \item \textit{\textbf{Agente.}} Modelo que se pretende entrenar para que aprenda a tomar decisiones.
     \item \textit{\textbf{Ambiente.}} Entorno donde interactúa el agente, el cual contiene las reglas posibles en cada momento.\\
 \end{itemize}
 
@@ -250,45 +252,42 @@ Además la relación que se realimenta entre los componentes mencionados anterio
     \item \textit{\textbf{Recompensas o penalizaciones.}} Por cada acción tomada por el Agente, se obtendrá un premio o una penalización que orientará al Agente en si lo está haciendo bien o mal.
 \end{itemize}
 
-Se podría concluir afirmando que es una forma de entrenamiento basada en la fuerza bruta. Si el objetivo es que un robot recorra una habitación esquivando obstáculos, se le deberá someter a choques, acelerones, frenazos... para hacerle aprender lo que está bien y lo que está mal. El algoritmo más usado es Q-Learning.
+Se podría concluir afirmando que es una forma de entrenamiento basada en la fuerza bruta. Si el objetivo es que un robot recorra una habitación esquivando obstáculos, se le deberá someter a choques, acelerones, frenazos... para hacerle aprender lo que está bien y lo que está mal. El algoritmo más usado es Q-Learning.\\
 
-\section{Sistemas embebidos}
-Un sistema embebido (también conocido como \textit{empotrado}) es un sistema de computación diseñado para realizar funciones específicas, y cuyos componentes se encuentran integrados en una placa base. El procesamiento central del sistema se lleva a cabo gracias a un microcontrolador, es decir, un microprocesador que incluye además interfaces de entrada/salida, así como una memoria de tamaño reducido en el mismo chip \cite{sistemas_empotrados}.\\
+La mayoría de las técnicas comprendidas en cualquiera de los tres tipos de aprendizaje explicados anteriormente (supervisado, no supervisado y por refuerzo), requieren de grandes esfuerzos computacionales. Sobre todo, si se aplican sobre imágenes o grandes conjuntos de datos. Es por ello que lo más común es ver tarjetas gráficas muy potentes realizando este tipo de trabajo, pero no siempre se posee del dinero o del espacio donde alojar dichas grandes centrales de procesamiento. Es aquí donde entran en juego los sistemas empotrados (Sección \ref{sec:empotrados}) y el afán por conseguir que, tareas muy costosas como ---por ejemplo--- la detección de objetos en imágenes, se puedan simplificar y funcionen en uno de estos sistemas empotrados con bajo poder computacional. Esta tarea es una de las que se llevan a cabo en este trabajo.
 
-Dependiendo del tipo de sistema embebido algunos pueden ser programados directamente en lenguaje ensamblador del microcontrolador o microprocesador u otros en lenguajes de más alto nivel como C++ o Python para desarrollo de aplicaciones.\\
+\section{Sistemas empotrados}
+\label{sec:empotrados}
+Un sistema empotrado (también conocido como \textit{embebido}) es un sistema caracterizado por su tamaño reducido y mínimo precio, teniendo por contra un poder computacional bajo. Es por ello que su uso está siempre dirigido a realizar tareas específicas como ---por ejemplo--- un taxímetro o un cajero automático. Dichos sistemas no demandan una alta carga computacional y utilizar un sistema empotrado les proporciona ventajas como ---por ejemplo--- el ahorro energético, ya que estos tienen un consumo prácticamente nulo.\\
 
-Se comenzará definiendo lo que es un microprocesador y un microcontrolador. Es esencial entender ambos significados si se quiere saber en que consiste un sistema embebido.
+El procesamiento se lleva a cabo en un microcontrolador, esto es, un microprocesador que posee además memoria y circuitos de entrada y salida. 
 
-\subsection{Microprocesador y microcontrolador}
+\subsection{Sistemas empotrados populares}
+Existen múltiples fabricantes de sistemas empotrados, en este capítulo de introducción se nombraran los dos más grandes actualmente: Arduino\footnote{Arduino: \url{https://www.arduino.cc/}} y Raspberry\footnote{Raspberry: \url{https://www.raspberrypi.org/}}. Ambos proporcionan microcontroladores aunque Raspberry es más conocida por sus SBC (Single Board Computer).
 
-Denominamos microprocesador al conjunto de elementos fusionados en un mismo circuito. Algunos de esos elementos la ALU (Unidad Aritmética Lógica) la cual se encarga de realizar las operaciones matemáticas o los registros que guardan los datos temporalmente. Normalmente conocemos a estos microprocesadores o procesadores como CPU (Unidad Central de Procesamiento) siendo el núcleo de nuestros ordenadores, esto es así ya que por sí sólos no tienen ningún uso, se integran junto a otros componentes que le dan el uso concreto final. Por ejemplo en un ordenador se integra junto con el disco duro, la memoria RAM, la tarjeta gráfica, y demás componentes.\\
-
-Aquí es donde entra en juego el término de microcontrolador, podemos entenderlo como un pequeño ordenador con capacidad limitada. Si antes hablábamos del ordenador convencional esto lo podríamos entender igual pero todo integrado en un único chip. Es por ello que tendrán capacidad de cómputo limitada y no se les podrá someter a tareas muy exigentes. Sin embargo esto les proporciona una gran ventaja, su bajo coste económico. Por esto último es por lo que son tan populares y está en auge la investigación dedicada a intentar transportar tareas (que en principio necesitan de gran cómputo) a estos sistemas embebidos realizando las simplificaciones necesarias.
-
-\subsection{Sistemas embebidos populares}
-Existen múltiples fabricantes de sistemas empotrados, en este capítulo de introducción se nombraran los dos más grandes actualmente: Arduino\footnote{\url{https://www.arduino.cc/}} y Raspberry\footnote{\url{https://www.raspberrypi.org/}}. Ambos proporcionan microcontroladores aunque Raspberry es más conocida por sus SBC (Single Board Computer, en inglés).
-
-\paragraph{Arduino.} Fabricante especializado en la venta de microcontroladores. Posee modelos como los Arduino UNO R3 (Figura \ref{fig:arduino_uno}) o Arduino Nano. Son microcontroladores integrados en el mismo chip con todos los componentes necesarios para su correcto funcionamiento (resistencias, condensadores, pines para conectar elementos, etc). Además de esto mencionado, la ventaja que nos proporciona este tipo de placas y Arduino es que a través de su entorno de desarrollo (Arduino IDE\footnote{\url{https://www.arduino.cc/en/software}}) tenemos la oportunidad de cargar código en los microcontroladores sin realizar métodos de ''flasheado'' y compilación tediosos que si requieren otro tipo de microcontroladores.
+\paragraph{Arduino.} Fabricante especializado en la venta de microcontroladores. Posee modelos como los Arduino UNO R3 (Figura \ref{fig:arduino_uno}) o Arduino Nano. Son microcontroladores integrados en el mismo chip con todos los componentes necesarios para su correcto funcionamiento (resistencias, condensadores, pines para conectar elementos, etc). Además de esto mencionado, la ventaja que nos proporciona este tipo de placas y Arduino es que a través de su entorno de desarrollo (Arduino IDE\footnote{Arduino IDE: \url{https://www.arduino.cc/en/software}}) tenemos la oportunidad de cargar código en los microcontroladores sin realizar métodos de \textit{flasheado} y compilación tediosos que si requieren otro tipo de microcontroladores.
 
 \begin{figure} [h!]
   \begin{center}
-    \includegraphics[width=9cm]{figs/arduino.jpg}
+    \includegraphics[width=8cm]{figs/arduino.jpg}
   \end{center}
-  \caption{Microcontrolador Arduino UNO R3.}
+  \caption{Arduino UNO R3.}
   \label{fig:arduino_uno}
 \end{figure}
 
-\paragraph{Raspberry.} Tiene a la venta también microcontroladores como la Raspberry Pi Pico pero su producto principal son los SBC, su último modelo la Raspberry Pi 4b (Figura \ref{fig:raspberry}). El concepto es muy parecido al de Arduino pero con características más robustas, no sólo se trata de un microcontrolador simple, es un ordenador completo con su propio sistema operativo en una sola placa. Este mencionado sistema operativo es Raspberry Pi OS basado en Debian.
+\paragraph{Raspberry.} Tiene a la venta también microcontroladores como la Raspberry Pi Pico (Figura \ref{fig:rpi_pico}) pero su producto principal son los SBC, su último modelo la Raspberry Pi 4 Model B (explicada más en profundidad en la Sección \ref{sec:rpi}). El concepto es muy parecido al de Arduino pero con características más robustas, no sólo se trata de un microcontrolador simple, es un ordenador completo con su propio sistema operativo en una sola placa. Este mencionado sistema operativo es Raspberry Pi OS basado en Debian (explicado más en profundidad en la Sección \ref{sec:raspberry_pi_os}). \\
 
 \begin{figure} [h!]
   \begin{center}
-    \includegraphics[width=9cm]{figs/raspberry.jpg}
+    \includegraphics[width=8cm]{figs/raspberry-pi-pico.jpg}
   \end{center}
-  \caption{Raspberry Pi 4b.}
-  \label{fig:raspberry}
+  \caption{Raspberry Pi Pico.}
+  \label{fig:rpi_pico}
 \end{figure}
 
-En el siguiente capítulo (número 2) se realizará una descripción del problema a desarrollar y la metodología y el plan de trabajo que se ha llevado a cabo. Prosiguiendo con el capítulo 3, el autor expondrá las herramientas hardware y software utilizadas. En el capítulo 4 se mostrará todo el desarrollo del trabajo y los experimentos realizados. Por último, en el capítulo 5 se podrán encontrar las conclusiones finales.
+Tras poner en contexto de manera general a la Robótica de Servicio y entender que entendemos por HRI, Visión Artificial, Machine Learning y Sistemas Empotrados, con este proyecto se pretende desarrollar una herramienta que mediante Visión Artificial y Machine Learning sea capaz de detectar emociones faciales para ayudar en una interacción entre humano y robot. Además, esta herramienta deberá funcionar en un sistema empotrado.\\
+
+En el siguiente capítulo (Capítulo \ref{cap:capitulo2}) se realizará una descripción del problema a desarrollar y la metodología y el plan de trabajo que se ha llevado a cabo. Prosiguiendo con el capítulo 3, el autor expondrá las herramientas hardware y software utilizadas. En el capítulo 4 se mostrará todo el desarrollo del trabajo y los experimentos realizados. Por último, en el capítulo 5 se podrán encontrar las conclusiones finales.
 
 
 

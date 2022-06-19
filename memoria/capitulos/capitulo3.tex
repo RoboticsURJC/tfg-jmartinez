@@ -136,6 +136,7 @@ Se ha escogido Python (versión 3.7.3) como lenguaje de programación para este 
 \end{enumerate}
 
 \section{MediaPipe}
+\label{sec:mediapipe}
 
 MediaPipe\footnote{MediaPipe: \url{https://mediapipe.dev/}} es una plataforma, perteneciente a Google, que ofrece soluciones open source (código libre) de Machine Learning para varias plataformas: Android, iOS, C++, Python, Javascript y Coral. Se caracteriza por ofrecer algoritmos muy rápidos capaces de funcionar, con valores altos de FPS, sin hacer uso de una GPU. Se puede encontrar el código de todas las herramientas que ofrece en su repositorio\footnote{Repositorio MediaPipe: \url{https://github.com/google/mediapipe}} de GitHub.
 
@@ -169,6 +170,7 @@ La herramienta posee los siguientes parámetros de entrada que permiten personal
 La salida que nos proporciona exactamente el sistema Face Mesh de Mediapipe es una colección de rostros, donde cada rostro se representa como una lista de 468 puntos y cada uno de esos puntos se compone de las variables \textit{x}, \textit{y} y \textit{z}. Las variables \textit{x} e \textit{y} están normalizadas entre 0 y 1, por el ancho y alto de la imagen. La variable \textit{z} contiene la profundidad del punto, siendo el origen el centro de la cabeza.
 
 \section{Detector de puntos faciales. Dlib.}
+\label{sec:dlib}
 
 Dlib es un conjunto de herramientas que contiene algoritmos de Machine Learning. En este trabajo se ha hecho uso del detector de puntos faciales, capaz de detectar 68 puntos de referencia, contenido en dlib (Figura \ref{fig:dlib_example}).\\
 

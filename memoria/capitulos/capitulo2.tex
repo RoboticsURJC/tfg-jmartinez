@@ -8,17 +8,17 @@ Una vez presentado el contexto general en el cual se enmarca nuestro trabajo de 
 \section{Descripción del problema}
 \label{sec:descripcion}
 
-El objetivo principal de este TFG es desarrollar una herramienta de reconocimiento de emociones que sea capaz de funcionar en tiempo real en un sistema robótico de bajo coste. Para lograr dicha meta, se ha dividido el problema en estos subobjetivos:
+El objetivo principal de este TFG es desarrollar una herramienta de reconocimiento de emociones que sea capaz de funcionar en tiempo real en un sistema robótico de bajo coste bajo el ambiente ROS. Para lograr dicha meta, se ha dividido el problema en estos subobjetivos:
 \begin{enumerate}
-    \item Estudiar cuál será la técnica más óptima en cuanto al reconocimiento de emociones. Deberá ser una técnica liviana que no consuma muchos recursos, para conseguir un valor alto de FPS (fotogramas por segundo) en nuestro sistema, y que pueda funcionar plausiblemente en tiempo real.
+    \item Descubrir cuáles son las técnicas, de reconocimiento de emociones, más usadas en la actualidad, y decidir cuál de ellas nos puede servir de punto de partida para desarrollar nuestra herramienta. Deberá ser una técnica liviana que no consuma muchos recursos, para conseguir un valor alto de FPS (fotogramas por segundo) en nuestro sistema, y que pueda funcionar plausiblemente en tiempo real.
     
-    \item Tras decidir que la extracción de puntos característicos faciales y el posterior entrenamiento con el tratamiento de ellos será la técnica más óptima y liviana para nuestro hardware, el siguiente paso será estudiar qué método para extraer esos puntos faciales es el más rápido y preciso.
+    \item Optimizar la técnica escogida y adaptarla, de tal manera, que sea capaz de funcionar en nuestra plataforma de bajo coste, investigando las alterativas que más rendimiento y precisión nos ofrecen.
     
-    \item Crear un dataset de valor con los puntos característicos faciales. Se deberá hacer un correcto tratamiento de los datos para conseguir un resultado preciso en el posterior entrenamiento.
+    \item Al ser una técnica basada en Machine Learning, se deberá crear un dataset de valor, y por lo tanto, hacer un correcto tratamiento de los datos para conseguir un resultado preciso en el posterior entrenamiento.
     
     \item Realizar el entrenamiento con varios algoritmos de Machine Learning de clasificación. Estudiar el rendimiento y precisión de cada uno de ellos.
     
-    \item Integrar nuestro sistema en ROS para facilitar su uso en cualquier sistema robótico.
+    \item Integrar nuestra herramienta en ROS para facilitar su uso en cualquier sistema robótico.
 \end{enumerate}
 
 \section{Requisitos}

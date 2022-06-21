@@ -4,6 +4,7 @@
 En este capítulo se describe todo el proceso llevado a cabo durante el desarrollo del sistema de detección de emociones y su posterior integración en ROS. Además, se muestran ejemplos de su funcionamiento y se realizan pruebas de rendimiento.
 
 \section{Método de detección de emociones}
+\label{sec:metodo}
 
 Existen múltiples técnicas utilizadas para realizar detección de emociones, en el artículo \cite{literature_review} encontramos una revisión del estado del arte de los últimos años. En este trabajo, se ha escogido la técnica comprendida por los siguientes tres pasos: detección de puntos faciales, extracción de información de esos puntos faciales, clasificación de esa información (Figura \ref{fig:metodo}).\\
 
@@ -19,6 +20,7 @@ Existen múltiples técnicas utilizadas para realizar detección de emociones, e
 El motivo de esta elección es debido a que es un método con bajo coste computacional y además es de los más precisos, algo esencial para aportar robustez a la herramienta robótica final de este trabajo.
 
 \section{Detección de puntos faciales}
+\label{sec:deteccion_de puntos}
 
 El primer paso del método escogido en este trabajo, consiste en realizar una detección de puntos faciales característicos. En búsqueda de la máxima optimización, se va a hacer un estudio comparando dos librerías de extracción de puntos faciales para obtener conclusiones de cual de ellas nos ofrece más rendimiento y precisión. Las dos librerías son dlib (Sección \ref{sec:dlib}) y MediaPipe (Sección \ref{sec:mediapipe}), escogidas por ser las más usadas dentro de la investigación de este campo en publicaciones como, por ejemplo, los artículos \cite{dlib_emotions} o \cite{mediapipe_emotions}.\\
 
@@ -127,6 +129,7 @@ Llegados a este punto, ya habiendo realizado los dos estudios, podemos concluir 
 \end{figure}
 
 \section{Extracción de información de los puntos faciales}
+\label{sec:extraer_informacion}
 
 Tras obtener datos en coordenadas de los puntos faciales característicos de un rostro, debemos tratarlos para que a partir de ellos obtengamos información de las posibles emociones que en ese momento se estén llevando a cabo en el rostro estudiado, y finalmente, crear un dataset con toda esa información que nos permita entrenar modelos de la forma más precisa posible. Esto último es muy importante, porque una de las cosas que determinará la precisión de nuestro modelo, será la existencia de un buen dataset.\\
 
@@ -266,6 +269,7 @@ de la \textit{malla emocional}.}
 \end{code}
 
 \section{Generación del dataset}
+\label{sec:generacion_dataset}
 
 Siguiendo el esquema de la Figura \ref{fig:metodo}, el paso siguiente a la extracción de información de los puntos faciales es la generación de un dataset (base de datos) con dicha información, para posteriormente entrenar un modelo usando técnicas de Machine Learning, y que este nos permita clasificar emociones. Poseer un buen conjunto de datos es la fase más importante del trabajo, existen proyectos muy buenos que han llegado a fracasar por no poseer un buen dataset. Por lo tanto, hay que dedicar gran parte del tiempo total a la construcción del mismo. Es importante que contenga una buena cantidad de datos y que estos aporten generalidad.\\
 
@@ -312,6 +316,7 @@ Esta base de datos contiene 593 secuencias de imágenes, en las que se muestra u
 CK+ ha sido elegido frente a otro tipo de datasets populares como FER\footnote{FER: \url{https://www.kaggle.com/datasets/msambare/fer2013}}, debido a la alineación de las caras en las imágenes. Bases de datos como la nombrada anteriormente, están enfocadas a ser usadas por CNN (Convolutional Neural Network) y la posición de las caras no influye en el entrenamiento, es más, le aporta más generalidad. Pero para llevar a cabo nuestra técnica, es necesario caras alineadas para obtener información confiable de los ángulos formados por las expresiones faciales. Recordemos que nosostros lo que deseamos es generar un dataset nuevo a partir de otro de imágenes, no utilizar directamente las imágenes como si lo haría una CNN con FER.
 
 \subsection{Cantidad de ángulos a utilizar}
+\label{sec:cantidad_de_angulos}
 
 El número de ángulos a utilizar de la \textit{malla emocional}, hará referencia a la cantidad de características que posee nuestro dataset. Es por ello, que se deberá estudiar cuál es la cantidad óptima de los mismos que mejores resultados nos ofrece a la hora de entrenar los modelos.\\
 
@@ -735,6 +740,7 @@ de todos los ángulos (\textit{felicidad}, \textit{tristeza}, \\
 Los modelos entrenados, serán guardados en ficheros con formato pkl usando el módulo \textit{pickle} de Python. De esta manera, pueden ser cargados en cualquier otro programa y realizar predicciones con ellos usando el método \verb|predict()|. A este último, se le deberán introducir los ángulos del rostro a clasificar, y te devolverá la clase predicha.
 
 \section{Integración del sistema en ROS}
+\label{sec:integración_en_ros}
 
 El último paso a llevar a cabo en este trabajo, es integrar el sistema de detección de emociones en ROS para facilitar su uso en un sistema robótico. Con esto, se pretende crear una herramienta que abstraiga al desarrollador robótico del código de nuestro sistema, y que por lo tanto, a través de \textit{topics} de ROS obtenga todos los datos detectados por el sistema de manera fácil.\\
 

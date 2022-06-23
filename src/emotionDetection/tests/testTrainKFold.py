@@ -46,12 +46,12 @@ for train_index, test_index in skf.split(X, y):
     X_test_pca = pca.transform(X_test)
 
     # KNN
-    """ model = KNeighborsClassifier(n_neighbors=7, p=2, metric="minkowski")
-    model.fit(X_train_pca, y_train.ravel()) """
+    model = KNeighborsClassifier(n_neighbors=7, p=2, metric="minkowski")
+    model.fit(X_train_pca, y_train.ravel())
 
     # SVM
-    model = SVC(C=21, kernel='rbf', gamma='scale', probability=True)
-    model.fit(X_train_pca, y_train.ravel())
+    """ model = SVC(C=21, kernel='rbf', gamma='scale', probability=True)
+    model.fit(X_train_pca, y_train.ravel()) """
 
     # Multi layer perceptron
     """ model = MLPClassifier(activation="relu", hidden_layer_sizes=(17), solver="adam", max_iter=5000)

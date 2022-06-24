@@ -1,34 +1,34 @@
 \chapter{Conclusiones}
 \label{cap:capitulo6}
 
-Llegamos al último capítulo de este trabajo, en él se resumirán los objetivos conseguidos con afán de dar las conclusiones finales a esta memoria. Además se comentarán cuales han sido las competencias y conocimientos adquiridos durante el desarrollo.
+En este último capítulo se resumirán los objetivos conseguidos, y con ello, las conclusiones finales a las que se ha llegado en este trabajo. Además, se comentarán cuales han sido las competencias y conocimientos adquiridos durante el desarrollo, así como mencionar las líneas futuras.
 
 \section{Consecución de objetivos}
 
-Se destaca que se ha conseguido cumplir el objetivo principal de este trabajo: desarrollar una herramienta de reconocimiento de emociones que sea capaz de funcionar en un sistema robótico de bajo coste bajo el ambiente ROS. Esto es así, ya que como se ha mostrado en la Sección \ref{sec:integración_en_ros}, el sistema de detección de emociones está funcionando bajo ROS Noetic a un rendimiento medio de 13.18 fps, considerado tiempo real.\\
+Se destaca que se ha conseguido cumplir el objetivo principal de este trabajo: desarrollar una herramienta de reconocimiento de emociones que sea capaz de funcionar en un sistema robótico de bajo coste bajo el entorno ROS. Como se ha mostrado en la Sección \ref{sec:integración_en_ros}, el sistema de detección de emociones está funcionando bajo ROS Noetic a un rendimiento medio de 13.18 fps, esto es, en tiempo real.\\
 
-Además, este objetivo general, arrastraba una serie de subojetivos propuestos en el Capítulo \ref{cap:capitulo2} de esta memoria, todos ellos también cumplidos:
+Además, en el Capítulo \ref{cap:capitulo2} se dividió el objetivo general en una serie de subobjetivos y todos ellos se han cumplido:
 
 \begin{itemize}
     \item \textit{Estudiar el estado del arte y elegir la técnica más óptima.} Como se ha comentado en la Sección \ref{sec:metodo}, se ha escogido la técnica comprendida por los siguientes tres pasos: detección de puntos faciales, extracción de información de esos puntos faciales, clasificación de dicha información. Y se ha cumplido el objetivo de ser una técnica liviana y precisa.
     
-    \item \textit{Optimizar y adaptar la técnica escogida en nuestra plataforma.} Para ello, se ha realizado un estudio en búsqueda del algoritmo de detección de puntos faciales más rápido y preciso capaz de funcionar en nuestra plataforma (Sección \ref{sec:deteccion_de puntos}). Además, se ha investigado en búsqueda de técnicas óptimas para obtener información confiable de dichos puntos faciales, que posteriormente nos permitiera generar un dataset, saliendo victoriosa la construcción de una \textit{malla emocional}\cite{mediapipe_emotions} que proporciona información angular de las emociones (Sección \ref{sec:extraer_informacion}).
+    \item \textit{Optimizar y adaptar la técnica escogida en nuestra plataforma.} Para ello, se ha realizado un estudio en búsqueda del algoritmo de detección de puntos faciales más rápido y preciso capaz de funcionar en nuestra plataforma (Sección \ref{sec:deteccion_de puntos}). Además, se ha investigado profundamente el estado del arte en cuanto a técnicas óptimas para obtener información confiable de dichos puntos faciales que, posteriormente, nos permitiera generar un buen dataset, saliendo victoriosa la construcción de una \textit{malla emocional} \cite{mediapipe_emotions} que proporciona información angular de las emociones (Sección \ref{sec:extraer_informacion}).
     
-    \item \textit{Generar un dataset de valor.} En primer lugar, se buscó un dataset de imágenes que sirviera de base a la hora de generar el nuestro con la información angular obtenida de dichas imágenes. El dataset escogido ha sido The Extended Cohn-Kanade Dataset (CK+)\cite{Kanade1}\cite{Kanade2}. Posteriormente, se realizaron diversos estudios que nos han ayudado a decidir que información angular era la más óptima a la hora de generar la base de datos. Todo ello, expuesto en la Sección \ref{sec:generacion_dataset}.
+    \item \textit{Generar un dataset de valor.} En primer lugar, se buscó un dataset de imágenes que sirviera de base a la hora de generar el nuestro con la información angular obtenida de dichas imágenes. El dataset escogido ha sido The Extended Cohn-Kanade Dataset (CK+) \cite{Kanade1}\cite{Kanade2}. Posteriormente, se realizaron diversos estudios que nos han ayudado a decidir qué información angular era la más óptima a la hora de generar la base de datos. Todo ello se ha descrito en la Sección \ref{sec:generacion_dataset}.
     
-    \item \textit{Realizar el entrenamiento del modelo.} Se han utilizado tres algoritmos de clasificación para entrenar nuestro modelo (KNN, SVM, MLP). A la hora de buscar los parámetros óptimos de cada uno de los algoritmos, y también para testear la precisión en su entrenamiento, se ha utilizado la técnica de validación cruzada KFold Stratified. Además, se ha probado el entrenamiento con varios datasets generados en este trabajo, en búsqueda de la mayor precisión y robustez para nuestro sistema, obteniendo un porcentaje de acierto final del 95\% para los tres clasificadores. Todo ello, se puede encontrar en la Sección \ref{sec:entrenamiento}.
+    \item \textit{Realizar el entrenamiento del modelo.} Se han utilizado tres algoritmos de clasificación para entrenar nuestro modelo (KNN, SVM, MLP). A la hora de buscar los parámetros óptimos de cada uno de los algoritmos, y también para testear la precisión en su entrenamiento, se ha utilizado la técnica de validación cruzada KFold Stratified. Además, se ha probado el entrenamiento con varios datasets generados en este trabajo en búsqueda de la mayor precisión y robustez para nuestro sistema, obteniendo un porcentaje de acierto final del 95\% para los tres clasificadores. Todo ello se ha relatado en la Sección \ref{sec:entrenamiento}.
     
-    \item \textit{Integrar el sistema en ROS.} Tal como se muestra en la Sección \ref{sec:integración_en_ros}, se ha conseguido instalar ROS Noetic bajo Raspberry Pi OS, para de esta manera, conseguir el máximo rendimiento de la placa. Finalmente, se ha creado un paquete llamado \verb|emotion_detection_ros|, que porta la herramienta y la integra totalmente dentro del ecosistema ROS.
+    \item \textit{Integrar el sistema en ROS.} Tal como se muestra en la Sección \ref{sec:integración_en_ros}, se ha conseguido instalar ROS Noetic bajo Raspberry Pi OS para, de esta forma, conseguir el máximo rendimiento de la placa. Finalmente, se ha creado un paquete llamado \verb|emotion_detection_ros|, que porta la herramienta y la integra totalmente dentro del ecosistema ROS.
 \end{itemize}
 
 \section{Competencias adquiridas}
 
-Durante el desarrollo de este trabajo, se han adquirido diferentes competencias y conocimientos, los cuales enumero a continuación:
+Durante el desarrollo de este trabajo se han adquirido diferentes competencias y conocimientos, los cuales se listan a continuación:
 
 \begin{itemize}
     \item Soltura a la hora de buscar y leer artículos de investigación.
     
-    \item Profundización en el uso de un sistema de bajo coste Raspberry Pi y sus periféricos, así como, su sistema operativo.
+    \item Profundización en el uso de un sistema de bajo coste Raspberry Pi y sus periféricos, así como su sistema operativo.
     
     \item Tomar decisiones tras realizar estudios que las validen.
     
@@ -37,5 +37,17 @@ Durante el desarrollo de este trabajo, se han adquirido diferentes competencias 
     \item Aprendizaje de técnicas avanzadas de entrenamiento (validación cruzada KFold).
     
     \item Ampliación de conocimientos en ROS.
+\end{itemize}
+
+\section{Valoración final y líneas futuras}
+
+Se ha desarrollado una herramienta que ofrece un servicio de detección de emociones a los desarrolladores de robótica de bajo coste, permitiéndoles avanzar en la investigación de la Interacción Humano Robot. Es por ello que surgen una serie de líneas futuras:
+
+\begin{itemize}
+    \item Implementar aplicaciones de HRI que se ayuden de esta herramienta.
+    
+    \item Portar el sistema a otras plataformas para dar servicio en otros campos de investigación. Por ejemplo, incorporarlo en cines y así estudiar las reacciones del público a las distintas escenas de una película. Gracias a ser una herramienta que necesita pocos recursos, no es complicado incorporarla en otros sistemas.
+    
+    \item Sería interesante añadir nuevas funcionalidades a la herramienta, como por ejemplo, que sea capaz de detectar el género o predecir la edad del sujeto a evaluar.
 \end{itemize}
 

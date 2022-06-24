@@ -1,24 +1,22 @@
 \chapter{Plataforma de desarrollo}
 \label{cap:capitulo3}
 
-\vspace{1cm}
-
 En este capítulo, se introducen y describen las herramientas, tanto hardware como software, usadas para el desarrollo de este trabajo.
 
 \section{Raspberry Pi 4 Model B}
 \label{sec:rpi}
 
-La Raspberry Pi 4 Model B (Figura \ref{fig:raspberry2}) es la plataforma hardware de bajo coste escogida para este proyecto. Debido a la gran comunidad de desarrolladores y usuarios que posee, además de las especificaciones ofrecidas (Cuadro \ref{cuadro:especificaciones_rpi4}) por su escaso precio (65,44 \euro\footnote{Distribuidor oficial de Raspberry: \url{https://www.kubii.es/40-raspberry-pi-3-2-b}}), es la plataforma más usada por la mayoría del público.\\
+La Raspberry Pi 4 Model B (Figura \ref{fig:raspberry2}) es la plataforma hardware de bajo coste escogida para este proyecto. Debido a la gran comunidad de desarrolladores y usuarios que posee, además de las especificaciones ofrecidas (Cuadro \ref{cuadro:especificaciones_rpi4}) por su escaso precio (65,44 \euro\footnote{Distribuidor oficial de Raspberry: \url{https://www.kubii.es/40-raspberry-pi-3-2-b}}), es la placa embebida más usada a nivel mundial.\\
 
 \begin{figure} [h!]
   \begin{center}
-    \includegraphics[width=9cm]{figs/raspberry.jpg}
+    \includegraphics[width=8cm]{figs/raspberry.jpg}
   \end{center}
   \caption{Raspberry Pi 4b.}
   \label{fig:raspberry2}
 \end{figure}
 
-Sus características más atractivas ---entre otras--- son su bajo consumo energético, su pequeño tamaño y por lo tanto mínimo peso, su alta conectividad y puertos (red WIFI, Bluetooth, Ethernet, USB2 y USB3, HDMI, etc.) y la gran fluidez que posee su sistema operativo (Sección \ref{sec:raspberry_pi_os}). Todo esto la convierte en una auténtica joya y son cada vez más usuarios los que la utilizan en diversos proyectos. Podemos encontrarla ---por ejemplo--- como centro doméstico inteligente para controlar la domótica de una casa o incluso en sectores más profesionales formando parte de la arquitectura de algunos robots. Esto último es lo más interesante, para nosotros, dentro de los múltiples usos que tiene una Raspberry.\\
+Sus características más atractivas ---entre otras--- son su bajo consumo energético, su pequeño tamaño y por lo tanto mínimo peso, su alta conectividad y puertos (red WIFI, Bluetooth, Ethernet, USB2 y USB3, HDMI, etc.) y la gran fluidez que posee su sistema operativo (Sección \ref{sec:raspberry_pi_os}). Todo esto la convierte en una potente y versátil placa, y son cada vez más los usuarios que la utilizan para diversos proyectos. Podemos encontrarla ---por ejemplo--- como centro doméstico inteligente para controlar la domótica de una casa, o incluso en sectores más profesionales formando parte de la arquitectura de algunos robots. Esto último es lo más interesante para nosotros, dentro de los múltiples usos que tiene una placa Raspberry.\\
 
 \begin{table}[H]
 \begin{center}
@@ -49,17 +47,17 @@ Muchos de los robots son de tamaño reducido y no tienen el espacio suficiente c
 \subsection{Raspberry Pi OS}
 \label{sec:raspberry_pi_os}
 
-Raspberry Pi OS (Figura \ref{fig:captura_rpios}) es el sistema operativo oficial para Raspberry. Es un sistema operativo gratuito basado en Debian optimizado específicamente para el hardware de la Raspberry Pi, por lo tanto es el que mayor rendimiento nos ofrecerá frente a otros como Ubuntu (que también puede ser instalado). Además, está en constante desarrollo y continuamente se está mejorando su estabilidad y funcionalidad. Es por todo ello que será el sistema operativo elegido en nuestro proyecto, sobre todo por su alto rendimiento (algo esencial para impulsar el desempeño de nuestro sistema de detección de emociones).\\
+Raspberry Pi OS (Figura \ref{fig:captura_rpios}) es el sistema operativo oficial para Raspberry. Es un sistema operativo gratuito basado en Debian optimizado específicamente para el hardware de la Raspberry Pi, por lo tanto es el que mayor rendimiento nos ofrecerá frente a otros como Ubuntu (que también puede ser instalado). Además, está en constante desarrollo y continuamente se está mejorando su estabilidad y funcionalidad. Por todo ello, este será el sistema operativo elegido en nuestro proyecto, sobre todo por su alto rendimiento, algo esencial para impulsar el desempeño de nuestro sistema de detección de emociones.\\
 
 \begin{figure} [h!]
   \begin{center}
-    \includegraphics[width=13cm]{figs/captura_rpios.png}
+    \includegraphics[width=14cm]{figs/captura_rpios.png}
   \end{center}
   \caption{Captura de pantalla de Raspberry Pi OS.}
   \label{fig:captura_rpios}
 \end{figure}
 
-La versión de Raspberry Pi OS escogida ha sido Raspberry Pi OS Legacy (Cuadro \ref{cuadro:especificaciones_rpios}). Se ha elegido dicha versión porque, de todas las disponibles, ha sido la única en la que se ha conseguido instalar una versión de ROS/ROS2 (en concreto, ROS Noetic). Además, aunque las versiones de Raspberry Pi OS de 64-bit ofrecían más rendimiento, todavía no estaban maduras y no ofrecían total compatibilidad con todas las librerías usadas en el presente trabajo.
+La versión de Raspberry Pi OS escogida ha sido Raspberry Pi OS Legacy (Cuadro \ref{cuadro:especificaciones_rpios}). Se ha elegido dicha versión porque, de todas las disponibles, ha sido la única en la que se ha conseguido instalar una versión de ROS/ROS2 (en concreto, ROS Noetic). Además, aunque las versiones de Raspberry Pi OS de 64-bit ofrecían más rendimiento, todavía no estaban maduras y no ofrecían total compatibilidad con todas las librerías usadas en el presente trabajo.\\
 
 \begin{table}[H]
 \begin{center}
@@ -125,20 +123,50 @@ Se ha decidido escoger la Raspberry Pi Camera Module V2.1 en vez de una versión
 
 \section{Python}
 
-Python es un lenguaje de programación interpretado (se ejecuta sin necesidad de ser compilado) y de tipado dinámico (las variables se comprueban en tiempo de ejecución). Es de licencia totalmente libre y soporta programación orientada a objetos. Se caracteriza por hacer uso de una sintaxis muy legible en la que es obligatoria una correcta tabulación\\
+Python es un lenguaje de programación interpretado (se ejecuta sin necesidad de ser compilado) y de tipado dinámico (las variables se comprueban en tiempo de ejecución). Es de licencia totalmente libre y soporta programación orientada a objetos. Se caracteriza por hacer uso de una sintaxis muy legible en la que es obligatoria una correcta tabulación.\\
 
 Se ha escogido Python (versión 3.7.3) como lenguaje de programación para este proyecto debido a los dos siguientes motivos:
 
 \begin{enumerate}
-    \item El sistema desarrollado en este trabajo usa algoritmos de Machine Learning para detectar las emociones faciales y Python es el lenguaje de programación rey en ese campo, posee múltiples librerías como Pandas, TensorFlow, Keras, Scikit-learn... que brindan un soporte excepcional para cualquier tarea relacionada con el aprendizaje automático.
+    \item El sistema desarrollado en este trabajo usa algoritmos de Machine Learning para detectar las emociones faciales, y Python es el lenguaje de programación rey en ese campo; posee múltiples librerías como Pandas, TensorFlow, Keras, Scikit-learn... que brindan un soporte excepcional para cualquier tarea relacionada con el aprendizaje automático.
     
     \item La librería que da soporte oficial a la Raspberry Pi Camera (Sección \ref{sec:rpi_camera}) únicamente se puede usar en Python. Se trata del paquete \textit{picamera}.
 \end{enumerate}
 
+A continuación se enumerarán los módulos de Python usados en el desarrollo del presente trabajo:
+
+\begin{itemize}
+    \item \textit{NumPy} (1.21.6). Ofrece una gran colección de funciones matemáticas de alto nivel y permite crear y trabajar con vectores y matrices multidimensionales.
+    
+    \item \textit{OpenCV} (4.5.5.64). Es la biblioteca más popular de Visión Artificial, ofrece múltiples herramientas de procesamiento de imágenes.
+    
+    \item \textit{pandas} (1.3). Usada para manipulación y análisis de datos.
+    
+    \item \textit{threading} (1.4.6). Proporciona soporte para poder utilizar hilos.
+    
+    \item \textit{pickle} (5.3.4). Permite serializar y deserializar objetos de Python.
+    
+    \item \textit{math} (7.1.3). Ofrece funciones matemáticas de alto nivel.
+    
+    \item \textit{argparse} (2.5.4). Permite crear interfaces de línea de comandos de forma sencilla.
+    
+    \item \textit{matplotlib} (4.7.1). Librería muy completa para la generación de gráficas estáticas e interactivas.
+    
+    \item \textit{glob} (9.3.4). Permite navegar por los archivos y directorios del sistema utilizando expresiones regulares.
+    
+    \item \textit{picamera} (3.2.4). Ofrece soporte para la Raspberry Pi Camera en Python.
+    
+    \item \textit{MediaPipe} (3.2.1). Explicado en profundidad en la Sección \ref{sec:mediapipe}.
+    
+    \item \textit{dlib} (5.7.1). Explicado en profundidad en la Sección \ref{sec:dlib}.
+    
+    \item \textit{Scikit-learn} (2.6.3). Explicado en profundidad en la Sección \ref{sec:sklearn}.
+\end{itemize}
+
 \section{MediaPipe}
 \label{sec:mediapipe}
 
-MediaPipe\footnote{MediaPipe: \url{https://mediapipe.dev/}} es una plataforma, perteneciente a Google, que ofrece soluciones open source (código libre) de Machine Learning para varias plataformas: Android, iOS, C++, Python, Javascript y Coral. Se caracteriza por ofrecer algoritmos muy rápidos capaces de funcionar, con valores altos de FPS, sin hacer uso de una GPU. Se puede encontrar el código de todas las herramientas que ofrece en su repositorio\footnote{Repositorio MediaPipe: \url{https://github.com/google/mediapipe}} de GitHub.
+MediaPipe\footnote{MediaPipe: \url{https://mediapipe.dev/}} es una plataforma, perteneciente a Google, que ofrece soluciones \textit{open source} (código libre) de Machine Learning para varias plataformas: Android, iOS, C++, Python, Javascript y Coral. Se caracteriza por ofrecer algoritmos muy rápidos capaces de funcionar con valores altos de FPS sin hacer uso de una GPU. Se puede encontrar el código de todas las herramientas que ofrece en su repositorio de GitHub\footnote{Repositorio MediaPipe: \url{https://github.com/google/mediapipe}}.
 
 \subsection{Face Mesh}
 
@@ -169,14 +197,14 @@ La herramienta posee los siguientes parámetros de entrada que permiten personal
 
 La salida que nos proporciona exactamente el sistema Face Mesh de Mediapipe es una colección de rostros, donde cada rostro se representa como una lista de 468 puntos y cada uno de esos puntos se compone de las variables \textit{x}, \textit{y} y \textit{z}. Las variables \textit{x} e \textit{y} están normalizadas entre 0 y 1, por el ancho y alto de la imagen. La variable \textit{z} contiene la profundidad del punto, siendo el origen el centro de la cabeza.
 
-\section{Detector de puntos faciales. Dlib.}
+\section{Detector de puntos faciales de dlib.}
 \label{sec:dlib}
 
 Dlib es un conjunto de herramientas que contiene algoritmos de Machine Learning. En este trabajo se ha hecho uso del detector de puntos faciales, capaz de detectar 68 puntos de referencia, contenido en dlib (Figura \ref{fig:dlib_example}).\\
 
 \begin{figure} [h!]
   \begin{center}
-    \includegraphics[width=7cm]{figs/dlib_example.png}
+    \includegraphics[width=70mm]{figs/dlib_example.png}
   \end{center}
   \captionsetup{justification=centering}
   \caption{Ejemplo usando el detector de puntos faciales de dlib.\\
@@ -191,36 +219,37 @@ El algorimo está compuesto de dos fases: detección del rostro y detección de 
     \item Red Neuronal Convolucional MMOD (Max-Margin Object Detection)
 \end{itemize}
 
-Posteriormente, para realizar la detección de puntos de referencia faciales usa Árboles de Regresión. En concreto, usa la técnica explicada en el artículo \cite{facial_landmarks_dlib}.
+Posteriormente, para realizar la detección de puntos de referencia faciales, usa Árboles de Regresión. En concreto, usa la técnica explicada en el artículo \cite{facial_landmarks_dlib}
 
 \section{Scikit-learn. Algoritmos de Machine Learning}
+\label{sec:sklearn}
 
 Scikit-learn\footnote{Scikit-learn: \url{https://scikit-learn.org/stable/}} es una librería open source para Python que ofrece herramientas de Machine Learning. Entre ellas, incluye varios algoritmos de clasificación, los cuales serán usados en este trabajo. En las siguientes secciones se explica el funcionamiento de cada uno de ellos.
 
 \subsection{Máquinas de Vector Soporte (SVM)}
 
-Las \textit{Máquinas de Vector Soporte} o SVM (Support Vector Machines) son algoritmos de aprendizaje supervisado que se utilizan para resolver tareas de clasificación. El concepto general en el que SVM está basado, es el de la generación de un hiperplano que separa los datos de una clase con respecto a otra. La separación se realizará con la máxima distancia entre los puntos y el hiperplano, esto es, se separarán los datos de la forma más óptima posible (Figura \ref{fig:svm_hiperplano}). El dato más cercano al hiperplano, de cada clase, se denomina vector soporte.\\
+Las \textit{Máquinas de Vector Soporte} o SVM (Support Vector Machines) son algoritmos de aprendizaje supervisado que se utilizan para resolver tareas de clasificación. El concepto general en el que está basado SVM es el de la generación de un hiperplano que separa los datos de una clase con respecto a otra. La separación se realizará con la máxima distancia entre los puntos y el hiperplano; esto es, se separarán los datos de la forma más óptima posible (Figura \ref{fig:svm_hiperplano}). El dato más cercano al hiperplano de cada clase se denomina vector soporte.\\
 
 \begin{figure} [h!]
   \begin{center}
-    \includegraphics[width=9cm]{figs/svm_hiperplano.png}
+    \includegraphics[width=95mm]{figs/svm_hiperplano.png}
   \end{center}
   \caption{Hiperplano de separación óptimo entre\\
             los datos de dos clases.}
   \label{fig:svm_hiperplano}
 \end{figure}
 
-El ejemplo de la Figura \ref{fig:svm_hiperplano} es separable linealmente (usando como hiperplano una línea), pero en la práctica real es complicado que esto suceda. Entonces, se hace uso de lo que se denomina \textit{kernel}, para transformar el conjunto de datos a un nuevo conjunto de una dimensión mayor, y que de esta manera se puedan separar linealmente en su nueva dimensión.
+El ejemplo de la Figura \ref{fig:svm_hiperplano} es separable linealmente (usando como hiperplano una línea), pero en la práctica real es complicado que esto suceda. Por eso, normalmente se hace uso de lo que se denomina \textit{kernel}, para transformar el conjunto de datos a un nuevo conjunto de una dimensión mayor y que, de esta manera, se puedan separar linealmente en su nueva dimensión.
 
 \subsection{K Vecinos más Cercanos (KNN)}
 
-El \textit{K Vecinos más Cercanos} o KNN (K-Nearest Neighbours) es un algoritmo de aprendizaje supervisado utilizado para resolver tareas de clasificación. A diferencia de otros métodos, este utiliza siempre el conjunto de entrenamiento completo para realizar predicciones, en vez de crear un modelo en base a la relación de las entradas y las salidas. Es por ello, que es un método costoso computacionalmente para conjuntos de datos muy grades, pero ese no es nuestro caso.\\
+El \textit{K Vecinos más Cercanos} o KNN (K-Nearest Neighbours) es un algoritmo de aprendizaje supervisado utilizado para resolver tareas de clasificación. A diferencia de otros métodos, este utiliza siempre el conjunto de entrenamiento completo para realizar predicciones, en vez de crear un modelo en base a la relación de las entradas y las salidas. Es por ello que es un método costoso computacionalmente para conjuntos de datos muy grades, pero ese no es nuestro caso.\\
 
 El método está basado en calcular la distancia del dato a evaluar respecto a los demás datos. Partiendo de eso, el algoritmo se queda con los \textit{k} datos más cercanos, siendo \textit{k} un parámetro personalizable, y de estos elige la clase que más se repite, siendo esta la predicción realizada (Figura \ref{fig:knn}). Para medir la distancia entre datos, el método utilizado en este trabajo es el de distancia Euclídea (Ecuación \ref{ec:d_euclidea}).\\
 
 \begin{figure} [h!]
   \begin{center}
-    \includegraphics[width=9cm]{figs/knn.png}
+    \includegraphics[width=95mm]{figs/knn.png}
   \end{center}
   \captionsetup{justification=centering}
   \caption{Ejemplo de KNN con $k = 3$.}
@@ -240,7 +269,7 @@ con \textit{p} características respecto al vector i-ésimo $(x^{(i)})$}
 
 \subsection{Redes Neuronales Multicapa}
 
-Una red neuronal (Figura \ref{fig:red_neuronal}) es un modelo computacional inspirado en el funcionamiento del cerebro humano utilizado, en la mayoría de los casos, como técnica de aprendizaje supervisado. Está compuesta por un conjunto de neuronas que a su vez, si la red es multicapa, forman capas de neuronas. Realizo la excepción anterior porque existen también redes neuronales de una sola capa, denominadas perceptrón.\\
+Una red neuronal (Figura \ref{fig:red_neuronal}) es un modelo computacional inspirado en el funcionamiento del cerebro humano, y es utilizado en la mayoría de los casos como técnica de aprendizaje supervisado. Está compuesta por un conjunto de neuronas que, a su vez, si la red es multicapa, forman capas de neuronas. Existen también redes neuronales de una sola capa, denominadas perceptrón.\\
 
 \begin{figure} [h!]
   \begin{center}
@@ -262,7 +291,20 @@ Todas las neuronas están interconectadas entre sí y cada una de esas neuronas 
   \label{fig:neurona}
 \end{figure}
 
-La etapa de \textit{entrenamiento}, será un proceso iterativo en el que la red neuronal ajustará los valores de los pesos \textit{w} de cara a estimar el valor de salida.  Una vez que se haya finalizado el entrenamiento, la red se usa como una \textit{caja negra}, esto es, se le proporcionan una serie de entradas y te devuelve unas respectivas salidas, sin nosotros conocer lo que ha sucedido dentro.
+La etapa de \textit{entrenamiento} será un proceso iterativo en el que la red neuronal ajustará los valores de los pesos \textit{w} de cara a estimar el valor de salida.  Una vez que se haya finalizado el entrenamiento, la red se usa como una \textit{caja negra}; esto es, se le proporcionan una serie de entradas, y esta devuelve sus respectivas salidas, sin nosotros conocer lo que ha sucedido dentro.
+
+\subsection{Análisis de Componentes Principales (PCA)}
+
+El Análisis de Componentes Principales o PCA (Principal Component Analysis) es un método de reducción de dimensionalidad que permite reducir el número de características de entrada que componen el conjunto de datos, a la vez que se conserva la información. Esto se consigue utilizando relaciones entre características que se pueden detectar mediante el cálculo de autovectores y autovalores de la matriz de covarianza que se genera a partir de los datos de entrada.\\
+
+\noindent
+Entre las ventajas que nos proporciona este método, encontramos:
+
+\begin{itemize}
+    \item Crear un dataset más eficiente y, por lo tanto, reducir el sobreajuste y aumentar la precisión a la hora de realizar un entrenamiento con los datos.
+    
+    \item Reducir la carga computacional de los algoritmos de aprendizaje.
+\end{itemize}
 
 \section{ROS (Robot Operating System)}
 
@@ -277,7 +319,7 @@ ROS (Robot Operating System)\footnote{ROS: \url{https://www.ros.org/}} (Figura \
   \label{fig:logo_ros}
 \end{figure}
 
-Cada uno de los procesos de ROS se denominan \textit{nodos} y se comunican entre sí usando \textit{topics}, ya sea en la misma máquina o de forma remota en una red local. El envío y recibimiento de mensajes a través de los \textit{topics}, se consigue haciendo uso de publicadores y subscriptores. Además, ofrece otras opciones de comunicación como los servicios o acciones. El nodo \textit{máster} será el encargado de permitir que todos los nodos se localicen entre sí, proporcionando ---entre otras cosas--- servicios de \textit{naming}. En la Figura \ref{fig:ros} se puede observar un esquema reducido de lo que sería una comunicación entre un nodo publicador y un nodo suscriptor a través del \textit{topic} \verb|\ejemplo|.\\
+Cada uno de los procesos de ROS se denominan \textit{nodos}, y se comunican entre sí usando \textit{topics}, ya sea en la misma máquina o de forma remota en una red local. El envío y recibimiento de mensajes a través de los \textit{topics} se consigue haciendo uso de publicadores y subscriptores. Además, ofrece otras opciones de comunicación como los servicios o acciones. El nodo \textit{máster} será el encargado de permitir que todos los nodos se localicen entre sí, proporcionando ---entre otras cosas--- servicios de \textit{naming}. En la Figura \ref{fig:ros} se puede observar un esquema reducido de lo que sería una comunicación entre un nodo publicador y un nodo suscriptor a través del \textit{topic} \verb|/ejemplo|.\\
 
 \begin{figure} [h!]
   \begin{center}

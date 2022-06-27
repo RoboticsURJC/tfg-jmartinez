@@ -1,7 +1,7 @@
 \chapter{Sistema de detección de emociones}
 \label{cap:capitulo4}
 
-En este capítulo se describe el sistema de detección de emociones, su desarrollo y su integración en ROS. Además, se muestran ejemplos de su funcionamiento y se realizan pruebas de rendimiento.\\
+En este capítulo se describe el sistema de detección de emociones, su desarrollo y su integración en ROS. Además, se muestra su funcionamiento y rendimiento final.\\
 
 Existen múltiples técnicas utilizadas para realizar detección de emociones, en el artículo \cite{literature_review} encontramos una revisión del estado del arte de los últimos años. En este trabajo, se ha escogido la técnica comprendida por los siguientes tres pasos: detección de puntos faciales, extracción de información de esos puntos faciales, clasificación de esa información. En la Figura \ref{fig:metodo} se muestra un esquema general del funcionamiento del sistema, obviando la integración en ROS, la cual se describe en la Sección \ref{sec:integración_en_ros}. Cada una de las fases de desarrollo mostradas en dicho esquema, corresponden a una sección de este capítulo.\\
 
@@ -19,7 +19,7 @@ Finalmente, añadir que el motivo de elegir la técnica descrita anteriormente e
 \section{Detección de puntos faciales}
 \label{sec:deteccion_de puntos}
 
-El primer paso del método escogido en este trabajo consiste en realizar una detección de puntos faciales característicos. En búsqueda de la máxima optimización, se hizo un estudio comparando dos librerías de extracción de puntos faciales para obtener conclusiones de cual nos ofrecía más rendimiento y precisión. Estas dos librerías son dlib y MediaPipe, ya presentadas en las secciones \ref{sec:dlib} y \ref{sec:mediapipe}, escogidas por ser las más usadas dentro de la investigación de este campo en publicaciones como, por ejemplo, los artículos \cite{dlib_emotions} o \cite{mediapipe_emotions}. Este estudio y sus resultados se describen detalladamente en la Sección \ref{}.\\
+El primer paso del método escogido en este trabajo consiste en realizar una detección de puntos faciales característicos. En búsqueda de la máxima optimización, se hizo un estudio comparando dos librerías de extracción de puntos faciales para obtener conclusiones de cual nos ofrecía más rendimiento y precisión. Estas dos librerías son dlib y MediaPipe, ya presentadas en las secciones \ref{sec:dlib} y \ref{sec:mediapipe}, escogidas por ser las más usadas dentro de la investigación de este campo en publicaciones como, por ejemplo, los artículos \cite{dlib_emotions} o \cite{mediapipe_emotions}. Este estudio y sus resultados se describen detalladamente en la Sección \ref{sec:estudio_puntos_faciales}.\\
 
 El algoritmo que mejores resultados obtuvo fue MediaPipe FaceMesh, obteniendo un rendimiento de 13.28 fps de media y es por lo tanto el usado en este sistema. Nos brinda información de coordenadas 3D de 468 puntos faciales (Figura \ref{fig:mediapipe_malla}).\\
 
@@ -197,34 +197,32 @@ Esta base de datos contiene 593 secuencias de imágenes, en las que se muestra u
 
 CK+ ha sido elegido frente a otro tipo de datasets populares como FER\footnote{FER: \url{https://www.kaggle.com/datasets/msambare/fer2013}} debido a la alineación de las caras en las imágenes. Bases de datos como la nombrada anteriormente están enfocadas a ser usadas por CNN (Convolutional Neural Network), y la posición de las caras no influye en el entrenamiento, es más, le aporta más generalidad. Pero para llevar a cabo nuestra técnica, es necesario disponer de caras alineadas para obtener información confiable de los ángulos formados por las expresiones faciales. Recordemos que nosotros lo que deseamos es generar un dataset nuevo a partir de otro de imágenes, no utilizar directamente las imágenes, como si lo haría una CNN con FER.\\
 
-En cuanto al dataset de ángulos generado a partir del tratamiento de las imágenes de CK+, se han realizado diversos estudios en las Secciones 5.3 y 5.4 para encontrar la base de datos que más precisión nos ofrece. Finalmente, el dataset que mejores resultados ha obtenido y, por lo tanto el usado en este trabajo, es el comprendido por cuatro emociones (enfado, felicidad, tristeza, sorpresa) y 21 ángulos (Figura \ref{fig:emotional_mesh_todos_angulos}) por cada una de las muestras. Este se ha generado en un fichero csv en el que cada fila es una muestra, esto es los datos obtenidos de una imagen de CK+, por lo tanto, posee tantas filas como imágenes procesadas. Y cada una de esas filas tiene tantas columnas como ángulos calculados en la imagen y, además, una última columna que indica que tipo de emoción es. El dataset en formato reducido se muestra en el Código \ref{cod:dataset}.\\
+En cuanto al dataset de ángulos generado a partir del tratamiento de las imágenes de CK+, se han realizado diversos estudios en las secciones \ref{sec:estudio_cantidad_de_angulos} y \ref{sec:estudio_dataset_optimo} para encontrar la base de datos que más precisión nos ofrece. Finalmente, el dataset que mejores resultados ha obtenido y, por lo tanto el usado en este trabajo, es el comprendido por cuatro emociones (enfado, felicidad, tristeza, sorpresa) y 21 ángulos (Figura \ref{fig:emotional_mesh_todos_angulos}) por cada una de las muestras. Este se ha generado en un fichero csv en el que cada fila es una muestra, esto es los datos obtenidos de una imagen de CK+, por lo tanto, posee tantas filas como imágenes procesadas. Y cada una de esas filas tiene tantas columnas como ángulos calculados en la imagen y, además, una última columna que indica que tipo de emoción es. El dataset en formato reducido se muestra en el Código \ref{cod:dataset}.\\
 
 \begin{code}[h]
 \begin{lstlisting}
-            X0          X1          X2  ...        X19        X20    y
-0    54.288044   37.570711  154.655589  ...  44.625203  63.887010  1.0
-1    44.670597   35.229102  148.630240  ...  47.334403  61.278073  1.0
-2    46.613914   36.808837  161.148375  ...  57.291823  64.390395  1.0
-3    49.404349   47.407905  153.817836  ...  49.880184  61.894869  1.0
-4    42.510847   43.626048  146.891826  ...  46.965439  59.971707  1.0
-..         ...         ...         ...  ...        ...        ...  ...
-220  23.444336   97.667648   88.384186  ...  28.011004  63.905389  7.0
-221  24.634940   96.406625   93.413763  ...  28.637606  63.551521  7.0
-222  22.425106  105.319774   87.727242  ...  30.811141  61.646881  7.0
-223  15.966920  120.968600   60.790043  ...  28.018767  56.442379  7.0
-224  19.667632  104.568158   80.332991  ...  29.088510  64.107810  7.0
+       X0          X1          X2  ...        X19        X20    y
+54.288044   37.570711  154.655589  ...  44.625203  63.887010  1.0
+44.670597   35.229102  148.630240  ...  47.334403  61.278073  1.0
+46.613914   36.808837  161.148375  ...  57.291823  64.390395  1.0
+49.404349   47.407905  153.817836  ...  49.880184  61.894869  1.0
+42.510847   43.626048  146.891826  ...  46.965439  59.971707  1.0
+      ...         ...         ...  ...        ...        ...  ...
+23.444336   97.667648   88.384186  ...  28.011004  63.905389  7.0
+24.634940   96.406625   93.413763  ...  28.637606  63.551521  7.0
+22.425106  105.319774   87.727242  ...  30.811141  61.646881  7.0
+15.966920  120.968600   60.790043  ...  28.018767  56.442379  7.0
+19.667632  104.568158   80.332991  ...  29.088510  64.107810  7.0
 \end{lstlisting}
 \captionsetup{justification=centering}
-\caption[Dataset usado en el presente trabajo. La primera columna es el número de muestra,
-la columna \textit{X} son las características, la columna \textit{y} es el tipo de clase.]{Dataset usado en el presente trabajo. La primera columna es el número de muestra,
-las columnas \textit{X} son las características, la columna \textit{y} es el tipo de clase.}
+\caption[Dataset usado en el presente trabajo. Las columna \textit{X} son las características, la columna \textit{y} es el tipo de clase.]{Dataset usado en el presente trabajo. Las columnas \textit{X} son las características, la columna \textit{y} es el tipo de clase.}
 \label{cod:dataset}
 \end{code}
 
 \section{Entrenamiento del modelo}
 \label{sec:entrenamiento}
 
-Se realizó el entrenamiento con tres algoritmos de clasificación diferentes y se compararon los resultados de cada uno de ellos. Los algoritmos a utilizar fueron KNN, SVM y MLP. Además, se hizo uso de PCA para reducir el número de características del dataset y, de esta manera mejorar la precisión de la detección de emociones.\\
+Se realizó el entrenamiento con tres algoritmos de clasificación diferentes y se compararon los resultados de cada uno de ellos. Los algoritmos a utilizar fueron KNN, SVM y MLP. Además, se hizo uso de PCA para reducir el número de características del dataset y de esta manera mejorar la precisión de la detección de emociones.\\
 
 Cada uno de los algoritmos posee unos parámetros a optimizar en la fase de entrenamiento; nuestra labor es encontrar aquellos valores que proporcionen más precisión al modelo sin llegar a sobreentrenarlo. En caso de KNN se debe encontrar el número de vecinos óptimo (k); para SVM, el parámetro de regulación óptimo (C); y, para MLP, el número de capas ocultas y neuronas óptimas. Los demás parámetros de configuración, como la función de activación en MLP o el algoritmo para calcular distancias en KNN, se deja por defecto tal como los ofrece Scikit-Learn, son los que mejores resultados ofrecen.\\
 
@@ -249,7 +247,7 @@ Para evitar el sobreentrenamiento y generalizar los modelos, se hace uso de la v
   \label{fig:kfolf_explicacion}
 \end{figure}
 
-La clase con menos datos del dataset, tiene una cantidad de 28. Por lo tanto, se usan 4 \textit{pliegues} para KFold, de esta manera aseguramos 8 datos de esa clase en cada pliegue. Al tener una base de datos desequilibrada, esto es, que no tiene el mismo número de muestras para todas las clases, debemos usar KFold Stratified, que nos asegura poseer siempre el mismo porcentaje de muestras de cada clase en todos los pliegues.\\
+La clase con menos datos del dataset, tiene una cantidad de 28. Por lo tanto, se usan 4 \textit{pliegues} para KFold, de esta manera aseguramos 7 datos de esa clase en cada pliegue. Al tener una base de datos desequilibrada, esto es, que no tiene el mismo número de muestras para todas las clases, debemos usar KFold Stratified, que nos asegura poseer siempre el mismo porcentaje de muestras de cada clase en todos los pliegues.\\
 
 KFold Stratified por lo tanto, nos sirve para encontrar los parámetros óptimos de cada algoritmo. Por ejemplo, para KNN probamos cada una de las \textit{k} (vecinos) posibles en cada una de las iteraciones. El resultado es una matriz con el \textit{Accuracy} para cada una de las \textit{k} en cada una de las iteraciones. Finalmente, se calcula la media de todas las iteraciones y se escoge la \textit{k} que más \textit{Accuracy} de media haya obtenido. Y así conseguimos el número de vecinos óptimo. Un ejemplo con 4 valores de vecinos se muestra en la Figura \ref{fig:kfold_KNN}.\\
 
@@ -276,7 +274,7 @@ Sin embargo, como se usa PCA para reducir el número de características (compon
   \label{fig:kfold_KNN_PCA}
 \end{figure}
 
-En este trabajo, el valor óptimo de características a mantener por PCA y los parámetros para cada clasificador tras realizar su búsqueda usando validación cruzada KFoldStratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_optimos}. Para hacer la reducción con PCA, se ha probado con un número de componentes entre 2 y 20 incluidos, para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
+En este trabajo, el valor óptimo de características a mantener por PCA y los parámetros óptimos para cada clasificador tras realizar su búsqueda usando validación cruzada KFoldStratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_optimos}. Para hacer la reducción con PCA, se ha probado con un número de componentes entre 2 y 20 incluidos, para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
 
 \begin{table}[H]
 \begin{center}
@@ -381,7 +379,7 @@ de las 4 iteraciones de KFoldStratified}
 \label{cuadro:resultados_KNN_emociones}
 \end{table}
 
-Los modelos entrenados son guardados en ficheros con formato \textit{pkl} usando el módulo \textit{pickle} de Python. De esta manera, pueden ser cargados en cualquier otro programa y realizar predicciones con ellos usando el método \verb|predict()|. A este último se le introducen los ángulos del rostro a clasificar, y este devuelve la clase predicha.\\
+Los modelos entrenados son guardados en ficheros con formato \textit{pkl} usando el módulo \textit{pickle} de Python. De esta manera, pueden ser cargados en cualquier otro programa y realizar predicciones con ellos usando el método \verb|predict()|. A este último se le introducen los ángulos del rostro a clasificar y este devuelve la clase predicha.\\
 
 \section{Integración del sistema en ROS}
 \label{sec:integración_en_ros}
@@ -402,7 +400,7 @@ Finalmente, se instaló ROS Noetic, ya que existe una versión del mismo para De
 $ sudo sh -c 'echo "deb http://packages.ros.org/ros/ubuntu buster main" > /etc/apt/sources.list.d/ros-noetic.list'
 \end{listing}
 
-\item Agregamos la clave de ROS, para asegurarnos de que instalamos paquetes de ROS autenticados.
+\item Agregamos la clave de ROS para asegurarnos de que instalamos paquetes de ROS autenticados.
 \begin{listing}[style=consola, numbers=none]
 $ sudo apt-key adv --keyserver 'hkp://keyserver.ubuntu.com:80' --recv-key C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 \end{listing}
@@ -429,7 +427,7 @@ $ mkdir ~/ros_catkin_ws
 $ cd ~/ros_catkin_ws
 \end{listing}
 
-\item Usamos \verb|rosinstall_generator| para generar una lista de dependencias de Noetic para la variante \verb|ros_comm|, porque los tradicionales \verb|desktop-full| o \verb|desktop| no son compatibles y la Raspberry no posee la suficiente memoria como para compilar rviz.
+\item Usamos \verb|rosinstall_generator| para generar una lista de dependencias de Noetic para la variante \verb|ros_comm|, porque los tradicionales \verb|desktop-full| o \verb|desktop| no son compatibles y la placa Raspberry no posee la suficiente memoria como para compilar rviz.
 \begin{listing}[style=consola, numbers=none]
 $ rosinstall_generator ros_comm --rosdistro noetic --deps --wet-only --tar > noetic-ros_comm-wet.rosinstall
 \end{listing}
@@ -444,7 +442,7 @@ $ wstool init src noetic-ros_comm-wet.rosinstall
 $ rosdep install -y --from-paths src --ignore-src --rosdistro noetic -r --os=debian:buster
 \end{listing}
 
-\item Por último, antes de compilar, aumentamos el espacio de \verb|swap|, que se usará cuando se agote la memoria física en la Raspberry. Primero desactivamos la memoria \verb|swap|.
+\item Por último, antes de compilar, aumentamos el espacio de \verb|swap| que se usará cuando se agote la memoria física en la Raspberry. Primero desactivamos la memoria \verb|swap|.
 \begin{listing}[style=consola, numbers=none]
 $ sudo dphys-swapfile swapoff
 \end{listing}
@@ -538,6 +536,7 @@ Las tareas del nodo principal están repartidas en diferentes clases que se encu
 \end{itemize}
 
 \subsection{Uso y rendimiento}
+\label{sec:uso_rendimiento_ros}
 
 Gracias a que el sistema está integrado en ROS y la comunicación se produce a través de \textit{topics}, se podría usar cualquier cámara que publique \textit{frames} en el \textit{topic} necesario. Sin embargo, se recomienda usar la Raspberry Pi Camera V2.1, ya que ha sido la cámara usada en este trabajo.\\
 
@@ -557,7 +556,7 @@ $ roslaunch emotion_detection_ros emotion_detection_ros.launch
 \end{listing}
 \end{enumerate}
 
-Tras lanzar el sistema, se abrirá una ventana gráfica en la que se mostrarán los \textit{frames}, en los cuales aparecerán dibujados los bounding boxes con sus respectivas etiquetas mostrando la predicción. Además, en la esquina superior izquierda se expondrá el valor de FPS del sistema (Figura \ref{fig:ventana_grafica_1_cara}).\\
+Tras lanzar el sistema, se abrirá una ventana gráfica en la que se mostrarán los \textit{frames}, en los cuales aparecerán dibujados los bounding boxes con sus respectivas etiquetas mostrando la predicción (Figura \ref{fig:ventana_grafica_1_cara}). Además, en la esquina superior izquierda se expondrá el valor de FPS del sistema.\\
 
 \begin{figure}[h!]
   \begin{center}

@@ -101,7 +101,7 @@ Llegados a este punto, podemos concluir afirmando que el algoritmo que mejor ren
 \section{Cantidad de ángulos a utilizar en el dataset}
 \label{sec:estudio_cantidad_de_angulos}
 
-El número de ángulos a utilizar de la \textit{malla emocional}, hace referencia a la cantidad de características que posee nuestro dataset. Es por ello, que se debe estudiar cuál es la cantidad óptima de los mismos que mejores resultados nos ofrece a la hora de entrenar los modelos.\\
+El número de ángulos a utilizar de la \textit{malla emocional}, hace referencia a la cantidad de características que posee nuestro dataset. Es por ello que se debe estudiar cuál es la cantidad óptima de los mismos que mejores resultados nos ofrece a la hora de entrenar los modelos.\\
 
 En primer lugar se realizó un estudio para comprobar qué ángulos de toda la malla son más influyentes en las emociones y, posteriormente, se hizo un estudio de simetría con dichos ángulos, para así comprobar si las emociones se pueden considerar simétricas en ambas mitades de un rostro y entonces únicamente utilizar los ángulos de una sola mitad.
 
@@ -171,7 +171,7 @@ Con el afán de descubrir si es posible entrenar a nuestro modelo con sólo áng
 
 A la hora de estudiar la simetría calculamos la variación que existe entre los ángulos del lado izquierdo y del lado derecho para cada una de las emociones y cada una de las imágenes del dataset CK+. La forma de llevar a cabo este cálculo ha sido la misma que en el estudio anterior (Código \ref{cod:angulos_diferencia}). Los resultados son la media de lo obtenido para todas las imágenes (Figura \ref{fig:estudio_simetría}).\\
 
-Observando los resultados, podemos considerar que las emociones son simétricas, ya que la mayor variación de media entre el lado izquierdo y derecho ha sido de 5 grados, siendo esta una variación mínima. Por lo tanto, conociendo las información de los dos estudios, descartamos todos los ángulos de una mitad de la cara y generamos los dos siguientes datasets:
+Observando los resultados, podemos considerar que las emociones son simétricas, ya que la mayor variación de media entre el lado izquierdo y derecho ha sido de 5 grados, siendo esta una variación mínima. Por lo tanto, conociendo la información de los dos estudios, descartamos todos los ángulos de una mitad de la cara y generamos los dos siguientes datasets:
 
 \begin{itemize}
     \item Base de datos con sólo los ángulos más influyentes de la parte derecha de la \textit{malla emocional}.
@@ -236,7 +236,7 @@ usando el \textit{dataset1}.}
 
 \subsubsection{Entrenamiento usando el \textit{dataset2}}
 
-El valor óptimo de características a mantener por PCA y los parámetros para cada clasificador tras realizar su búsqueda usando validación cruzada KFoldStratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_dataset2}. Para hacer la reducción con PCA se ha probado con un número de componentes entre 2 y 20 incluidos, para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
+El valor óptimo de características a mantener por PCA y los parámetros óptimos para cada clasificador tras realizar su búsqueda usando validación cruzada KFoldStratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_dataset2}. Para hacer la reducción con PCA se ha probado con un número de componentes entre 2 y 20 incluidos, para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
 
 \begin{table}[H]
 \begin{center}

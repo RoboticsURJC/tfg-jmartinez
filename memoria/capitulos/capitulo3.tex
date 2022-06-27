@@ -57,7 +57,7 @@ Raspberry Pi OS (Figura \ref{fig:captura_rpios}) es el sistema operativo oficial
   \label{fig:captura_rpios}
 \end{figure}
 
-La versión de Raspberry Pi OS escogida ha sido Raspberry Pi OS Legacy (Cuadro \ref{cuadro:especificaciones_rpios}). Se ha elegido dicha versión porque, de todas las disponibles, ha sido la única en la que se ha conseguido instalar una versión de ROS/ROS2 (en concreto, ROS Noetic). Además, aunque las versiones de Raspberry Pi OS de 64-bit ofrecían más rendimiento, todavía no estaban maduras y no ofrecían total compatibilidad con todas las librerías usadas en el presente trabajo.\\
+La versión de Raspberry Pi OS escogida ha sido Raspberry Pi OS Legacy (Cuadro \ref{cuadro:especificaciones_rpios}). Se ha elegido dicha versión porque, de todas las disponibles, ha sido la única en la que se ha conseguido instalar una versión de ROS/ROS2 (en concreto, ROS Noetic). Además, aunque la reciente versión de Raspberry Pi OS de 64-bit ofrecía más rendimiento, todavía no estaba madura y no brindaba total compatibilidad con todas las librerías usadas en el presente trabajo.\\
 
 \begin{table}[H]
 \begin{center}
@@ -128,7 +128,7 @@ Python es un lenguaje de programación interpretado (se ejecuta sin necesidad de
 Se ha escogido Python (versión 3.7.3) como lenguaje de programación para este proyecto debido a los dos siguientes motivos:
 
 \begin{enumerate}
-    \item El sistema desarrollado en este trabajo usa algoritmos de Machine Learning para detectar las emociones faciales, y Python es el lenguaje de programación rey en ese campo; posee múltiples librerías como Pandas, TensorFlow, Keras, Scikit-learn... que brindan un soporte excepcional para cualquier tarea relacionada con el aprendizaje automático.
+    \item El sistema desarrollado en este trabajo usa algoritmos de Machine Learning para detectar las emociones faciales y Python es el lenguaje de programación rey en ese campo; posee múltiples librerías como Pandas, TensorFlow, Keras, Scikit-learn... que brindan un soporte excepcional para cualquier tarea relacionada con el aprendizaje automático.
     
     \item La librería que da soporte oficial a la Raspberry Pi Camera (Sección \ref{sec:rpi_camera}) únicamente se puede usar en Python. Se trata del paquete \textit{picamera}.
 \end{enumerate}
@@ -319,7 +319,7 @@ ROS (Robot Operating System)\footnote{ROS: \url{https://www.ros.org/}} (Figura \
   \label{fig:logo_ros}
 \end{figure}
 
-Cada uno de los procesos de ROS se denominan \textit{nodos}, y se comunican entre sí usando \textit{topics}, ya sea en la misma máquina o de forma remota en una red local. El envío y recibimiento de mensajes a través de los \textit{topics} se consigue haciendo uso de publicadores y subscriptores. Además, ofrece otras opciones de comunicación como los servicios o acciones. El nodo \textit{máster} será el encargado de permitir que todos los nodos se localicen entre sí, proporcionando ---entre otras cosas--- servicios de \textit{naming}. En la Figura \ref{fig:ros} se puede observar un esquema reducido de lo que sería una comunicación entre un nodo publicador y un nodo suscriptor a través del \textit{topic} \verb|/ejemplo|.\\
+Cada uno de los procesos de ROS se denominan \textit{nodos} y se comunican entre sí usando \textit{topics}, ya sea en la misma máquina o de forma remota en una red local. El envío y recibimiento de mensajes a través de los \textit{topics} se consigue haciendo uso de publicadores y subscriptores. Además, ofrece otras opciones de comunicación como los servicios o acciones. El nodo \textit{máster} será el encargado de permitir que todos los nodos se localicen entre sí, proporcionando ---entre otras cosas--- servicios de \textit{naming}. En la Figura \ref{fig:ros} se puede observar un esquema reducido de lo que sería una comunicación entre un nodo publicador y un nodo suscriptor a través del \textit{topic} \verb|/ejemplo|.\\
 
 \begin{figure} [h!]
   \begin{center}

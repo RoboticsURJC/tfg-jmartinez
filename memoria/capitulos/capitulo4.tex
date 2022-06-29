@@ -1,9 +1,9 @@
 \chapter{Sistema de detección de emociones}
 \label{cap:capitulo4}
 
-En este capítulo se describe el sistema de detección de emociones, su desarrollo y su integración en ROS. Además, se muestra su funcionamiento y rendimiento final.\\
+En este capítulo se describe el sistema de detección de emociones desarrollado en este trabajo, así como su integración en ROS. Además, se muestra su funcionamiento y rendimiento final.\\
 
-Existen múltiples técnicas utilizadas para realizar detección de emociones, en el artículo \cite{literature_review} encontramos una revisión del estado del arte de los últimos años. En este trabajo, se ha escogido la técnica comprendida por los siguientes tres pasos: detección de puntos faciales, extracción de información de esos puntos faciales, clasificación de esa información. En la Figura \ref{fig:metodo} se muestra un esquema general del funcionamiento del sistema, obviando la integración en ROS, la cual se describe en la Sección \ref{sec:integración_en_ros}. Cada una de las fases de desarrollo mostradas en dicho esquema, corresponden a una sección de este capítulo.\\
+Existen múltiples técnicas utilizadas para realizar detección de emociones, en el artículo \cite{literature_review} encontramos una revisión del estado del arte de los últimos años. En este trabajo, se ha escogido la técnica comprendida por los siguientes tres pasos: detección de puntos faciales, extracción de información de esos puntos faciales, clasificación de esa información. En la Figura \ref{fig:metodo} se muestra un esquema general del funcionamiento del sistema, obviando la integración en ROS, la cual se describe en la Sección \ref{sec:integración_en_ros}. Cada una de las fases de desarrollo mostradas en dicho esquema se corresponde a una sección de este capítulo.\\
 
 \begin{figure} [h!]
   \begin{center}
@@ -14,14 +14,14 @@ Existen múltiples técnicas utilizadas para realizar detección de emociones, e
   \label{fig:metodo}
 \end{figure}
 
-Finalmente, añadir que el motivo de elegir la técnica descrita anteriormente es debido a que es un método con bajo coste computacional y además es de los más precisos, algo esencial para aportar robustez a la herramienta robótica final de este trabajo.
+Cabe añadir que el motivo de elegir la técnica descrita anteriormente es debido a que es un método con bajo coste computacional y además es de los más precisos, algo esencial para aportar robustez a la herramienta robótica final de este trabajo.
 
 \section{Detección de puntos faciales}
 \label{sec:deteccion_de puntos}
 
 El primer paso del método escogido en este trabajo consiste en realizar una detección de puntos faciales característicos. En búsqueda de la máxima optimización, se hizo un estudio comparando dos librerías de extracción de puntos faciales para obtener conclusiones de cual nos ofrecía más rendimiento y precisión. Estas dos librerías son dlib y MediaPipe, ya presentadas en las secciones \ref{sec:dlib} y \ref{sec:mediapipe}, escogidas por ser las más usadas dentro de la investigación de este campo en publicaciones como, por ejemplo, los artículos \cite{dlib_emotions} o \cite{mediapipe_emotions}. Este estudio y sus resultados se describen detalladamente en la Sección \ref{sec:estudio_puntos_faciales}.\\
 
-El algoritmo que mejores resultados obtuvo fue MediaPipe FaceMesh, obteniendo un rendimiento de 13.28 fps de media y es por lo tanto el usado en este sistema. Nos brinda información de coordenadas 3D de 468 puntos faciales (Figura \ref{fig:mediapipe_malla}).\\
+El algoritmo que mejores resultados obtuvo fue MediaPipe FaceMesh, obteniendo un rendimiento de 13.28 fps de media y es, por lo tanto, el usado en este sistema. Este algoritmo nos brinda información de coordenadas 3D de 468 puntos faciales (Figura \ref{fig:mediapipe_malla}).\\
 
 \begin{figure} [h!]
   \begin{center}
@@ -61,7 +61,7 @@ El método usado para extraer información de los puntos faciales, por lo tanto,
 
 FACS es un sistema que clasifica movimientos faciales humanos basándose en los cambios producidos en la cara a cargo de los movimientos de los músculos. Estos movimientos son definidos como Unidades de Acción o AUs (Action Units), de los cuales existen hasta 46. En el Cuadro \ref{cuadro:au}, están expuestas las AUs más usadas con sus respectivas descripciones.\\
 
-Además, EMFACS (Emotional Facial Action Coding System) describe emociones simples usando combinaciones de AUs (Cuadro \ref{cuadro:emfacs}). Por lo tanto, sabiendo esto, se puede afirmar que el movimiento de cada uno de esos músculos faciales está relacionado con siete emociones simples, y es por eso, que cada ubicación de los puntos de la \textit{malla emocional} (Figura \ref{fig:malla_emocional}) ha sido elegida de manera que se vea afectada por una AU y de esta manera conseguir un mejor reconocimiento de emociones.\\
+Por otro lado, el sistema EMFACS (Emotional Facial Action Coding System) describe emociones simples usando combinaciones de AUs (Cuadro \ref{cuadro:emfacs}). Por lo tanto, sabiendo esto, se puede afirmar que el movimiento de cada uno de esos músculos faciales está relacionado con siete emociones simples, y es por eso que cada ubicación de los puntos de la \textit{malla emocional} (Figura \ref{fig:malla_emocional}) ha sido elegida de manera que se vea afectada por una AU y de esta manera conseguir un mejor reconocimiento de emociones.\\
 
 \begin{table}[H]
 \begin{center}
@@ -197,27 +197,32 @@ Esta base de datos contiene 593 secuencias de imágenes, en las que se muestra u
 
 CK+ ha sido elegido frente a otro tipo de datasets populares como FER\footnote{FER: \url{https://www.kaggle.com/datasets/msambare/fer2013}} debido a la alineación de las caras en las imágenes. Bases de datos como la nombrada anteriormente están enfocadas a ser usadas por CNN (Convolutional Neural Network), y la posición de las caras no influye en el entrenamiento, es más, le aporta más generalidad. Pero para llevar a cabo nuestra técnica, es necesario disponer de caras alineadas para obtener información confiable de los ángulos formados por las expresiones faciales. Recordemos que nosotros lo que deseamos es generar un dataset nuevo a partir de otro de imágenes, no utilizar directamente las imágenes, como si lo haría una CNN con FER.\\
 
-En cuanto al dataset de ángulos generado a partir del tratamiento de las imágenes de CK+, se han realizado diversos estudios en las secciones \ref{sec:estudio_cantidad_de_angulos} y \ref{sec:estudio_dataset_optimo} para encontrar la base de datos que más precisión nos ofrece. Finalmente, el dataset que mejores resultados ha obtenido y, por lo tanto el usado en este trabajo, es el comprendido por cuatro emociones (enfado, felicidad, tristeza, sorpresa) y 21 ángulos (Figura \ref{fig:emotional_mesh_todos_angulos}) por cada una de las muestras. Este se ha generado en un fichero csv en el que cada fila es una muestra, esto es los datos obtenidos de una imagen de CK+, por lo tanto, posee tantas filas como imágenes procesadas. Y cada una de esas filas tiene tantas columnas como ángulos calculados en la imagen y, además, una última columna que indica que tipo de emoción es. El dataset en formato reducido se muestra en el Código \ref{cod:dataset}.\\
+En cuanto al dataset de ángulos generado a partir del tratamiento de las imágenes de CK+, se han realizado diversos estudios en las secciones \ref{sec:estudio_cantidad_de_angulos} y \ref{sec:estudio_dataset_optimo} para encontrar la base de datos que más precisión nos ofrece. Finalmente, el dataset que mejores resultados ha obtenido y, por lo tanto el usado en este trabajo, es el comprendido por cuatro emociones (enfado, felicidad, tristeza, sorpresa) y 21 ángulos (Figura \ref{fig:emotional_mesh_todos_angulos}) por cada una de las muestras. Este se ha generado en un fichero csv en el que cada fila es una muestra, esto es los datos obtenidos de una imagen de CK+, por lo tanto, posee tantas filas como imágenes procesadas. Y cada una de esas filas tiene tantas columnas como ángulos calculados en la imagen y, además, una última columna que indica que tipo de emoción es. El dataset en formato reducido se muestra en el Cuadro \ref{cuadro:dataset}.\\
 
-\begin{code}[h]
-\begin{lstlisting}
-       X0          X1          X2  ...        X19        X20    y
-54.288044   37.570711  154.655589  ...  44.625203  63.887010  1.0
-44.670597   35.229102  148.630240  ...  47.334403  61.278073  1.0
-46.613914   36.808837  161.148375  ...  57.291823  64.390395  1.0
-49.404349   47.407905  153.817836  ...  49.880184  61.894869  1.0
-42.510847   43.626048  146.891826  ...  46.965439  59.971707  1.0
-      ...         ...         ...  ...        ...        ...  ...
-23.444336   97.667648   88.384186  ...  28.011004  63.905389  7.0
-24.634940   96.406625   93.413763  ...  28.637606  63.551521  7.0
-22.425106  105.319774   87.727242  ...  30.811141  61.646881  7.0
-15.966920  120.968600   60.790043  ...  28.018767  56.442379  7.0
-19.667632  104.568158   80.332991  ...  29.088510  64.107810  7.0
-\end{lstlisting}
-\captionsetup{justification=centering}
-\caption[Dataset usado en el presente trabajo. Las columna \textit{X} son las características, la columna \textit{y} es el tipo de clase.]{Dataset usado en el presente trabajo. Las columnas \textit{X} son las características, la columna \textit{y} es el tipo de clase.}
-\label{cod:dataset}
-\end{code}
+\begin{table}[H]
+\begin{center}
+\begin{tabular}{|c|c|c|c|c|c|c|}
+     \hline
+    \textbf{X0} & \textbf{X1} & \textbf{X2} & \textbf{...} & \textbf{X19} & \textbf{X20} & \textbf{y}\\
+    \hline
+    54.288044 & 37.570711 & 154.655589 & ... & 44.625203 & 63.887010 & 1.0\\ 
+    44.670597 & 35.229102 & 148.630240 & ... & 47.334403 & 61.278073 & 1.0\\
+    46.613914 & 36.808837 & 161.148375 & ... & 57.291823 & 64.390395 & 1.0\\
+    49.404349 & 47.407905 & 153.817836 & ... & 49.880184 & 61.894869 & 1.0\\
+    42.510847 & 43.626048 & 146.891826 & ... & 46.965439 & 59.971707 & 1.0\\
+    ... & ... & ... & ... & ... & ... & ...\\
+    23.444336 & 97.667648 & 88.384186 & ... & 28.011004 & 63.905389 & 7.0\\
+    24.634940 & 96.406625 & 93.413763 & ... & 28.637606 & 63.551521 & 7.0\\
+    22.425106 & 105.319774 & 87.727242 & ... & 30.811141 & 61.646881 & 7.0\\
+    15.966920 & 120.968600 & 60.790043 & ... & 28.018767 & 56.442379 & 7.0\\
+    19.667632 & 104.568158 & 80.332991 & ... & 29.088510 & 64.107810 & 7.0\\
+     \hline
+ \end{tabular}
+ \captionsetup{justification=centering}
+\caption{Dataset usado en el presente trabajo. Las columna \textit{X} son las características, la columna \textit{y} es el tipo de clase.}
+\label{cuadro:dataset}
+\end{center}
+\end{table}
 
 \section{Entrenamiento del modelo}
 \label{sec:entrenamiento}
@@ -572,7 +577,7 @@ de emociones funcionando en ROS.}
 \label{fig:ventana_grafica_1_cara}
 \end{figure}
 
-Otro ejemplo, esta vez detectando dos caras, se encuentra en la Figura \ref{fig:ventana_grafica_2_caras}. Y si ejecutamos el comando \verb|rostopic echo /emotion_detection_ros/bounding_boxes|, podemos observar cómo la información detectada se está publicando en dicho \textit{topic} (Figura \ref{fig:ejemplo_salida_topic}).\\
+Otro ejemplo, esta vez detectando dos caras, se encuentra en la Figura \ref{fig:ventana_grafica_2_caras}. Y si ejecutamos el comando \verb|rostopic echo /emotion_detection_ros/bounding_boxes|, podemos observar cómo la información detectada se está publicando en dicho \textit{topic} (Código \ref{cod:ejemplo_salida_topic}).\\
 
 \begin{figure} [h!]
   \begin{center}
@@ -584,15 +589,30 @@ Otro ejemplo, esta vez detectando dos caras, se encuentra en la Figura \ref{fig:
   \label{fig:ventana_grafica_2_caras}
 \end{figure}
 
-\begin{figure} [h!]
-  \begin{center}
-    \includegraphics[width=13cm]{figs/salida_topic.png}
-  \end{center}
-  \captionsetup{justification=centering}
-  \caption{Ejemplo de información publicada en el \textit{topic}\\
-  /emotion\_detection\_ros/bounding\_boxes.}
-  \label{fig:ejemplo_salida_topic}
-\end{figure}
+\begin{code}[h]
+\begin{listing}[style=consola, numbers=none]
+---
+bounding_boxes:
+    -
+        probability: 100.0
+        xmin: 198
+        ymin: 199
+        xmax: 234
+        ymax: 249
+        Class: "Surprise"
+    -
+        probability: 100.0
+        xmin: 42
+        ymin: 74
+        xmax: 131
+        ymax: 177
+        Class: "Happy"
+---
+\end{listing}
+\captionsetup{justification=centering}
+\caption[Información publicada en el \textit{topic} /emotion\_detection\_ros/bounding\_boxes para el ejemplo de la Figura \ref{fig:ventana_grafica_2_caras}.]{Ejemplo de información publicada en el \textit{topic} /emotion\_detection\_ros/bounding\_boxes para el ejemplo de la Figura \ref{fig:ventana_grafica_2_caras}.}
+\label{cod:ejemplo_salida_topic}
+\end{code}
 
 En cuanto al rendimiento general del sistema, se ha realizado un estudio del valor de FPS arrojado dependiendo del número de caras detectadas. Se han realizado tres pruebas, en cada una de ellas modificando el parámetro de configuración \verb|max_num_faces| del fichero \verb|model.yaml|. De esta manera se ha probado el sistema con hasta tres caras. Los resultados de las tres situaciones se encuentran en los Cuadros \ref{cuadro:rendimiento_ros_1}, \ref{cuadro:rendimiento_ros_2} y \ref{cuadro:rendimiento_ros_3}, respectivamente.\\
 

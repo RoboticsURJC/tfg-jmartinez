@@ -136,31 +136,31 @@ Se ha escogido Python (versión 3.7.3) como lenguaje de programación para este 
 A continuación se enumerarán los módulos de Python usados en el desarrollo del presente trabajo:
 
 \begin{itemize}
-    \item \textit{NumPy} (1.21.6). Ofrece una gran colección de funciones matemáticas de alto nivel y permite crear y trabajar con vectores y matrices multidimensionales.
+    \item \textit{numpy} (1.21.6). Ofrece una gran colección de funciones matemáticas de alto nivel y permite crear y trabajar con vectores y matrices multidimensionales.
     
-    \item \textit{OpenCV} (4.5.5.64). Es la biblioteca más popular de Visión Artificial, ofrece múltiples herramientas de procesamiento de imágenes.
+    \item \textit{opencv-python} (4.5.5.64). Es la biblioteca más popular de Visión Artificial, ofrece múltiples herramientas de procesamiento de imágenes.
     
-    \item \textit{pandas} (1.3). Usada para manipulación y análisis de datos.
+    \item \textit{pandas} (1.3.5). Usada para manipulación y análisis de datos.
     
-    \item \textit{threading} (1.4.6). Proporciona soporte para poder utilizar hilos.
+    \item \textit{threading}. Proporciona soporte para poder utilizar hilos.
     
-    \item \textit{pickle} (5.3.4). Permite serializar y deserializar objetos de Python.
+    \item \textit{pickle}. Permite serializar y deserializar objetos de Python.
     
-    \item \textit{math} (7.1.3). Ofrece funciones matemáticas de alto nivel.
+    \item \textit{math}. Ofrece funciones matemáticas de alto nivel.
     
-    \item \textit{argparse} (2.5.4). Permite crear interfaces de línea de comandos de forma sencilla.
+    \item \textit{argparse} (1.4.0). Permite crear interfaces de línea de comandos de forma sencilla.
     
-    \item \textit{matplotlib} (4.7.1). Librería muy completa para la generación de gráficas estáticas e interactivas.
+    \item \textit{matplotlib} (3.5.2). Librería muy completa para la generación de gráficas estáticas e interactivas.
     
-    \item \textit{glob} (9.3.4). Permite navegar por los archivos y directorios del sistema utilizando expresiones regulares.
+    \item \textit{glob}. Permite navegar por los archivos y directorios del sistema utilizando expresiones regulares.
     
-    \item \textit{picamera} (3.2.4). Ofrece soporte para la Raspberry Pi Camera en Python.
+    \item \textit{picamera} (1.13). Ofrece soporte para la Raspberry Pi Camera en Python.
     
-    \item \textit{MediaPipe} (3.2.1). Explicado en profundidad en la Sección \ref{sec:mediapipe}.
+    \item \textit{mediapipe-rpi4} (0.8.8). Explicado en profundidad en la Sección \ref{sec:mediapipe}.
     
-    \item \textit{dlib} (5.7.1). Explicado en profundidad en la Sección \ref{sec:dlib}.
+    \item \textit{dlib} (19.24.0). Explicado en profundidad en la Sección \ref{sec:dlib}.
     
-    \item \textit{Scikit-learn} (2.6.3). Explicado en profundidad en la Sección \ref{sec:sklearn}.
+    \item \textit{scikit-learn} (1.0.2). Explicado en profundidad en la Sección \ref{sec:sklearn}.
 \end{itemize}
 
 \section{MediaPipe}
@@ -197,7 +197,7 @@ La herramienta posee los siguientes parámetros de entrada que permiten personal
 
 La salida que nos proporciona exactamente el sistema Face Mesh de Mediapipe es una colección de rostros, donde cada rostro se representa como una lista de 468 puntos y cada uno de esos puntos se compone de las variables \textit{x}, \textit{y} y \textit{z}. Las variables \textit{x} e \textit{y} están normalizadas entre 0 y 1, por el ancho y alto de la imagen. La variable \textit{z} contiene la profundidad del punto, siendo el origen el centro de la cabeza.
 
-\section{Detector de puntos faciales de dlib.}
+\section{Detector de puntos faciales de dlib}
 \label{sec:dlib}
 
 Dlib es un conjunto de herramientas que contiene algoritmos de Machine Learning. En este trabajo se ha hecho uso del detector de puntos faciales, capaz de detectar 68 puntos de referencia, contenido en dlib (Figura \ref{fig:dlib_example}).\\

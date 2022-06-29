@@ -240,7 +240,7 @@ A la hora de conocer la precisión obtenida durante el entrenamiento existen var
     \item \textit{Accuracy.} La suma de los aciertos entre el número total de muestras, esto es el porcentaje de acierto.\\
 \end{itemize}
 
-Para evitar el sobreentrenamiento y generalizar los modelos, se hace uso de la validación cruzada K-Fold. Este método nos permite usar todos los datos como test y todos los datos como entrenamiento. Esto se consigue gracias a que el algoritmo divide el conjunto de datos en \textit{K pliegues} y uno de ellos es dedicado a datos de test. Entonces, por cada iteración, este conjunto de test se va desplazando a la derecha. En la Figura \ref{fig:kfolf_explicacion}, encontramos un ejemplo de 4 \textit{pliegues}.\\
+Para evitar el sobreentrenamiento y generalizar los modelos, se hace uso de la validación cruzada K-Fold. Este método nos permite usar todos los datos como test y todos los datos como entrenamiento. Esto se consigue gracias a que el algoritmo divide el conjunto de datos en \textit{K pliegues} y uno de ellos es dedicado a datos de test. Entonces, por cada iteración, este conjunto de test se va desplazando a la derecha. En la Figura \ref{fig:kfolf_explicacion} encontramos un ejemplo de 4 \textit{pliegues}.\\
 
 \begin{figure} [h!]
   \begin{center}
@@ -252,9 +252,9 @@ Para evitar el sobreentrenamiento y generalizar los modelos, se hace uso de la v
   \label{fig:kfolf_explicacion}
 \end{figure}
 
-La clase con menos datos del dataset, tiene una cantidad de 28. Por lo tanto, se usan 4 \textit{pliegues} para KFold, de esta manera aseguramos 7 datos de esa clase en cada pliegue. Al tener una base de datos desequilibrada, esto es, que no tiene el mismo número de muestras para todas las clases, debemos usar KFold Stratified, que nos asegura poseer siempre el mismo porcentaje de muestras de cada clase en todos los pliegues.\\
+La clase con menos datos del dataset, tiene una cantidad de 28. Por lo tanto, se usan 4 \textit{pliegues} para K-Fold y así aseguramos 7 datos de esa clase en cada pliegue. Al tener una base de datos desequilibrada, esto es, que no tiene el mismo número de muestras para todas las clases, debemos usar K-Fold Stratified, que nos asegura poseer siempre el mismo porcentaje de muestras de cada clase en todos los pliegues.\\
 
-KFold Stratified por lo tanto, nos sirve para encontrar los parámetros óptimos de cada algoritmo. Por ejemplo, para KNN probamos cada una de las \textit{k} (vecinos) posibles en cada una de las iteraciones. El resultado es una matriz con el \textit{Accuracy} para cada una de las \textit{k} en cada una de las iteraciones. Finalmente, se calcula la media de todas las iteraciones y se escoge la \textit{k} que más \textit{Accuracy} de media haya obtenido. Y así conseguimos el número de vecinos óptimo. Un ejemplo con 4 valores de vecinos se muestra en la Figura \ref{fig:kfold_KNN}.\\
+K-Fold Stratified por lo tanto, nos sirve para encontrar los parámetros óptimos de cada algoritmo. Por ejemplo, para KNN probamos cada una de las \textit{k} (vecinos) posibles en cada una de las iteraciones. El resultado es una matriz con el \textit{Accuracy} para cada una de las \textit{k} en cada una de las iteraciones. Finalmente, se calcula la media de todas las iteraciones y se escoge la \textit{k} que más \textit{Accuracy} de media haya obtenido. Y así conseguimos el número de vecinos óptimo. Un ejemplo con 4 valores de vecinos se muestra en la Figura \ref{fig:kfold_KNN}.\\
 
 \begin{figure} [h!]
   \begin{center}
@@ -279,7 +279,7 @@ Sin embargo, como se usa PCA para reducir el número de características (compon
   \label{fig:kfold_KNN_PCA}
 \end{figure}
 
-En este trabajo, el valor óptimo de características a mantener por PCA y los parámetros óptimos para cada clasificador tras realizar su búsqueda usando validación cruzada KFoldStratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_optimos}. Para hacer la reducción con PCA, se ha probado con un número de componentes entre 2 y 20 incluidos, para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
+En este trabajo, el valor óptimo de características a mantener por PCA y los parámetros óptimos para cada clasificador tras realizar su búsqueda usando validación cruzada K-Fold Stratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_optimos}. Para hacer la reducción con PCA, se ha probado con un número de componentes entre 2 y 20 incluidos, para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
 
 \begin{table}[H]
 \begin{center}
@@ -298,7 +298,7 @@ En este trabajo, el valor óptimo de características a mantener por PCA y los p
 \end{center}
 \end{table}
 
-Finalmente, los resultados obtenidos en el entrenamiento usando los parámetros óptimos, se encuentran en el Cuadro \ref{cuadro:resultados}. Estos resultados de precisión han sido calculados también mediante validación cruzada KFoldStratified de 4 \textit{pliegues}, y se muestra la media de todas las iteraciones.\\
+Finalmente, los resultados obtenidos en el entrenamiento usando los parámetros óptimos, se encuentran en el Cuadro \ref{cuadro:resultados}. Estos resultados de precisión han sido calculados también mediante validación cruzada K-Fold Stratified de 4 \textit{pliegues}, y se muestra la media de todas las iteraciones.\\
 
 \begin{table}[H]
 \begin{center}
@@ -380,7 +380,7 @@ Como conclusiones finales, observamos que hemos obtenido unos resultados muy bue
 \end{minipage}
 \captionsetup{justification=centering}
 \caption{Resultados del entrenamiento con KNN en cada una\\
-de las 4 iteraciones de KFoldStratified}
+de las 4 iteraciones de K-Fold Stratified}
 \label{cuadro:resultados_KNN_emociones}
 \end{table}
 
@@ -555,7 +555,7 @@ Con los paquetes \verb|emotion_detection_ros| y \verb|raspicam_node| compilados 
 $ roslaunch raspicam_node camerav2_410x308_30fps.launch
 \end{listing}
 
-\item Lanzamos el sistema de detección de emociones
+\item Lanzamos el sistema de detección de emociones.
 \begin{listing}[style=consola, numbers=none]
 $ roslaunch emotion_detection_ros emotion_detection_ros.launch
 \end{listing}

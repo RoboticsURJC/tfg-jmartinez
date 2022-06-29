@@ -194,7 +194,7 @@ Ambos han sido entrenados por los clasificadores KNN, SVM y MLP y, además, con 
 
 \subsubsection{Entrenamiento usando el \textit{dataset1}}
 
-Los parámetros óptimos de los tres clasificadores, tras realizar su búsqueda usando validación cruzada KFoldStratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_dataset1}. Para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
+Los parámetros óptimos de los tres clasificadores, tras realizar su búsqueda usando validación cruzada K-Fold Stratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_dataset1}. Para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
 
 \begin{table}[H]
 \begin{center}
@@ -214,7 +214,7 @@ entrenando con el \textit{dataset1}.}
 \end{center}
 \end{table}
 
-Los resultados obtenidos en el entrenamiento para el \textit{dataset1} usando los parámetros óptimos, se encuentran en el Cuadro \ref{cuadro:resultados_dataset1}. Estos han sido calculados también mediante validación cruzada KFoldStratified de 4 \textit{pliegues}, y se muestra la media de todas las iteraciones.\\
+Los resultados obtenidos en el entrenamiento para el \textit{dataset1} usando los parámetros óptimos, se encuentran en el Cuadro \ref{cuadro:resultados_dataset1}. Estos han sido calculados también mediante validación cruzada K-Fold Stratified de 4 \textit{pliegues}, y se muestra la media de todas las iteraciones.\\
 
 \begin{table}[H]
 \begin{center}
@@ -236,7 +236,7 @@ usando el \textit{dataset1}.}
 
 \subsubsection{Entrenamiento usando el \textit{dataset2}}
 
-El valor óptimo de características a mantener por PCA y los parámetros óptimos para cada clasificador tras realizar su búsqueda usando validación cruzada KFoldStratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_dataset2}. Para hacer la reducción con PCA se ha probado con un número de componentes entre 2 y 20 incluidos, para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
+El valor óptimo de características a mantener por PCA y los parámetros óptimos para cada clasificador tras realizar su búsqueda usando validación cruzada K-Fold Stratified de 4 \textit{pliegues}, se encuentran en el Cuadro \ref{cuadro:parametros_dataset2}. Para hacer la reducción con PCA se ha probado con un número de componentes entre 2 y 20 incluidos, para KNN se ha probado con valores de k impares entre 1 y 13 incluidos, para SVM con valores de C entre 1 y 999 (saltos de 10 en 10) y para MLP se ha probado con 1 capa oculta de neuronas entre 5 y 24 incluidos, no ha sido necesario añadir más capas.\\
 
 \begin{table}[H]
 \begin{center}
@@ -256,7 +256,7 @@ entrenando con el \textit{dataset2}.}
 \end{center}
 \end{table}
 
-Los resultados obtenidos en el entrenamiento para el \textit{dataset2} usando los parámetros óptimos, se encuentran en el Cuadro \ref{cuadro:resultados_dataset2}. Estos resultados de precisión han sido calculados también mediante validación cruzada KFoldStratified de 4 \textit{pliegues}, y se muestra la media de todas las iteraciones.\\
+Los resultados obtenidos en el entrenamiento para el \textit{dataset2} usando los parámetros óptimos, se encuentran en el Cuadro \ref{cuadro:resultados_dataset2}. Estos resultados de precisión han sido calculados también mediante validación cruzada K-Fold Stratified de 4 \textit{pliegues}, y se muestra la media de todas las iteraciones.\\
 
 \begin{table}[H]
 \begin{center}
@@ -358,7 +358,7 @@ de las 4 iteraciones de KFoldStratified usando el \textit{dataset2}.}
 \label{cuadro:resultados_SVM}
 \end{table}
 
-Esta mala clasificación de algunas emociones se debe a la gran similitud que existe entre varias. Esto provoca que geométricamente sean prácticamente indiferenciables, y por lo tanto, es complicado que los algoritmos sepan clasificarlas correctamente. Si observamos el estudio de ángulos influyentes en cada emoción (Figura \ref{fig:estudio_influencia}), (Cuadro \ref{cuadro:angulos_5_influyentes}), podemos ver que ---por ejemplo--- las emociones \textit{sorpresa} y \textit{desprecio} poseen exactamente los mismos cinco ángulos influyentes, o las emociones \textit{enfado} y \textit{asco} que también poseen los mismos cinco. Esto dificulta muchísimo la tarea de clasificación.\\
+Esta mala clasificación de algunas emociones se debe a la gran similitud que existe entre varias. Esto provoca que geométricamente sean prácticamente indiferenciables y, por lo tanto, es complicado que los algoritmos sepan clasificarlas correctamente. Si observamos el estudio de ángulos influyentes en cada emoción (Figura \ref{fig:estudio_influencia}), (Cuadro \ref{cuadro:angulos_5_influyentes}), podemos ver que ---por ejemplo--- las emociones \textit{sorpresa} y \textit{desprecio} poseen exactamente los mismos cinco ángulos influyentes, o las emociones \textit{enfado} y \textit{asco} que también poseen los mismos cinco. Esto dificulta muchísimo la tarea de clasificación.\\
 
 Por lo tanto, se propuso eliminar las emociones que estén interceptando con otras y, de esta manera, aumentar la robustez de nuestra futura herramienta consiguiendo mayor precisión en nuestro modelo. Las emociones que se eligieron son las siguientes: \textit{felicidad}, \textit{tristeza}, \textit{sorpresa} y \textit{enfado}. Son las cuatro emociones simples más generales y, además, se diferencian geométricamente unas de otras. Sabiendo esto, el dataset ganador y, por lo tanto el que es usado para entrenar nuestro sistema final, es el \textit{dataset2} con las emociones de \textit{felicidad}, \textit{tristeza}, \textit{sorpresa} y \textit{enfado}.
 

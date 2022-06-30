@@ -19,8 +19,8 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import StratifiedShuffleSplit
 
-def test_split(c_values, pca_components, X_train, X_test, y_train, y_test):
-    accuracy_matrix_split = np.zeros((len(pca_components), len(c_values)))
+def test_values(c_values, pca_components, X_train, X_test, y_train, y_test):
+    accuracy_matrix_iterations = np.zeros((len(pca_components), len(c_values)))
     for i in range(len(c_values)):
         for j in range(len(pca_components)):
             # PCA
@@ -33,10 +33,10 @@ def test_split(c_values, pca_components, X_train, X_test, y_train, y_test):
             # Evaluation
             y_pred = model.predict(X_test_pca)
             score = accuracy_score(y_test, y_pred)
-            accuracy_matrix_split[j][i] = score
-    return accuracy_matrix_split
+            accuracy_matrix_iterations[j][i] = score
+    return accuracy_matrix_iterations
 
-def mean_of_splits(accuracy_matrix, num_k_values, num_pca_components):
+def mean_of_iterations(accuracy_matrix, num_k_values, num_pca_components):
     accuracy_matrix_means = np.zeros((num_pca_components, num_k_values))
     for i in range(num_k_values):
         for j in range(num_pca_components):
@@ -62,13 +62,13 @@ for train_index, test_index in skf.split(X, y):
     X_train, X_test = X[train_index], X[test_index]
     y_train, y_test = y[train_index], y[test_index]
 
-    accuracy_matrix_split = test_split(c_values, pca_components,
+    accuracy_matrix_iterations = test_values(c_values, pca_components,
                                                 X_train, X_test,
                                                 y_train, y_test)
-    accuracy_matrix[split_index] = accuracy_matrix_split
+    accuracy_matrix[split_index] = accuracy_matrix_iterations
     split_index += 1
 
-accuracy_matrix_means = mean_of_splits(accuracy_matrix, len(c_values), len(pca_components))
+accuracy_matrix_means = mean_of_iterations(accuracy_matrix, len(c_values), len(pca_components))
 index = unravel_index(np.argmax(accuracy_matrix_means), accuracy_matrix_means.shape)
 print("PCA components: "+str(pca_components[index[0]]))
 print("C regularization parameter: "+str(c_values[index[1]]))

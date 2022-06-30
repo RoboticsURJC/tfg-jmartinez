@@ -19,8 +19,8 @@ from sklearn.model_selection import ShuffleSplit
 from sklearn.model_selection import StratifiedKFold
 from sklearn.model_selection import StratifiedShuffleSplit
 
-def test_split(neurons_values, pca_components, X_train, X_test, y_train, y_test):
-    accuracy_matrix_split = np.zeros((len(pca_components), len(neurons_values)))
+def test_values(neurons_values, pca_components, X_train, X_test, y_train, y_test):
+    accuracy_matrix_iteration = np.zeros((len(pca_components), len(neurons_values)))
     for i in range(len(neurons_values)):
         for j in range(len(pca_components)):
             # PCA
@@ -33,22 +33,16 @@ def test_split(neurons_values, pca_components, X_train, X_test, y_train, y_test)
             # Evaluation
             y_pred = model.predict(X_test_pca)
             score = accuracy_score(y_test, y_pred)
-            accuracy_matrix_split[j][i] = score
+            accuracy_matrix_iteration[j][i] = score
     print("Acabo iteracion")
-    return accuracy_matrix_split
+    return accuracy_matrix_iteration
 
-def mean_of_splits(accuracy_matrix, num_neurons_values, num_pca_components):
+def mean_of_iterations(accuracy_matrix, num_neurons_values, num_pca_components):
     accuracy_matrix_means = np.zeros((num_pca_components, num_neurons_values))
     for i in range(num_neurons_values):
         for j in range(num_pca_components):
             accuracy_matrix_means[j][i] = np.mean(accuracy_matrix[:,j,i])
     return accuracy_matrix_means
-
-def generate_neurons_combinations():
-    output = []
-    for i in range(5, 25):
-        output.append(i)
-    return output
 
 # Data
 data = pd.read_csv('../dataset/emotionalMesh/dataset1_2CK+.csv')
@@ -57,7 +51,7 @@ y = np.array(data['y'].astype(int))
 
 # Values to test
 # MLP neurons and layers
-neurons_values = generate_neurons_combinations()
+neurons_values = list(range(5, 25))
 # PCA n_components
 pca_components = list(range(2, 21))
 
@@ -69,13 +63,13 @@ for train_index, test_index in skf.split(X, y):
     X_train, X_test = X[train_index], X[test_index]
     y_train, y_test = y[train_index], y[test_index]
 
-    accuracy_matrix_split = test_split(neurons_values, pca_components,
+    accuracy_matrix_iteration = test_values(neurons_values, pca_components,
                                                 X_train, X_test,
                                                 y_train, y_test)
-    accuracy_matrix[split_index] = accuracy_matrix_split
+    accuracy_matrix[split_index] = accuracy_matrix_iteration
     split_index += 1
 
-accuracy_matrix_means = mean_of_splits(accuracy_matrix, len(neurons_values), len(pca_components))
+accuracy_matrix_means = mean_of_iterations(accuracy_matrix, len(neurons_values), len(pca_components))
 index = unravel_index(np.argmax(accuracy_matrix_means), accuracy_matrix_means.shape)
 print("PCA components: "+str(pca_components[index[0]]))
 print("Neurons: "+str(neurons_values[index[1]]))

@@ -1,7 +1,7 @@
 import sys
 import pickle
 
-from emotional_mesh import EmotionalMesh
+from src.emotional_mesh import EmotionalMesh
 
 class EmotionDetection:
     def __init__(self):
@@ -26,7 +26,7 @@ class EmotionDetection:
 
     # Private methods ----------------------------------------------------------------------
     def __initialize_model_and_pca(self):
-        with open('model/emotionalMesh/model.pkl', 'rb') as modelfile:
+        with open('model/model_KNN.pkl', 'rb') as modelfile:
             loaded = pickle.load(modelfile)
         self.model = loaded['model']
         self.pca = loaded['pca_fit']

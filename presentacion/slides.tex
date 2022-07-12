@@ -23,6 +23,7 @@
 \usepackage{pgfpages}
 \usepackage{listings}
 \usepackage{multimedia}
+\usepackage{caption}
 \usepackage[export]{adjustbox}
 \usepackage{outlines} % Para poner bullets tabulados (\1 \2 \3 ...) y no items
 
@@ -42,10 +43,10 @@
 
 %========= TODO: datos internos del documento
 \hypersetup{
-	pdftitle={Defensa de trabajo de fin de grado de Pon tu nombre},
-	pdfauthor={Pon tu nombre},
-	pdfsubject={Pon aquí el título completo del trabajo},
-	pdfkeywords={teaching, robotics, vision, sensors, actuators, raspberry},
+	pdftitle={Defensa de trabajo de fin de grado de Javier Martínez},
+	pdfauthor={Javier Martínez Madruga},
+	pdfsubject={Sistema de detección de emociones faciales mediante técnicas de Machine Learning adaptado a ROS para un robot de bajo coste basado en Raspberry Pi},
+	pdfkeywords={hri, robotics, vision, sensors, emotions, raspberry},
 	pdfproducer={pdfLaTeX},
   colorlinks=true,
   linkcolor=blue
@@ -64,7 +65,7 @@
 \vspace{1cm}
 Trabajo fin de grado
 }
-\date{28 de Junio de 2022}
+\date{5 de julio de 2022}
 %=========
 
 %========= COMIENZO DEL DOCUMENTO
@@ -73,8 +74,7 @@ Trabajo fin de grado
 %========= Portada inicial con notas
 \begin{frame}[plain] % plain: quita header y footer
 \large{\titlepage}
-\note[item]{En esta presentación voy a hablar sobre...}
-\note[item]{En primer lugar...}
+\note[item]{Sistema de detección de emociones faciales mediante técnicas de Machine Learning adaptado a ROS para un robot de bajo coste basado en Raspberry Pi}
 \end{frame}
 
 %========= Licencia
@@ -88,7 +88,6 @@ Trabajo fin de grado
 %\begin{multicols}{2} % si tengo muchas secciones, lo parte en dos columnas
   \tableofcontents[hideallsubsections] % no muestra subsecciones
 %\end{multicols}
-\note[item]{La presentaci\'on esta dividida en cuatro partes.}
 \end{frame}
 
 %========= Diapositiva "vacía" de comienzo de sección:
@@ -96,11 +95,12 @@ Trabajo fin de grado
 \begin{frame}{}
   \centering \Huge
   \emph{Introducción}
-\note[item]{Comencemos con la introducción.}
+\note[item]{\textbf{Comenzaré poniendo en contexto el presente trabajo}.}
 \end{frame}
 
+% ROBÓTICA DE SERVICIO Y HRI =================================
+%=============================================================
 \section{Introducción}
-%=========================================================
 \begin{frame}
 \frametitle{Robótica de Servicio y HRI}
 
@@ -118,6 +118,11 @@ Trabajo fin de grado
   \end{center}
 \end{figure}
 
+\note[item]{Para ello empezaré hablando de la robótica, en concreto de la robótica de servicio, que es un campo en el cual se enmarca este trabajo.}
+
+\note[item]{Es una rama de la robótica que se caracteriza por \textbf{colaborar y ayudar a los humanos en diferentes tareas}. \textbf{Limpiar la casa o ofrecer una compañia agradable.}}.
+
+\note[item]{Para esto último, es esencial \textbf{empatizar con el sujeto} que se esté tratando y para eso surje el campo de investigación del HRI. Que se encarga de estudiar que los robots tengan la \textbf{capacidad de colaborar y vivir con nosotros}.}
 \end{frame}
 
 %=============================================================
@@ -127,7 +132,10 @@ Trabajo fin de grado
     \centering
     \includegraphics[width=9cm]{figs/Apps-de-reconocimiento-facial-1.jpg}
 \end{figure}
-    
+
+\note[item]{Para ello, la visión artificial junto con el machine learning juegan un papel fundamental. Sobre todo gracias al Machine Learning es posible proporcionar datos al robot del sexo del sujeto, la posición de la cara o su expresión facial de ese momento.}
+
+\note[item]{Y esto ayuda al robot a interactuar con el humano de una forma más pura y cercana.}
 \end{frame}
 
 %=============================================================
@@ -137,55 +145,23 @@ Trabajo fin de grado
     \centering
     \includegraphics[width=10cm]{figs/raspberry_en_mano_rojo.png}
 \end{figure}
-    
+
+\note[item]{El problema es que este tipo de técnicas basadas en Machine Learning, sobre todo en imágenes, demandan una alta carga computacional. Y no siempre se posee del dinero o del espacio dentro del robot donde alojar grandes estaciones de cómputo.}
+
+\note[item]{Entonces aquí entran en juego los sistemas empotrados y el afán por conseguir que este tipo de tareas se puedan llevar a cabo en ellos.}
 \end{frame}
-
-%========= Diapositiva con ítems resaltados con colores:
-% \begin{frame}
-% \frametitle{Situación de la Robótica}
-% \begin{itemize}
-% \item La \textcolor{red}{tecnología} está cada vez más presente en la vida cotidiana.
-% \item Los robots de servicio aparecen en el \textcolor{blue}{mercado}.
-% \item La \textcolor{red}{domótica} presenta cada vez más aplicaciones domésticas.
-% \end{itemize}
-% \end{frame}
-
-% \subsection{Contexto específico}
-% %========= Diapositiva con bloques:
-% \begin{frame}
-% \frametitle{Precedentes de la robótica}
-% \begin{block}{Primera revolución industrial de 1800}
-% Productos fabricados por \textcolor{blue}{máquinas}. La \textcolor{red}{máquina de vapor} fue clave.
-% \end{block}
-% \end{frame}
-
-%========= Diapositiva con bullets en diferentes niveles (outline):
-% \section{Principios de transducción}
-% \subsection{Principio de transducción piezoresistivo}
-% \begin{frame}
-% \frametitle{Conceptos}
-% \begin{outline}
-% \1 Piezoresistividad: relación entre resistencia eléctrica y deformación.
-% \2 Material piezoresistivo: (1) material en reposo (átomos en equilibrio).
-% \3 (2) Si sufre deformación, movimiento átomos, modifican su resistividad.
-% \2 Resistencia vs. resistividad de un material.
-% \3 Resistencia: depende del volumen del material a tratar.
-% \3 Resistividad: caract. intrínseca relacionada con colocación de átomos.
-% \end{outline}
-% \end{frame}
 
 \section*{}
 \begin{frame}{}
   \centering \Huge
   \emph{Objetivos}
-\note[item]{Pasemos ahora a comentar los objetivos que nos hemos con este trabajo.}
 \end{frame}
 
 \section{Objetivos}
 \begin{frame}
 \frametitle{Descripción del problema}
 \begin{block}{Objetivo principal}
-Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} capaz de funcionar en un sistema robótico de \textbf{bajo coste}.
+Reconocimiento de emociones faciales en un sistema de bajo coste.
 \end{block}
 \begin{block}{Subobjetivos}
 \begin{itemize}
@@ -195,7 +171,17 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 \item Entrenar un modelo con varios clasificadores.
 \item Integrar la herramienta en ROS.
 \end{itemize}
+
+\note[item]{Desarrollar una herramienta de reconocimiento de emociones faciales capaz de funcionar en un sistema robótico de bajo coste}
+
+\note[item]{Estudiar el estado del arte.\\
+Optimizar y adaptar la técnica escogida.\\
+Generar un dataset de valor.\\
+Entrenar un modelo con varios clasificadores.\\
+Integrar la herramienta en ROS.}
 \end{block}
+
+
 \end{frame}
 
 \begin{frame}
@@ -204,13 +190,17 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
     \centering
     \includegraphics[width=10cm]{figs/metodologia.png}
 \end{figure}
+
+\note[item]{Reuniones semanales por Teams para comentar los avances y recibir realimentación.
+Y a su vez se ha ido subiendo todo el código en un repositorio de Github y se ha relatado todo el proceso en la wiki de ese repositorio.}
+
+\note[item]{Por último, el sistema final integrado en ROS se ha subido a un repositorio a parte para que pueda ser descargado e instalado directamente.}
 \end{frame}
 
 \section*{}
 \begin{frame}{}
   \centering \Huge
   \emph{Plataforma de desarrollo}
-\note[item]{Una vez descritos los objetivos, veamos qué hemos hecho para alcanzarlos.}
 \end{frame}
 
 \section{Plataforma de desarrollo}
@@ -224,6 +214,8 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
     \centering
     \includegraphics[width=6cm]{figs/Raspberry_Pi_OS_Logo.png}
 \end{figure}
+
+\note[item]{La plataforma de bajo coste usada ha sido la Raspberry Pi 4b junto con su cámara oficial, la versión 2.1. Y todo ello bajo el sistema operativo oficial de Raspberry, para obtener la mayor optimización y el máximo rendimiento.}
 \end{frame}
 
 \begin{frame}{Herramientas Software}
@@ -231,6 +223,8 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
     \centering
     \includegraphics[width=8.5cm]{figs/herramientas_software.png}
 \end{figure}
+
+\note[item]{El lenguaje de programación usado tanto para la detección de emociones como para ROS ha sido Python. Y se ha usado distintos modúlos de Python como:}
 \end{frame}
 
 \begin{frame}{Algoritmos de Machine Learning}
@@ -239,13 +233,14 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
         \includegraphics[width=10cm]{figs/algoritmosML.png}
     \end{center}
 \end{figure}
+
+\note[item]{Por último, también se ha usado la librería de Python Sklearn para usar SVM, KNN y MLP como algoritmos de clasificación. Y también se ha usado PCA para reducir el número de características del dataset.}
 \end{frame}
 
 \section*{}
 \begin{frame}{}
   \centering \Huge
   \emph{Sistema de detección de emociones}
-\note[item]{Una vez descritos los objetivos, veamos qué hemos hecho para alcanzarlos.}
 \end{frame}
 
 \section{Sistema de detección de emociones}
@@ -255,6 +250,8 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
         \includegraphics[width=12cm]{figs/metodo_sin_secciones.png}
     \end{center}
 \end{figure}
+
+\note[item]{Comenzaré mostrando un esquema general de la técnica usada para realizar la detección de emociones. En primer lugar, con esta técnica se realiza una detección de puntos faciales característicos en el frame capturado por la cámara. Posteriormente, de esos puntos faciales se extraen datos que nos proporcionen información de las emociones faciales que se estén produciendo en dichos frames.}
 \end{frame}
 
 \subsection{Detección de puntos faciales}
@@ -265,15 +262,22 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
     \subfigure{\includegraphics[width=60mm]{figs/canonical_face_model_uv_visualization.png}}
   \end{center}
 \end{figure}
+
+\note[item]{Para realizar la detección de puntos faciales se ha hecho uso de MediaPipe FaceMesh que nos proporciona una malla facial 3D de 468 puntos. Se realizó un estudio entre los dos algoritmos de detección de puntos faciales más usados en la investigación de detección de emociones.}
 \end{frame}
 
 \subsection{Extracción de información}
 \begin{frame}{Malla emocional}
 \begin{figure}
     \begin{center}
-        \includegraphics[width=7cm]{figs/emotional_mesh.png}
+        \includegraphics[width=6.5cm]{figs/emotional_mesh.png}
     \end{center}
 \end{figure}
+\href{https://www.ncbi.nlm.nih.gov/pmc/articles/PMC8828335/}{[Siam, 2022]}
+
+\note[item]{Ahora, para el siguiente paso, que es el de extracción de información de esos puntos faciales. Se ha contruido una malla emocional propuesta en un artículo publicado este mismo año, que está construida en base a unir diferentes puntos de los detectados anteriormente y nos proporciona información en ángulos de las emociones.}
+
+\note[item]{Según la expresión que se esté llevando a cabo en la cara del sujeto, le malla emocional cambiará su forma y con ello los valores de los ángulos.}
 \end{frame}
 
 \begin{frame}{FACS y EMFACS}
@@ -327,6 +331,14 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 \end{adjustbox}
 \end{minipage}
 \end{table}
+
+\note[item]{La malla está basada en el sistema de codificación facial FACS que clasifica movimientos faciales humanos en base a los cambios producidos en la cara a cargo del movimiento de los músculos faciales.}
+
+\note[item]{Estos movimientos de músculos faciales son definidos como Unidades de Acción.}
+
+\note[item]{Y por otro lado está el sistema EMFACS que describe emociones simples combinado las distintas Unidades de Acción.}
+
+\note[item]{Cada ubicación de los puntos de la malla emocional ha sido elegida del tal manera que se vea afectada por una Unidad de Acción.}
 \end{frame}
 
 \subsection{Generación del dataset}
@@ -342,13 +354,18 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 \end{figure}
 \begin{block}{Contenido}
 \begin{itemize}
-    \item 327 imágenes etiquetadas
-    \item 7 clases (anger, contempt, disgust, fear, happy, sadness, surprise)
+    \item 327 imágenes etiquetadas.
+    \item 7 clases (anger, contempt, disgust, fear, happy, sadness, surprise).
 \end{itemize}
 \end{block}
+
+\href{https://ieeexplore.ieee.org/document/840611}{[Kanade, 2000]} \href{https://ieeexplore.ieee.org/document/5543262}{[Lucey, 2010]}
+
+\note[item]{En cuanto a la generación del dataset, se ha partido de un dataset de imágenes. En este caso se ha elegido el dataset CK+ de Kanade con el objetivo de tratar cada una de esas imágenes y obtener los ángulos correspondientes a cada una de ellas. Y con esos ángulos generar nuestro propio dataset.}
 \end{frame}
 
 \begin{frame}{Dataset generado}
+\label{diapo:dataset_generado}
 \begin{table}
 \begin{center}
 \begin{adjustbox}{max width=250}
@@ -374,11 +391,15 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 \end{table}
 \begin{block}{Contenido}
 \begin{itemize}
-    \item 226 muestras
-    \item 21 características
-    \item 4 clases (anger, happy, sadness, surprise)
+    \item 226 muestras.
+    \item 21 características.
+    \item 4 clases (anger, happy, sadness, surprise).
 \end{itemize}
 \end{block}
+
+Saltar a la diapositiva \ref{diapo:resultados_entrenamiento}.
+
+\note[item]{Después de varios estudios para elegir la cantidad de ángulos y clases adecuada que se comentarán más adelante, el dataset usado en este trabajo es el siguiente.}
 \end{frame}
 
 \subsection{Entrenamiento del modelo}
@@ -388,6 +409,10 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
         \includegraphics[width=12cm]{figs/KFold_explanation.png}
     \end{center}
 \end{figure}
+
+\note[item]{En cuanto al entrenamiento se ha usado la técnica de validación cruzada K-Fold de 4 pliegues stratificada. Se ha hecho esto porque como el dataset tiene muy pocas muestras, pues de esta manera se consiguen usar todos los datos como entrenamiento y todos los datos como prueba y así generalizar al máximo los modelos sin sobreentrenarlos.}
+
+\note[item]{Esta técnica se ha usado para buscar los parámetros óptimos de cada algoritmo y luego también se ha usado para comprobar la preción en el entrenamiento.}
 \end{frame}
 
 \begin{frame}{Búsqueda de los parámetros óptimos}
@@ -424,6 +449,7 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 \end{frame}
 
 \begin{frame}{Resultados del entrenamiento}
+\label{diapo:resultados_entrenamiento}
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{|c|c|c|c|c|}
@@ -544,7 +570,6 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 \begin{frame}{}
   \centering \Huge
   \emph{Estudios de optimización}
-\note[item]{Para acabar esta presentación, vamos a repasar lo hecho, unas breves conclusiones y las líneas futuras.}
 \end{frame}
 
 \section{Estudios de optimización}
@@ -577,6 +602,9 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
     \subfigure{\includegraphics[width=25mm]{figs/mediapipe_girados.png}}
   \end{center}
 \end{figure}
+
+\note[item]{dlib: 578 fallos}
+\note[item]{mediapipe: 103 fallos}
 \end{frame}
 
 \subsection{Cantidad de ángulos a utilizar en el dataset}
@@ -586,40 +614,44 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
     \includegraphics[width=7cm]{figs/emotional_mesh_todos_angulos.png}
   \end{center}
 \end{figure}
+
+\note[item]{A la hora de buscar la cantidad de ángulos óptima para generar el dataset}
 \end{frame}
 
 \begin{frame}{Resultados del estudio de ángulos más influyentes}
-\begin{figure}[h!]
-  \begin{center}
-    \subcapcentertrue
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_happy.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_sadness.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_surprise.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_fear.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_anger.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_disgust.png}}
-  \end{center}
+\begin{center}
+    \begin{figure}[h!]
+  \includegraphics[width=11.5cm]{figs/resultados_angulos_influyentes_rojo.png}
 \end{figure}
+\end{center}
+Volver a la diapositiva \ref{diapo:dataset_generado}.
 \end{frame}
 
 \begin{frame}{Resultados del estudio de ángulos más influyentes}
+\label{diapo:resultados_angulos_influyentes}
 \begin{table}[H]
 \begin{center}
 \begin{tabular}{|c|c|}
      \hline
     \textbf{Emoción} & \textbf{Ángulos influyentes} \\
     \hline
-     Felicidad & 4, 2, 18, 12, 8 \\
-     Tristeza & 2, 1, 12, 16, 14 \\
      Sorpresa & 1, 2, 0, 4, 19 \\
+     Tristeza & 2, 1, 12, 16, 14 \\
+     Felicidad & 4, 2, 18, 12, 8 \\
      Miedo & 2, 4, 6, 1, 14 \\
-     Enfado & 2, 12, 1, 16, 15 \\
      Asco & 12, 16, 2, 15, 1 \\
+     Enfado & 2, 12, 1, 16, 15 \\
      Desprecio & 2, 1, 4, 0, 19 \\
      \hline
  \end{tabular}
 \end{center}
 \end{table}
+\vspace{0.5cm}
+\centering
+Ángulos más influyentes: 2, 12, 1, 16, 15, 4, 6, 14, 18, 8, 0 y 19
+
+\note[item]{Enfado y Asco}
+\note[item]{Desprecio y Sorpresa}
 \end{frame}
 
 \begin{frame}{Estudio de simetría de las emociones}
@@ -632,16 +664,18 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 
 \begin{frame}{Resultados del estudio de simetría}
 \begin{figure}[h!]
+\includegraphics[width=12cm]{figs/resultados_simetria.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Datasets generados tras los estudios}
+
+\begin{figure}[h!]
   \begin{center}
-    \subcapcentertrue
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_izq_der_happy.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_izq_der_sadness.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_izq_der_surprise.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_izq_der_fear.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_izq_der_anger.png}}
-    \subfigure{\includegraphics[width=38mm]{figs/diferencia_izq_der_disgust.png}}
+  \includegraphics[width=12cm]{figs/datasets_generados.png}
   \end{center}
 \end{figure}
+
 \end{frame}
 
 \subsection{Búsqueda del dataset óptimo para el entrenamiento}
@@ -679,7 +713,7 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 \end{block}
 \end{frame}
 
-\begin{frame}{Resultados del entrenamiento con SVM de cada iteración de K-Fold usando el dataset2}
+\begin{frame}{Entrenamiento con SVM. Iteraciones de K-Fold, dataset2}
     \begin{table}[h!]
 \begin{minipage}{0.48\linewidth}
 \centering
@@ -752,19 +786,21 @@ Desarrollar una herramienta de \textbf{reconocimiento de emociones faciales} cap
 \end{adjustbox}
 \end{minipage}
 \end{table}
+
+Volver a la diapositiva \ref{diapo:resultados_angulos_influyentes}.
 \end{frame}
 
 \section*{}
 \begin{frame}{}
   \centering \Huge
   \emph{Conclusiones}
-\note[item]{Para acabar esta presentación, vamos a repasar lo hecho, unas breves conclusiones y las líneas futuras.}
 \end{frame}
 
 \section{Conclusiones}
 \begin{frame}
+\label{diapo:conclusiones}
 \begin{block}{Objetivo principal cumplido}
-Desarrollar una herramienta de reconocimiento de emociones que sea capaz de funcionar en un sistema robótico de bajo coste bajo el entorno ROS.
+Reconocimiento de emociones en un sistema de bajo coste.
 \end{block}
 
 \begin{block}{Subobjetivos cumplidos}
@@ -776,6 +812,8 @@ Desarrollar una herramienta de reconocimiento de emociones que sea capaz de func
     \item Integrar el sistema en ROS.
 \end{itemize}
 \end{block}
+
+\note[item]{Desarrollar una herramienta de reconocimiento de emociones que sea capaz de funcionar en un sistema robótico de bajo coste bajo el entorno ROS.}
 \end{frame}
 
 \begin{frame}
@@ -786,6 +824,13 @@ Desarrollar una herramienta de reconocimiento de emociones que sea capaz de func
 \item Añadir nuevas funcionalidades a la herramienta.
 \end{itemize}
 \end{block}
+\vspace{0.5cm}
+\begin{figure}
+  \begin{center}
+    \subfigure{\includegraphics[width=59mm]{figs/hri_abuelo.jpg}}
+    \subfigure{\includegraphics[width=52mm]{figs/hri_niños.jpg}}
+  \end{center}
+\end{figure}
 \end{frame}
 
 \begin{frame}[plain]
